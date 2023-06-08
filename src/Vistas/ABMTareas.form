@@ -19,13 +19,18 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="contenedorPrincipal" alignment="0" max="32767" attributes="0"/>
+          <Component id="contenedorPrincipal" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jButton1" min="-2" pref="48" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
+              <Component id="jButton1" pref="35" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="contenedorPrincipal" min="-2" pref="379" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -176,15 +181,13 @@
                       <EmptySpace pref="124" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="bajaTareaListaTarea" pref="550" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="bajaTareaListaMiembro" min="-2" pref="260" max="-2" attributes="0"/>
-                                  <EmptySpace pref="30" max="32767" attributes="0"/>
-                                  <Component id="bajaTareaListraGrupo" min="-2" pref="260" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="btnBajaTarea" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="bajaTareaListaMiembro" min="-2" pref="260" max="-2" attributes="0"/>
+                              <EmptySpace pref="30" max="32767" attributes="0"/>
+                              <Component id="bajaTareaListraGrupo" min="-2" pref="260" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="btnBajaTarea" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                   </Group>
@@ -313,15 +316,13 @@
                       <EmptySpace pref="124" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="upTareaListaTareas" alignment="1" pref="550" max="32767" attributes="0"/>
-                          <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jScrollPane3" alignment="1" max="32767" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="upTareaListaMiembros" min="-2" pref="260" max="-2" attributes="0"/>
-                                  <EmptySpace pref="30" max="32767" attributes="0"/>
-                                  <Component id="upTareaListaGrupos" min="-2" pref="260" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="btnUpTareaActualizar" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="upTareaListaMiembros" min="-2" pref="260" max="-2" attributes="0"/>
+                              <EmptySpace pref="30" max="32767" attributes="0"/>
+                              <Component id="upTareaListaGrupos" min="-2" pref="260" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="btnUpTareaActualizar" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                   </Group>
@@ -436,5 +437,18 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Iconos/cerrar.png"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

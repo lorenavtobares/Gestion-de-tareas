@@ -203,7 +203,7 @@ public class Login extends javax.swing.JFrame {
         String user = jtfUsuario.getText();
         String pass = jPasswordField1.getText();
         
-        String query    = "SELECT dni, password " 
+        String query    = "SELECT dni, password, rolSistema " 
                         + "FROM miembro " 
                         + "WHERE estado = 1 "
                         + "AND dni = '"+user+"' "
@@ -217,9 +217,12 @@ public class Login extends javax.swing.JFrame {
                 //Si Existe el usuario
                 String usuarioValidado = resultado.getString("dni");
                 String passValidado = resultado.getString("password");
+                String rolValidado = resultado.getString("rolSistema");
 
                 if ( pass.equals(passValidado) ){ //Validando contraseñas
                     usuarioSesion = usuarioValidado;
+                    rolSesion = rolValidado;
+                    
                     Menu menu = new Menu();
                     this.setVisible(false);
                     menu.setExtendedState(menu.MAXIMIZED_BOTH); // abrir en pantalla completa
