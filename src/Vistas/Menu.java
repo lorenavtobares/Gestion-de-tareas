@@ -3,6 +3,7 @@ package Vistas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
@@ -10,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class Menu extends javax.swing.JFrame {
+    private static Login formularioLogin = new Login();
+    
     private JMenuBar barra;
     private JMenu MenuAdmin, MenuProyectos, MenuEquipos, MenuTareas, MenuSalir;
     private JMenuItem MA_ABMUsuario;
@@ -32,14 +35,19 @@ public class Menu extends javax.swing.JFrame {
     private void crearMenu(){
         barra = new JMenuBar();
         MenuAdmin = new JMenu("Admin");
+        MenuAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/admin.png")));
         MenuAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuProyectos = new JMenu("Proyectos");
+        MenuProyectos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/proyecto.png")));
         MenuProyectos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuEquipos = new JMenu("Equipos");
+        MenuEquipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/equipo.png")));
         MenuEquipos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuTareas = new JMenu("Tareas");
+        MenuTareas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/tareas.png")));
         MenuTareas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuSalir = new JMenu("Salir");
+        MenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/salir_sistema.png")));
         MenuSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         
         
@@ -70,7 +78,15 @@ public class Menu extends javax.swing.JFrame {
             
         //Menu Equipos
             ME_ABMEquipo = new JMenuItem("ABM Equipos");
-            ME_ABMEquipo.addActionListener((java.awt.event.ActionEvent evt) -> {});
+            ME_ABMEquipo.addActionListener((java.awt.event.ActionEvent evt) -> {
+                Escritorio.removeAll();
+                Escritorio.repaint();
+                ABMEquipos abmEquipos = new ABMEquipos();
+                centrarJinternalFrame(abmEquipos);
+                abmEquipos.setVisible(true);
+                Escritorio.add(abmEquipos);
+                Escritorio.moveToFront(abmEquipos);
+            });
                 
         //Menu Tareas
             MT_ABMTarea = new JMenuItem("ABM Tareas");
@@ -78,7 +94,11 @@ public class Menu extends javax.swing.JFrame {
                 
         //Menu Salir
             MS_CerrarSesion = new JMenuItem("Cerrar Sesion");
-            MS_CerrarSesion.addActionListener((java.awt.event.ActionEvent evt) -> {});
+            MS_CerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            MS_CerrarSesion.addActionListener((java.awt.event.ActionEvent evt) -> {
+                this.dispose();
+                formularioLogin.setVisible(true);
+            });
         
     /* <-- Agregando Items a los Menus --> */
             MenuAdmin.add(MA_ABMUsuario);
@@ -89,15 +109,16 @@ public class Menu extends javax.swing.JFrame {
 
             MenuTareas.add(MT_ABMTarea);
 
-            MenuSalir.add(MS_CerrarSesion);
             MenuSalir.add("Usuario: ");
             MenuSalir.add("Perfil: ");
+            MenuSalir.add(MS_CerrarSesion);
         
     /* <-- Agregando Menus a la barra --> */
         barra.add(MenuAdmin);
         barra.add(MenuProyectos);
         barra.add(MenuEquipos);
         barra.add(MenuTareas);
+        barra.add(Box.createHorizontalGlue());
         barra.add(MenuSalir);
         
 
