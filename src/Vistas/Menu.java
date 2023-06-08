@@ -1,5 +1,6 @@
 package Vistas;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -21,6 +22,12 @@ public class Menu extends javax.swing.JFrame {
     private JMenuItem MT_ABMTarea;
     private JMenuItem MS_CerrarSesion;
     
+    private final String iconoAdmin     = "/Iconos/admin.png";
+    private final String iconoProyecto  = "/Iconos/proyecto.png";
+    private final String iconoEquipo    = "/Iconos/equipo.png";
+    private final String iconoTareas    = "/Iconos/tareas.png";
+    private final String iconoSalir     = "/Iconos/salir_sistema.png";
+    
     public Menu() {
         crearMenu();
         initComponents();
@@ -29,25 +36,25 @@ public class Menu extends javax.swing.JFrame {
     private void centrarJinternalFrame (JInternalFrame i ){
         Dimension tamanioEscritorio =  Escritorio.getSize();
         Dimension tamanioVentana = i.getSize();
-        i.setLocation((tamanioEscritorio.width - tamanioVentana.width) / 2, (tamanioEscritorio.height - tamanioVentana.height) /2);
+        i.setLocation((tamanioEscritorio.width - tamanioVentana.width) / 2, (tamanioEscritorio.height - tamanioVentana.height) / 2);
     }
     
     private void crearMenu(){
         barra = new JMenuBar();
-        MenuAdmin = new JMenu("Admin");
-        MenuAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/admin.png")));
+        MenuAdmin = new JMenu("  Admin  ");
+        MenuAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoAdmin)) );
         MenuAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuProyectos = new JMenu("Proyectos");
-        MenuProyectos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/proyecto.png")));
+        MenuProyectos = new JMenu("  Proyectos  ");
+        MenuProyectos.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoProyecto)));
         MenuProyectos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuEquipos = new JMenu("Equipos");
-        MenuEquipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/equipo.png")));
+        MenuEquipos = new JMenu("  Equipos  ");
+        MenuEquipos.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoEquipo)));
         MenuEquipos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuTareas = new JMenu("Tareas");
-        MenuTareas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/tareas.png")));
+        MenuTareas = new JMenu("  Tareas  ");
+        MenuTareas.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoTareas)));
         MenuTareas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuSalir = new JMenu("Salir");
-        MenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/salir_sistema.png")));
+        MenuSalir = new JMenu("  Salir  ");
+        MenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoSalir)));
         MenuSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         
         
@@ -114,16 +121,16 @@ public class Menu extends javax.swing.JFrame {
             MenuSalir.add(MS_CerrarSesion);
         
     /* <-- Agregando Menus a la barra --> */
-        barra.add(MenuAdmin);
-        barra.add(MenuProyectos);
-        barra.add(MenuEquipos);
-        barra.add(MenuTareas);
-        barra.add(Box.createHorizontalGlue());
-        barra.add(MenuSalir);
+            barra.add(MenuAdmin);
+            barra.add(MenuProyectos);
+            barra.add(MenuEquipos);
+            barra.add(MenuTareas);
+            barra.add(Box.createHorizontalGlue());
+            barra.add(MenuSalir);
         
 
     /* <-- Haciendo visible la barra --> */
-        setJMenuBar(barra);
+            setJMenuBar(barra);
     }
     
     
