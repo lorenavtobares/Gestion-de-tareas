@@ -92,4 +92,3 @@ CREATE TABLE `proyecto` (
   `fechaInicio` date NOT NULL,
   `estado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-<div class="alert alert-danger" role="alert"><img src="themes/dot.gif" title="" alt="" class="icon ic_s_error"> TypeError: str_replace(): Argument #3 ($subject) must be of type array|string, null given</div></body></html>
