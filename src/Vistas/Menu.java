@@ -11,8 +11,12 @@ import javax.swing.JMenuItem;
 
 public class Menu extends javax.swing.JFrame {
     private JMenuBar barra;
-    private JMenu MenuProyectos, MenuEquipos, MenuTareas, MenuSalir;
-    private JMenuItem MP_ABMProyecto, ME_ABMEquipo, MT_ABMTarea, MS_CerrarSesion;
+    private JMenu MenuAdmin, MenuProyectos, MenuEquipos, MenuTareas, MenuSalir;
+    private JMenuItem MA_ABMUsuario;
+    private JMenuItem MP_ABMProyecto;
+    private JMenuItem ME_ABMEquipo;
+    private JMenuItem MT_ABMTarea;
+    private JMenuItem MS_CerrarSesion;
     
     public Menu() {
         crearMenu();
@@ -27,6 +31,8 @@ public class Menu extends javax.swing.JFrame {
     
     private void crearMenu(){
         barra = new JMenuBar();
+        MenuAdmin = new JMenu("Admin");
+        MenuAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuProyectos = new JMenu("Proyectos");
         MenuProyectos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuEquipos = new JMenu("Equipos");
@@ -36,48 +42,66 @@ public class Menu extends javax.swing.JFrame {
         MenuSalir = new JMenu("Salir");
         MenuSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         
+        
+    /* <-- Creacion de Menus --> */
+        //Menu Admin
+            MA_ABMUsuario = new JMenuItem("ABM Usuarios");
+            MA_ABMUsuario.addActionListener((java.awt.event.ActionEvent evt) -> {
+                Escritorio.removeAll();
+                Escritorio.repaint();
+                ABMUsuarios abmUsuarios = new ABMUsuarios();
+                centrarJinternalFrame(abmUsuarios);
+                abmUsuarios.setVisible(true);
+                Escritorio.add(abmUsuarios);
+                Escritorio.moveToFront(abmUsuarios);
+            });
+        
         //Menu Proyectos
-        MP_ABMProyecto = new JMenuItem("ABM Proyecto");
-        MP_ABMProyecto.addActionListener((java.awt.event.ActionEvent evt) -> {
-            Escritorio.removeAll();
-            Escritorio.repaint();
-            ABMProyectos abmProyectos = new ABMProyectos();
-            centrarJinternalFrame(abmProyectos);
-            abmProyectos.setVisible(true);
-            Escritorio.add(abmProyectos);
-            Escritorio.moveToFront(abmProyectos);
-        });
+            MP_ABMProyecto = new JMenuItem("ABM Proyecto");
+            MP_ABMProyecto.addActionListener((java.awt.event.ActionEvent evt) -> {
+                Escritorio.removeAll();
+                Escritorio.repaint();
+                ABMProyectos abmProyectos = new ABMProyectos();
+                centrarJinternalFrame(abmProyectos);
+                abmProyectos.setVisible(true);
+                Escritorio.add(abmProyectos);
+                Escritorio.moveToFront(abmProyectos);
+            });
             
         //Menu Equipos
-        ME_ABMEquipo = new JMenuItem("ABM Equipos");
-        ME_ABMEquipo.addActionListener((java.awt.event.ActionEvent evt) -> {});
+            ME_ABMEquipo = new JMenuItem("ABM Equipos");
+            ME_ABMEquipo.addActionListener((java.awt.event.ActionEvent evt) -> {});
                 
         //Menu Tareas
-        MT_ABMTarea = new JMenuItem("ABM Tareas");
-        MT_ABMTarea.addActionListener((java.awt.event.ActionEvent evt) -> {});
+            MT_ABMTarea = new JMenuItem("ABM Tareas");
+            MT_ABMTarea.addActionListener((java.awt.event.ActionEvent evt) -> {});
                 
         //Menu Salir
-        MS_CerrarSesion = new JMenuItem("Cerrar Sesion");
-        MS_CerrarSesion.addActionListener((java.awt.event.ActionEvent evt) -> {});
+            MS_CerrarSesion = new JMenuItem("Cerrar Sesion");
+            MS_CerrarSesion.addActionListener((java.awt.event.ActionEvent evt) -> {});
         
-        //Agregando items a los menu
-        MenuProyectos.add(MP_ABMProyecto);
+    /* <-- Agregando Items a los Menus --> */
+            MenuAdmin.add(MA_ABMUsuario);
+
+            MenuProyectos.add(MP_ABMProyecto);
+
+            MenuEquipos.add(ME_ABMEquipo);
+
+            MenuTareas.add(MT_ABMTarea);
+
+            MenuSalir.add(MS_CerrarSesion);
+            MenuSalir.add("Usuario: ");
+            MenuSalir.add("Perfil: ");
         
-        MenuEquipos.add(ME_ABMEquipo);
-        
-        MenuTareas.add(MT_ABMTarea);
-        
-        MenuSalir.add(MS_CerrarSesion);
-        MenuSalir.add("Usuario: ");
-        MenuSalir.add("Perfil: ");
-        
-        //Agregando los menu a la barra
+    /* <-- Agregando Menus a la barra --> */
+        barra.add(MenuAdmin);
         barra.add(MenuProyectos);
         barra.add(MenuEquipos);
         barra.add(MenuTareas);
         barra.add(MenuSalir);
         
-        //
+
+    /* <-- Haciendo visible la barra --> */
         setJMenuBar(barra);
     }
     
