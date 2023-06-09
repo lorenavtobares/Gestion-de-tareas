@@ -7,36 +7,40 @@ public class Miembro {
     private String password;
     private String apellido;
     private String nombre;
-    private boolean estado; 
+    private boolean estado;
+    private String rolSistema;
 
-    public Miembro(int id_miembro, int dni, String password, String apellido, String nombre, boolean estado) {
+    public Miembro(int id_miembro, int dni, String password, String apellido, String nombre, boolean estado, String rolSistema) {
         this.id_miembro = id_miembro;
         this.dni = dni;
         this.password = password;
         this.apellido = apellido;
         this.nombre = nombre;
         this.estado = estado;
+        this.rolSistema = rolSistema;
     }
 
-    public Miembro(int dni, String password, String apellido, String nombre, boolean estado) {
+    public Miembro(int dni, String password, String apellido, String nombre, boolean estado, String rolSistema){
         this.dni = dni;
         this.password = password;
         this.apellido = apellido;
         this.nombre = nombre;
         this.estado = estado;
+        this.rolSistema = rolSistema;
     }
 
-    public Miembro(int id_miembro, int dni, String password, String apellido, String nombre) {
+    public Miembro(int id_miembro, int dni, String password, String apellido, String nombre, String rolSistema) {
         this.id_miembro = id_miembro;
         this.dni = dni;
         this.password = password;
         this.apellido = apellido;
         this.nombre = nombre;
+        this.rolSistema = rolSistema;
     }
 
     public Miembro() {
     }
-
+    
     public int getId_miembro() {
         return id_miembro;
     }
@@ -77,19 +81,27 @@ public class Miembro {
         this.nombre = nombre;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    
+    public String getRolSistema() {
+        return rolSistema;
+    }
+
+    public void setRolSistema(String rolSistema) {
+        this.rolSistema = rolSistema;
+    }
 
     @Override
     public String toString() {
-        return "Miembro{" + "id_miembro=" + id_miembro + ", dni=" + dni + ", password=" + password + ", apellido=" + apellido + ", nombre=" + nombre + ", estado=" + estado + '}';
+        return "Miembro{" + "id_miembro=" + id_miembro + ", dni=" + dni + ", password=" + password + ", apellido=" + apellido + ", nombre=" + nombre + ", estado=" + estado + ", rolSistema=" + rolSistema + '}';
     }
-    
+
     
     
 }
