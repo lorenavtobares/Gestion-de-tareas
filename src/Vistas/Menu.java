@@ -22,12 +22,26 @@ public class Menu extends javax.swing.JFrame {
     private JMenuItem MT_ABMTarea;
     private JMenuItem MS_CerrarSesion;
     
+    private final String nameMenuAdmin      = "  Admin  ";
+    private final String nameMenuProyectos  = "  Proyectos  ";
+    private final String nameMenuEquipos    = "  Equipos  ";
+    private final String nameMenuTareas     = "  Tareas  ";
+    private final String nameMenuSalir      = "  Salir  ";
+    
+    private final String nameItemsABMAdmin      = "ABM Usuarios";
+    private final String nameItemsABMProyecto   = "ABM Proyecto";
+    private final String nameItemsABMEquipo     = "ABM Equipo";
+    private final String nameItemsABMTareas     = "ABM Tareas";
+    private final String nameItemsSalir         = "Cerrar Sesion";
+    private final String nameItemsSalirPefil    = "Perfil: ";
+    private final String nameItemsSalirUsuario  = "Usuario: ";
+    
     private final String iconoAdmin     = "/Iconos/admin.png";
     private final String iconoProyecto  = "/Iconos/proyecto.png";
     private final String iconoEquipo    = "/Iconos/equipo.png";
     private final String iconoTareas    = "/Iconos/tareas.png";
     private final String iconoSalir     = "/Iconos/salir_sistema.png";
-    
+       
     public Menu() {
         crearMenu();
         initComponents();
@@ -41,26 +55,26 @@ public class Menu extends javax.swing.JFrame {
     
     private void crearMenu(){
         barra = new JMenuBar();
-        MenuAdmin = new JMenu("  Admin  ");
+        MenuAdmin = new JMenu(nameMenuAdmin);
         MenuAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoAdmin)) );
         MenuAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuProyectos = new JMenu("  Proyectos  ");
+        MenuProyectos = new JMenu(nameMenuProyectos);
         MenuProyectos.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoProyecto)));
         MenuProyectos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuEquipos = new JMenu("  Equipos  ");
+        MenuEquipos = new JMenu(nameMenuEquipos);
         MenuEquipos.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoEquipo)));
         MenuEquipos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuTareas = new JMenu("  Tareas  ");
+        MenuTareas = new JMenu(nameMenuTareas);
         MenuTareas.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoTareas)));
         MenuTareas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuSalir = new JMenu("  Salir  ");
+        MenuSalir = new JMenu(nameMenuSalir);
         MenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconoSalir)));
         MenuSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         
         
     /* <-- Creacion de Menus --> */
         //Menu Admin
-            MA_ABMUsuario = new JMenuItem("ABM Usuarios");
+            MA_ABMUsuario = new JMenuItem(nameItemsABMAdmin);
             MA_ABMUsuario.addActionListener((java.awt.event.ActionEvent evt) -> {
                 Escritorio.removeAll();
                 Escritorio.repaint();
@@ -72,7 +86,7 @@ public class Menu extends javax.swing.JFrame {
             });
         
         //Menu Proyectos
-            MP_ABMProyecto = new JMenuItem("ABM Proyecto");
+            MP_ABMProyecto = new JMenuItem(nameItemsABMProyecto);
             MP_ABMProyecto.addActionListener((java.awt.event.ActionEvent evt) -> {
                 Escritorio.removeAll();
                 Escritorio.repaint();
@@ -84,7 +98,7 @@ public class Menu extends javax.swing.JFrame {
             });
             
         //Menu Equipos
-            ME_ABMEquipo = new JMenuItem("ABM Equipos");
+            ME_ABMEquipo = new JMenuItem(nameItemsABMEquipo);
             ME_ABMEquipo.addActionListener((java.awt.event.ActionEvent evt) -> {
                 Escritorio.removeAll();
                 Escritorio.repaint();
@@ -96,11 +110,19 @@ public class Menu extends javax.swing.JFrame {
             });
                 
         //Menu Tareas
-            MT_ABMTarea = new JMenuItem("ABM Tareas");
-            MT_ABMTarea.addActionListener((java.awt.event.ActionEvent evt) -> {});
+            MT_ABMTarea = new JMenuItem(nameItemsABMTareas);
+            MT_ABMTarea.addActionListener((java.awt.event.ActionEvent evt) -> {
+                Escritorio.removeAll();
+                Escritorio.repaint();
+                ABMTareas abmTareas = new ABMTareas();
+                centrarJinternalFrame(abmTareas);
+                abmTareas.setVisible(true);
+                Escritorio.add(abmTareas);
+                Escritorio.moveToFront(abmTareas);
+            });
                 
         //Menu Salir
-            MS_CerrarSesion = new JMenuItem("Cerrar Sesion");
+            MS_CerrarSesion = new JMenuItem(nameItemsSalir);
             MS_CerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             MS_CerrarSesion.addActionListener((java.awt.event.ActionEvent evt) -> {
                 this.dispose();
@@ -116,17 +138,28 @@ public class Menu extends javax.swing.JFrame {
 
             MenuTareas.add(MT_ABMTarea);
 
-            MenuSalir.add("Usuario: ");
-            MenuSalir.add("Perfil: ");
+            MenuSalir.add(nameItemsSalirUsuario);
+            MenuSalir.add(nameItemsSalirPefil);
             MenuSalir.add(MS_CerrarSesion);
         
     /* <-- Agregando Menus a la barra --> */
-            barra.add(MenuAdmin);
-            barra.add(MenuProyectos);
-            barra.add(MenuEquipos);
-            barra.add(MenuTareas);
-            barra.add(Box.createHorizontalGlue());
-            barra.add(MenuSalir);
+    
+            if ( formularioLogin.rolSesion.equals("admin") ){
+                barra.add(MenuAdmin);
+                barra.add(MenuProyectos);
+                barra.add(MenuEquipos);
+                barra.add(MenuTareas);
+                barra.add(Box.createHorizontalGlue());
+                barra.add(MenuSalir);
+            }
+            if ( formularioLogin.rolSesion.equals("usuario") ){
+                barra.add(MenuProyectos);
+                barra.add(MenuEquipos);
+                barra.add(MenuTareas);
+                barra.add(Box.createHorizontalGlue());
+                barra.add(MenuSalir);
+            }
+            
         
 
     /* <-- Haciendo visible la barra --> */
