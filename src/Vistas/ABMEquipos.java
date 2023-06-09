@@ -1,5 +1,9 @@
 package Vistas;
 
+import java.util.Date;
+import javax.swing.JOptionPane;
+import Funciones.Funciones;
+
 public class ABMEquipos extends javax.swing.JInternalFrame {
 
     public ABMEquipos() {
@@ -11,84 +15,93 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         contenedorPrincipal = new javax.swing.JTabbedPane();
-        altaDeEquipos = new javax.swing.JPanel();
-        altaNombre = new javax.swing.JTextField();
-        altaFecha = new com.toedter.calendar.JDateChooser();
-        btnAltaEquipo = new javax.swing.JButton();
-        bajaDeEquipos = new javax.swing.JPanel();
-        btnActualizarEquipo1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        nuevoDeEquipos = new javax.swing.JPanel();
+        nuevoNombre = new javax.swing.JTextField();
+        nuevoFecha = new com.toedter.calendar.JDateChooser();
+        btnNuevoEquipo = new javax.swing.JButton();
         actualizacionDeEquipos = new javax.swing.JPanel();
         ActualizarNombre = new javax.swing.JTextField();
         actualizarFecha = new com.toedter.calendar.JDateChooser();
         btnActualizarEquipo = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
         btnCerrar = new javax.swing.JButton();
 
-        altaNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
+        nuevoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
+        nuevoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nuevoNombreKeyTyped(evt);
+            }
+        });
 
-        altaFecha.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE CREACION"));
+        nuevoFecha.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE CREACION"));
 
-        btnAltaEquipo.setText("Crear Equipo");
+        btnNuevoEquipo.setText("Crear Equipo");
 
-        javax.swing.GroupLayout altaDeEquiposLayout = new javax.swing.GroupLayout(altaDeEquipos);
-        altaDeEquipos.setLayout(altaDeEquiposLayout);
-        altaDeEquiposLayout.setHorizontalGroup(
-            altaDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(altaDeEquiposLayout.createSequentialGroup()
+        javax.swing.GroupLayout nuevoDeEquiposLayout = new javax.swing.GroupLayout(nuevoDeEquipos);
+        nuevoDeEquipos.setLayout(nuevoDeEquiposLayout);
+        nuevoDeEquiposLayout.setHorizontalGroup(
+            nuevoDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nuevoDeEquiposLayout.createSequentialGroup()
                 .addGap(113, 113, 113)
-                .addGroup(altaDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(altaFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(altaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(btnAltaEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(nuevoDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nuevoFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                    .addComponent(nuevoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                    .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
-        altaDeEquiposLayout.setVerticalGroup(
-            altaDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(altaDeEquiposLayout.createSequentialGroup()
+        nuevoDeEquiposLayout.setVerticalGroup(
+            nuevoDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nuevoDeEquiposLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(altaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nuevoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(altaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nuevoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90)
-                .addComponent(btnAltaEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        contenedorPrincipal.addTab("Alta de Equipos", altaDeEquipos);
-
-        btnActualizarEquipo1.setText("Eliminar Equipo");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder("EQUIPO"));
-
-        javax.swing.GroupLayout bajaDeEquiposLayout = new javax.swing.GroupLayout(bajaDeEquipos);
-        bajaDeEquipos.setLayout(bajaDeEquiposLayout);
-        bajaDeEquiposLayout.setHorizontalGroup(
-            bajaDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bajaDeEquiposLayout.createSequentialGroup()
-                .addGap(117, 117, 117)
-                .addGroup(bajaDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnActualizarEquipo1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
-                .addContainerGap(118, Short.MAX_VALUE))
-        );
-        bajaDeEquiposLayout.setVerticalGroup(
-            bajaDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bajaDeEquiposLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136)
-                .addComponent(btnActualizarEquipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
-        );
-
-        contenedorPrincipal.addTab("Baja de Equipos", bajaDeEquipos);
+        contenedorPrincipal.addTab("Nuevo Equipo", nuevoDeEquipos);
 
         ActualizarNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
+        ActualizarNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ActualizarNombreKeyTyped(evt);
+            }
+        });
 
         actualizarFecha.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE CREACION"));
 
         btnActualizarEquipo.setText("Actualizar Informacion");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Estado del equipo"));
+
+        jCheckBox1.setText("Habilitado");
+
+        jCheckBox2.setText("Deshabilitado");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCheckBox2)
+                .addGap(114, 114, 114))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jCheckBox2))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout actualizacionDeEquiposLayout = new javax.swing.GroupLayout(actualizacionDeEquipos);
         actualizacionDeEquipos.setLayout(actualizacionDeEquiposLayout);
@@ -99,7 +112,8 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 .addGroup(actualizacionDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(actualizarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addComponent(ActualizarNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(btnActualizarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnActualizarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
         actualizacionDeEquiposLayout.setVerticalGroup(
@@ -107,11 +121,13 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             .addGroup(actualizacionDeEquiposLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(ActualizarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addComponent(actualizarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(btnActualizarEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         contenedorPrincipal.addTab("Actualizacion de Equipos", actualizacionDeEquipos);
@@ -148,20 +164,35 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
+                /* <<-- Validacion de datos -->> */
+    
+    // Vista 1 - nuevo Equipo -> NOMBRE: Validacion de datos
+    private void nuevoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoNombreKeyTyped
+        Funciones.soloLetras(nuevoNombre, evt, 45);
+    }//GEN-LAST:event_nuevoNombreKeyTyped
+
+    // Vista 2 - Actualizacion Equipo -> NOMBRE: Validacion de datos
+    private void ActualizarNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ActualizarNombreKeyTyped
+        Funciones.soloLetras(ActualizarNombre, evt, 45);
+    }//GEN-LAST:event_ActualizarNombreKeyTyped
+
+                /* <<-- Metodos Extras -->> */
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ActualizarNombre;
     private javax.swing.JPanel actualizacionDeEquipos;
     private com.toedter.calendar.JDateChooser actualizarFecha;
-    private javax.swing.JPanel altaDeEquipos;
-    private com.toedter.calendar.JDateChooser altaFecha;
-    private javax.swing.JTextField altaNombre;
-    private javax.swing.JPanel bajaDeEquipos;
     private javax.swing.JButton btnActualizarEquipo;
-    private javax.swing.JButton btnActualizarEquipo1;
-    private javax.swing.JButton btnAltaEquipo;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnNuevoEquipo;
     private javax.swing.JTabbedPane contenedorPrincipal;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel nuevoDeEquipos;
+    private com.toedter.calendar.JDateChooser nuevoFecha;
+    private javax.swing.JTextField nuevoNombre;
     // End of variables declaration//GEN-END:variables
 }
