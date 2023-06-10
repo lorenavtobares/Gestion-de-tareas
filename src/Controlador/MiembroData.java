@@ -54,6 +54,7 @@ public class MiembroData {
         }
 
     }//create
+    
     public Miembro buscarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;

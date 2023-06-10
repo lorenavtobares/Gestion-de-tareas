@@ -1,6 +1,6 @@
 package Modelo;
 
-import Controlador.MiembroData;
+import Controlador.*;
 import Vistas.Login;
 import java.time.LocalDate;
 
@@ -8,21 +8,26 @@ public class GestionAr {
     public static void main(String[] args) {
         Login formLogin = new Login();
         formLogin.setVisible(true);
-        /*pruebas de metodos*/
-       // Miembro miembro = new Miembro(25765432,"1234","Pepe","Arjon",true,"admin");
         
-        //MiembroData miembro1 = new MiembroData();
-        //Miembro guardado =new Miembro();
+    //VARIABLES
+        Comentarios varComentarios = new Comentarios();
+        ComentariosData varComentariosData = new ComentariosData();
+        Equipo varEquipo = new Equipo();
+        EquipoData varEquipoData = new EquipoData();
+        EquipoMiembros varEquipoMiembros = new EquipoMiembros();
+        EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
+        Miembro varMiembro = new Miembro();
+        MiembroData varMiembroData = new MiembroData();
+        Proyecto varProyecto = new Proyecto();
+        ProyectoData varProyectoData = new ProyectoData();
+        Tarea varTarea = new Tarea();
+        TareaData varTareaData = new TareaData();
         
-        //Equipo equipo = new Equipo(0, nombre, LocalDate.MIN, true);
-        /*metodos miembros*/
-//        miembro1.guardarMiembro(miembro);
-//        guardado = miembro1.buscarMiembro(1);
-//        System.out.println(guardado.toString());
-        //miembro1.actualizarMiembro(miembro);
-        //miembro1.eliminarMiembro(1);
+    /* <<-- PROYECTO DATA -->> */
+
         
-        /*metodos equipo*/
+    /* <<-- EQUIPO DATA -->> */
+        
         
     }
 }

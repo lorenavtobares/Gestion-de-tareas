@@ -22,19 +22,19 @@ public class EquipoData {
     public void GuardarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        String query        = " INSERT INTO equipo "
-                            + " ( idProyecto, nombre, fechaCreacion, estado ) "
-                            + " VALUES ( ?, ?, ?, 1 ) ";
+        String query        = "INSERT INTO equipo "
+                            + "(idProyecto, nombre, fechaCreacion, estado) "
+                            + "VALUES ( ?, ?, ?, 1 ) ";
         try{
             stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
-            stmt.setInt(1, equipo.getId_proyecto());
+            stmt.setInt(1, equipo.getProyecto().getId_proyecto());
             stmt.setString(2, equipo.getNombre());
             stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
             
             stmt.executeUpdate();
-            resultado=stmt.getGeneratedKeys();
-            if (resultado.next()) {
-                equipo.setId_proyecto(resultado.getInt(1));
+            resultado = stmt.getGeneratedKeys();
+            if ( resultado.next() ) {
+                equipo.getProyecto().setId_proyecto(resultado.getInt(1));
             }
             JOptionPane.showMessageDialog(null, " Equipo guardado con exito ", "" ,JOptionPane.INFORMATION_MESSAGE );
 
@@ -55,7 +55,7 @@ public class EquipoData {
     public Equipo buscarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        Equipo equipoN =null;
+        Equipo equipoN = null;
         
         String query        = " SELECT * "
                             + " FROM equipo "
@@ -65,10 +65,11 @@ public class EquipoData {
             stmt = con.prepareStatement( query );
             stmt.setInt(1, idEquipo);
             resultado= stmt.executeQuery();
+            
             if(resultado.next() ){
                 equipoN = new Equipo();
                 equipoN.setId_equipo(idEquipo);
-                equipoN.setId_proyecto(resultado.getInt("idProyecto"));
+                equipoN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
                 equipoN.setNombre(resultado.getString("nombre"));
                 equipoN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
                 equipoN.setEstado(resultado.getBoolean("estado"));
@@ -95,14 +96,14 @@ public class EquipoData {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         
-        String query        = " UPDATE equipo "
-                            + " SET idProyecto = ?, nombre = ?,  fechaCreacion = ? "
-                            + " WHERE idEquipo = ? ";
+        String query        = "UPDATE equipo "
+                            + "SET idProyecto = ?, nombre = ?,  fechaCreacion = ? "
+                            + "WHERE idEquipo = ? ";
         
         try{
             
             stmt = con.prepareStatement( query );
-            stmt.setInt(1, equipo.getId_proyecto());
+            stmt.setInt(1, equipo.getProyecto().getId_proyecto());
             stmt.setString(2, equipo.getNombre());
             stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
             stmt.executeUpdate();

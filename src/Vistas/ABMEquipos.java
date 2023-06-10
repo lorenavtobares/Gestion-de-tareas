@@ -3,11 +3,15 @@ package Vistas;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import Funciones.Funciones;
+import com.toedter.calendar.JCalendar;
+import java.awt.Color;
 
 public class ABMEquipos extends javax.swing.JInternalFrame {
 
     public ABMEquipos() {
         initComponents();
+        nuevoFecha.setMinSelectableDate(new Date());
+        //nuevoFecha.setDateFormatString("dd/MM/yyyy");
     }
 
     @SuppressWarnings("unchecked")
@@ -177,8 +181,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ActualizarNombreKeyTyped
 
                 /* <<-- Metodos Extras -->> */
-    
-    
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ActualizarNombre;

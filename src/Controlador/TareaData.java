@@ -17,8 +17,8 @@ public class TareaData {
         con=Conexion.getConexion();
     }
     
-     public void guardarTarea(Tarea tarea){
-          PreparedStatement stmt = null;
+    public void guardarTarea(Tarea tarea){
+        PreparedStatement stmt = null;
         ResultSet resultado = null;
         
         String query        = " INSERT INTO tarea "
@@ -40,8 +40,9 @@ public class TareaData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }//create
+    
     public void buscarTarea(){
-          PreparedStatement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet resultado = null;
         
         String query= "";
