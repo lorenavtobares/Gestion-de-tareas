@@ -44,7 +44,7 @@ public class TareaData {
 
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "Error al guadar Tarea" , JOptionPane.ERROR_MESSAGE );
         }
         finally {
             try { 
@@ -114,6 +114,7 @@ public class TareaData {
             stmt.setDate(3, Date.valueOf(tarea.getFecha_cierre()));
             stmt.setBoolean(4, tarea.getEstado());
             stmt.setInt(5, tarea.getId_equipo_miembros());
+            stmt.setInt(6, tarea.getId_tarea());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);

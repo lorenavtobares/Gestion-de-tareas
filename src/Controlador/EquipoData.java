@@ -23,6 +23,7 @@ public class EquipoData {
     public void GuardarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
+        
         String query        = " INSERT INTO equipo "
                             + " ( idProyecto, nombre, fechaCreacion, estado ) "
                             + " VALUES ( ?, ?, ?, 1 ) ";
@@ -34,6 +35,7 @@ public class EquipoData {
             
             stmt.executeUpdate();
             resultado=stmt.getGeneratedKeys();
+            
             if (resultado.next()) {
                 equipo.setId_proyecto(resultado.getInt(1));
             }
@@ -41,7 +43,7 @@ public class EquipoData {
 
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "Error al guardar Equipo" , JOptionPane.ERROR_MESSAGE );
         }
         finally {
             try { 
@@ -67,6 +69,7 @@ public class EquipoData {
             stmt = con.prepareStatement( query );
             stmt.setInt(1, idEquipo);
             resultado= stmt.executeQuery();
+            
             if(resultado.next() ){
                 equipoN = new Equipo();
                 equipoN.setId_equipo(idEquipo);
@@ -96,7 +99,6 @@ public class EquipoData {
     //UPDATE
     public void actualizarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
-        ResultSet resultado = null;
         
         String query        = " UPDATE equipo "
                             + " SET idProyecto = ?, nombre = ?,  fechaCreacion = ? "
@@ -108,8 +110,9 @@ public class EquipoData {
             stmt.setInt(1, equipo.getId_proyecto());
             stmt.setString(2, equipo.getNombre());
             stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
-            stmt.executeUpdate();
+            stmt.setInt(4, equipo.getId_equipo());
             
+            stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);
         }
         catch(SQLException ex){

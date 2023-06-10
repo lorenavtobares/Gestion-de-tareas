@@ -113,6 +113,7 @@ public class MiembroData {
             stmt.setString(4, miembro.getNombre());
             stmt.setBoolean(5, miembro.getEstado());
             stmt.setString(6, miembro.getRolSistema());
+            stmt.setInt(7, miembro.getId_miembro());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);

@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 
@@ -44,7 +43,7 @@ public class ComentariosData {
 
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "Error al guardar Comentario" , JOptionPane.ERROR_MESSAGE );
         }
         finally {
             try { 
@@ -104,7 +103,28 @@ public class ComentariosData {
         
         String query        =" UPDATE comentarios "
                             +" SET comentario = ?, fechaAvance = ?, idTarea = ? "
-                            +" WHERE idComentarios = ? "; 
+                            +" WHERE idComentarios = ? ";
+        try{
+            stmt = con.prepareStatement( query );
+            stmt.setString(1, comentarios.getComentario());
+            stmt.setDate(2, Date.valueOf(comentarios.getFecha_avance()));
+            stmt.setInt(3, comentarios.getId_tarea());
+            stmt.setInt(4, comentarios.getId_comentario());
+            
+            stmt.executeUpdate();           
+            JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch ( SQLException ex )
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), " ", JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try { 
+                stmt.close(); 
+            }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
     }
     
     //DELETE

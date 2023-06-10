@@ -41,7 +41,7 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, " Proyecto guardado con exito ", "" ,JOptionPane.INFORMATION_MESSAGE );
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "Error al guardar Proyecto" , JOptionPane.ERROR_MESSAGE );
         }
         finally {
             try { 
@@ -70,6 +70,7 @@ public class ProyectoData {
             
             if(resultado.next()){
                 proyectoN = new Proyecto();
+                proyectoN.setId_proyecto(idProyecto);
                 proyectoN.setNombre(resultado.getString("nombre"));
                 proyectoN.setDescripcion(resultado.getString("descripcion"));
                 proyectoN.setFecha_inicio(resultado.getDate("fechainicio").toLocalDate());
@@ -108,6 +109,7 @@ public class ProyectoData {
             stmt.setString(2, proyecto.getDescripcion());
             stmt.setDate(3, Date.valueOf(proyecto.getFecha_inicio()));
             stmt.setBoolean(4, proyecto.getEstado());
+            stmt.setInt(5, proyecto.getId_proyecto());
                     
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);
