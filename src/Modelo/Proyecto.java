@@ -66,7 +66,7 @@ public class Proyecto {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
@@ -76,7 +76,13 @@ public class Proyecto {
 
     @Override
     public String toString() {
-        return "Proyecto{" + "id_proyecto=" + id_proyecto + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fecha_inicio=" + fecha_inicio + ", estado=" + estado + '}';
+        return  "Proyecto{" + 
+                "\nid_proyecto => " + id_proyecto + 
+                "\nnombre => " + nombre + 
+                "\ndescripcion => " + descripcion + 
+                "\nfecha_inicio => " + fecha_inicio + 
+                "\nestado => " + estado + 
+                "\n}";
     }
     
     

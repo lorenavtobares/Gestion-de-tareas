@@ -28,11 +28,16 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         actualizarFecha = new com.toedter.calendar.JDateChooser();
         btnActualizarEquipo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        jcbHabilitado = new javax.swing.JCheckBox();
+        jcbDeshabilitados = new javax.swing.JCheckBox();
         btnCerrar = new javax.swing.JButton();
 
         nuevoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
+        nuevoNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoNombreActionPerformed(evt);
+            }
+        });
         nuevoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nuevoNombreKeyTyped(evt);
@@ -42,6 +47,11 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         nuevoFecha.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE CREACION"));
 
         btnNuevoEquipo.setText("Crear Equipo");
+        btnNuevoEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoEquipoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout nuevoDeEquiposLayout = new javax.swing.GroupLayout(nuevoDeEquipos);
         nuevoDeEquipos.setLayout(nuevoDeEquiposLayout);
@@ -70,6 +80,11 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         contenedorPrincipal.addTab("Nuevo Equipo", nuevoDeEquipos);
 
         ActualizarNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
+        ActualizarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarNombreActionPerformed(evt);
+            }
+        });
         ActualizarNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 ActualizarNombreKeyTyped(evt);
@@ -79,12 +94,27 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         actualizarFecha.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE CREACION"));
 
         btnActualizarEquipo.setText("Actualizar Informacion");
+        btnActualizarEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarEquipoActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Estado del equipo"));
 
-        jCheckBox1.setText("Habilitado");
+        jcbHabilitado.setText("Habilitado");
+        jcbHabilitado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbHabilitadoActionPerformed(evt);
+            }
+        });
 
-        jCheckBox2.setText("Deshabilitado");
+        jcbDeshabilitados.setText("Deshabilitado");
+        jcbDeshabilitados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbDeshabilitadosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,9 +122,9 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addComponent(jCheckBox1)
+                .addComponent(jcbHabilitado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBox2)
+                .addComponent(jcbDeshabilitados)
                 .addGap(114, 114, 114))
         );
         jPanel1Layout.setVerticalGroup(
@@ -102,8 +132,8 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
+                    .addComponent(jcbHabilitado)
+                    .addComponent(jcbDeshabilitados))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -180,6 +210,30 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         Funciones.soloLetras(ActualizarNombre, evt, 45);
     }//GEN-LAST:event_ActualizarNombreKeyTyped
 
+    private void nuevoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nuevoNombreActionPerformed
+
+    private void btnNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEquipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNuevoEquipoActionPerformed
+
+    private void ActualizarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ActualizarNombreActionPerformed
+
+    private void jcbHabilitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHabilitadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbHabilitadoActionPerformed
+
+    private void jcbDeshabilitadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDeshabilitadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbDeshabilitadosActionPerformed
+
+    private void btnActualizarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEquipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizarEquipoActionPerformed
+
                 /* <<-- Metodos Extras -->> */
   
 
@@ -191,9 +245,9 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnNuevoEquipo;
     private javax.swing.JTabbedPane contenedorPrincipal;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JCheckBox jcbDeshabilitados;
+    private javax.swing.JCheckBox jcbHabilitado;
     private javax.swing.JPanel nuevoDeEquipos;
     private com.toedter.calendar.JDateChooser nuevoFecha;
     private javax.swing.JTextField nuevoNombre;

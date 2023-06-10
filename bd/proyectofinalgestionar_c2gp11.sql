@@ -1,136 +1,130 @@
--- MySQL Workbench Forward Engineering
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-06-2023 a las 05:53:23
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema ProyectoFinalGestionAR_C2Gp11
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema ProyectoFinalGestionAR_C2Gp11
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `ProyectoFinalGestionAR_C2Gp11` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;
-USE `ProyectoFinalGestionAR_C2Gp11` ;
-
--- -----------------------------------------------------
--- Table `ProyectoFinalGestionAR_C2Gp11`.`Proyecto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ProyectoFinalGestionAR_C2Gp11`.`Proyecto` (
-  `idProyecto` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(150) NOT NULL,
-  `descripcion` VARCHAR(45) NOT NULL,
-  `fechaInicio` DATE NOT NULL,
-  `estado` TINYINT NOT NULL,
-  PRIMARY KEY (`idProyecto`),
-  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC) )
-ENGINE = InnoDB;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
--- -----------------------------------------------------
--- Table `ProyectoFinalGestionAR_C2Gp11`.`Equipo`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ProyectoFinalGestionAR_C2Gp11`.`Equipo` (
-  `idEquipo` INT NOT NULL AUTO_INCREMENT,
-  `idProyecto` INT NOT NULL,
-  `nombre` VARCHAR(45) NOT NULL,
-  `fechaCreacion` DATE NOT NULL,
-  `estado` TINYINT NOT NULL,
-  PRIMARY KEY (`idEquipo`),
-  INDEX `idProyecto_idx` (`idProyecto` ASC) ,
-  UNIQUE INDEX `idProyecto_UNIQUE` (`idProyecto` ASC) ,
-  CONSTRAINT `idProyecto`
-    FOREIGN KEY (`idProyecto`)
-    REFERENCES `ProyectoFinalGestionAR_C2Gp11`.`Proyecto` (`idProyecto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+CREATE DATABASE IF NOT EXISTS `proyectofinalgestionar_c2gp11` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `proyectofinalgestionar_c2gp11`;
 
+--
+-- Base de datos: `proyectofinalgestionar_c2gp11`
+--
 
--- -----------------------------------------------------
--- Table `ProyectoFinalGestionAR_C2Gp11`.`Miembro`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ProyectoFinalGestionAR_C2Gp11`.`Miembro` (
-  `idMiembro` INT NOT NULL AUTO_INCREMENT,
-  `dni` INT NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `apellido` VARCHAR(45) NOT NULL,
-  `nombre` VARCHAR(45) NOT NULL,
-  `estado` TINYINT NOT NULL,
-  `rolSistema` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`idMiembro`),
-  UNIQUE INDEX `dni_UNIQUE` (`dni` ASC) )
-ENGINE = InnoDB;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `comentarios`
+--
 
--- -----------------------------------------------------
--- Table `ProyectoFinalGestionAR_C2Gp11`.`EquipoMiembros`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ProyectoFinalGestionAR_C2Gp11`.`EquipoMiembros` (
-  `idEquipoMiembros` INT NOT NULL AUTO_INCREMENT,
-  `rol` VARCHAR(45) NOT NULL,
-  `fechaIncorporacion` DATE NOT NULL,
-  `idEquipo` INT NOT NULL,
-  `idMiembro` INT NOT NULL,
-  PRIMARY KEY (`idEquipoMiembros`),
-  INDEX `idEquipo_idx` (`idEquipo` ASC) ,
-  INDEX `idMiembro_idx` (`idMiembro` ASC) ,
-  UNIQUE INDEX `idEquipo_UNIQUE` (`idEquipo` ASC) ,
-  UNIQUE INDEX `idMiembro_UNIQUE` (`idMiembro` ASC) ,
-  CONSTRAINT `idEquipo`
-    FOREIGN KEY (`idEquipo`)
-    REFERENCES `ProyectoFinalGestionAR_C2Gp11`.`Equipo` (`idEquipo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `idMiembro`
-    FOREIGN KEY (`idMiembro`)
-    REFERENCES `ProyectoFinalGestionAR_C2Gp11`.`Miembro` (`idMiembro`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `comentarios` (
+  `idComentarios` int(11) NOT NULL,
+  `comentario` varchar(45) NOT NULL,
+  `fechaAvance` date NOT NULL,
+  `idTarea` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `comentarios`
+--
 
--- -----------------------------------------------------
--- Table `ProyectoFinalGestionAR_C2Gp11`.`Tarea`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ProyectoFinalGestionAR_C2Gp11`.`Tarea` (
-  `idTarea` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  `fechaCreacion` DATE NOT NULL,
-  `fechaCierre` DATE NOT NULL,
-  `estado` TINYINT NOT NULL,
-  `idEquipoMiembros` INT NOT NULL,
-  PRIMARY KEY (`idTarea`),
-  INDEX `idEquipoMiembros_idx` (`idEquipoMiembros` ASC) ,
-  UNIQUE INDEX `idEquipoMiembros_UNIQUE` (`idEquipoMiembros` ASC) ,
-  CONSTRAINT ``
-    FOREIGN KEY (`idEquipoMiembros`)
-    REFERENCES `ProyectoFinalGestionAR_C2Gp11`.`EquipoMiembros` (`idEquipoMiembros`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+INSERT INTO `comentarios` (`idComentarios`, `comentario`, `fechaAvance`, `idTarea`) VALUES
+(1, 'hace bien tu trabajo Marcos', '2023-06-09', 1);
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `ProyectoFinalGestionAR_C2Gp11`.`Comentarios`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ProyectoFinalGestionAR_C2Gp11`.`Comentarios` (
-  `idComentarios` INT NOT NULL AUTO_INCREMENT,
-  `comentario` VARCHAR(45) NOT NULL,
-  `fechaAvance` DATE NOT NULL,
-  `idTarea` INT NOT NULL,
-  PRIMARY KEY (`idComentarios`),
-  INDEX `idTarea_idx` (`idTarea` ASC) ,
-  UNIQUE INDEX `idTarea_UNIQUE` (`idTarea` ASC) ,
-  CONSTRAINT `idTarea`
-    FOREIGN KEY (`idTarea`)
-    REFERENCES `ProyectoFinalGestionAR_C2Gp11`.`Tarea` (`idTarea`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+--
+-- Estructura de tabla para la tabla `equipo`
+--
 
+CREATE TABLE `equipo` (
+  `idEquipo` int(11) NOT NULL,
+  `idProyecto` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `fechaCreacion` date NOT NULL,
+  `estado` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+--
+-- Volcado de datos para la tabla `equipo`
+--
+
+INSERT INTO `equipo` (`idEquipo`, `idProyecto`, `nombre`, `fechaCreacion`, `estado`) VALUES
+(1, 1, 'equipoTest', '2023-06-09', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `equipomiembros`
+--
+
+CREATE TABLE `equipomiembros` (
+  `idEquipoMiembros` int(11) NOT NULL,
+  `rol` varchar(45) NOT NULL,
+  `fechaIncorporacion` date NOT NULL,
+  `idEquipo` int(11) NOT NULL,
+  `idMiembro` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `equipomiembros`
+--
+
+INSERT INTO `equipomiembros` (`idEquipoMiembros`, `rol`, `fechaIncorporacion`, `idEquipo`, `idMiembro`) VALUES
+(1, 'payaso', '2023-06-09', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `miembro`
+--
+
+CREATE TABLE `miembro` (
+  `idMiembro` int(11) NOT NULL,
+  `dni` int(11) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `apellido` varchar(45) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `estado` tinyint(4) NOT NULL,
+  `rolSistema` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `miembro`
+--
+
+INSERT INTO `miembro` (`idMiembro`, `dni`, `password`, `apellido`, `nombre`, `estado`, `rolSistema`) VALUES
+(1, 25765432, '1234', 'arjona', 'pepe', 1, 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `proyecto`
+--
+
+CREATE TABLE `proyecto` (
+  `idProyecto` int(11) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `descripcion` varchar(45) NOT NULL,
+  `fechaInicio` date NOT NULL,
+  `estado` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `proyecto`
+--
+
+INSERT INTO `proyecto` (`idProyecto`, `nombre`, `descripcion`, `fechaInicio`, `estado`) VALUES
+(1, 'proyectoPrueba', 'prueba para verificar ', '2023-06-09', 1);

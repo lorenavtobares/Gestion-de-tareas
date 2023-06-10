@@ -19,12 +19,17 @@ public class EquipoData {
         con = Conexion.getConexion();
     }
     
+    //CREATE
     public void GuardarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
+
         String query        = "INSERT INTO equipo "
                             + "(idProyecto, nombre, fechaCreacion, estado) "
                             + "VALUES ( ?, ?, ?, 1 ) ";
+
+        
+
         try{
             stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
             stmt.setInt(1, equipo.getProyecto().getId_proyecto());
@@ -32,15 +37,23 @@ public class EquipoData {
             stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
             
             stmt.executeUpdate();
+
             resultado = stmt.getGeneratedKeys();
             if ( resultado.next() ) {
                 equipo.getProyecto().setId_proyecto(resultado.getInt(1));
+
+            resultado=stmt.getGeneratedKeys();
+            
+            if (resultado.next()) {
+                equipo.getProyecto().setId_proyecto(resultado.getInt(1));
+
             }
             JOptionPane.showMessageDialog(null, " Equipo guardado con exito ", "" ,JOptionPane.INFORMATION_MESSAGE );
 
+            }
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "Error al guardar Equipo" , JOptionPane.ERROR_MESSAGE );
         }
         finally {
             try { 
@@ -50,8 +63,12 @@ public class EquipoData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
+        
     }
     
+
+    //READ
+
     public Equipo buscarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -92,9 +109,9 @@ public class EquipoData {
         return equipoN;
     }
     
+    //UPDATE
     public void actualizarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
-        ResultSet resultado = null;
         
         String query        = "UPDATE equipo "
                             + "SET idProyecto = ?, nombre = ?,  fechaCreacion = ? "
@@ -106,8 +123,9 @@ public class EquipoData {
             stmt.setInt(1, equipo.getProyecto().getId_proyecto());
             stmt.setString(2, equipo.getNombre());
             stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
-            stmt.executeUpdate();
+            stmt.setInt(4, equipo.getId_equipo());
             
+            stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);
         }
         catch(SQLException ex){
@@ -122,6 +140,10 @@ public class EquipoData {
         }   
     }
     
+
+
+    //DELETE
+
     public void eliminarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         
@@ -154,4 +176,5 @@ public class EquipoData {
         }
     }
     
+    //zonas de metodos extras
 }

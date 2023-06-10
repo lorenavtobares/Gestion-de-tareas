@@ -17,6 +17,7 @@ public class MiembroData {
         con=Conexion.getConexion();
     }
 
+    //CREATE
     public void guardarMiembro(Miembro miembro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -53,8 +54,13 @@ public class MiembroData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
 
+
     }//create
     
+
+        
+    //READ
+
     public Miembro buscarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -95,8 +101,9 @@ public class MiembroData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
         return miembroN;
-    }//read
+    }
     
+    //UPDATE
     public void actualizarMiembro(Miembro miembro){
         PreparedStatement stmt = null;
         
@@ -111,6 +118,7 @@ public class MiembroData {
             stmt.setString(4, miembro.getNombre());
             stmt.setBoolean(5, miembro.getEstado());
             stmt.setString(6, miembro.getRolSistema());
+            stmt.setInt(7, miembro.getId_miembro());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);
@@ -127,8 +135,9 @@ public class MiembroData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
 
-    }//update
+    }
     
+    //DELETE
     public void eliminarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         
@@ -156,9 +165,7 @@ public class MiembroData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
-
-    }//delete
-    
+    }    
     //  zona metodos extras
     
 }

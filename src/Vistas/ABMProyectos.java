@@ -20,21 +20,26 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         altaDescripcion = new javax.swing.JTextArea();
         btnCrearProyecto = new javax.swing.JButton();
         bajaDeProyecto = new javax.swing.JPanel();
-        updateCrearProyecto1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        btnEliminarProyecto = new javax.swing.JButton();
+        bajaProyecto = new javax.swing.JComboBox<>();
         actualizacionDeProyecto = new javax.swing.JPanel();
         updateFechaInicio = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         updateDescripcion = new javax.swing.JTextArea();
-        updateCrearProyecto = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        btnUpdateProyecto = new javax.swing.JButton();
+        updateProyecto = new javax.swing.JComboBox<>();
+        btnCerrar = new javax.swing.JButton();
 
         contenedorPrincipal.setPreferredSize(new java.awt.Dimension(800, 450));
 
         altaDeProyecto.setPreferredSize(new java.awt.Dimension(800, 450));
 
         altaNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
+        altaNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                altaNombreActionPerformed(evt);
+            }
+        });
 
         altaFechaInicio.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE INICIO"));
 
@@ -44,6 +49,11 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(altaDescripcion);
 
         btnCrearProyecto.setText("Crear Proyecto");
+        btnCrearProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearProyectoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout altaDeProyectoLayout = new javax.swing.GroupLayout(altaDeProyecto);
         altaDeProyecto.setLayout(altaDeProyectoLayout);
@@ -76,10 +86,20 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
 
         bajaDeProyecto.setPreferredSize(new java.awt.Dimension(800, 450));
 
-        updateCrearProyecto1.setText("Eliminar Proyecto");
+        btnEliminarProyecto.setText("Eliminar Proyecto");
+        btnEliminarProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProyectoActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder("PROYECTO"));
+        bajaProyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        bajaProyecto.setBorder(javax.swing.BorderFactory.createTitledBorder("PROYECTO"));
+        bajaProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bajaProyectoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bajaDeProyectoLayout = new javax.swing.GroupLayout(bajaDeProyecto);
         bajaDeProyecto.setLayout(bajaDeProyectoLayout);
@@ -88,17 +108,17 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bajaDeProyectoLayout.createSequentialGroup()
                 .addContainerGap(119, Short.MAX_VALUE)
                 .addGroup(bajaDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(updateCrearProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bajaProyecto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEliminarProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(116, 116, 116))
         );
         bajaDeProyectoLayout.setVerticalGroup(
             bajaDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bajaDeProyectoLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bajaProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(220, 220, 220)
-                .addComponent(updateCrearProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEliminarProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
@@ -113,10 +133,20 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         updateDescripcion.setBorder(javax.swing.BorderFactory.createTitledBorder("DESCRIPCION"));
         jScrollPane2.setViewportView(updateDescripcion);
 
-        updateCrearProyecto.setText("Actualizar Informacion");
+        btnUpdateProyecto.setText("Actualizar Informacion");
+        btnUpdateProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateProyectoActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setBorder(javax.swing.BorderFactory.createTitledBorder("PROYECTO"));
+        updateProyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        updateProyecto.setBorder(javax.swing.BorderFactory.createTitledBorder("PROYECTO"));
+        updateProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateProyectoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout actualizacionDeProyectoLayout = new javax.swing.GroupLayout(actualizacionDeProyecto);
         actualizacionDeProyecto.setLayout(actualizacionDeProyectoLayout);
@@ -125,33 +155,33 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             .addGroup(actualizacionDeProyectoLayout.createSequentialGroup()
                 .addGap(109, 109, 109)
                 .addGroup(actualizacionDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(updateProyecto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(updateFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(updateCrearProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                    .addComponent(btnUpdateProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
                 .addContainerGap(126, Short.MAX_VALUE))
         );
         actualizacionDeProyectoLayout.setVerticalGroup(
             actualizacionDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(actualizacionDeProyectoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(updateProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(updateFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(updateCrearProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdateProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
         contenedorPrincipal.addTab("Actualizacion de Proyecto", actualizacionDeProyecto);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cerrar.png"))); // NOI18N
-        jButton3.setBorder(null);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cerrar.png"))); // NOI18N
+        btnCerrar.setBorder(null);
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCerrarActionPerformed(evt);
             }
         });
 
@@ -162,12 +192,12 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             .addComponent(contenedorPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contenedorPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -175,9 +205,33 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void altaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_altaNombreActionPerformed
+
+    private void btnCrearProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCrearProyectoActionPerformed
+
+    private void bajaProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaProyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bajaProyectoActionPerformed
+
+    private void btnEliminarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarProyectoActionPerformed
+
+    private void updateProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateProyectoActionPerformed
+
+    private void btnUpdateProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateProyectoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -187,16 +241,16 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser altaFechaInicio;
     private javax.swing.JTextField altaNombre;
     private javax.swing.JPanel bajaDeProyecto;
+    private javax.swing.JComboBox<String> bajaProyecto;
+    private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnCrearProyecto;
+    private javax.swing.JButton btnEliminarProyecto;
+    private javax.swing.JButton btnUpdateProyecto;
     private javax.swing.JTabbedPane contenedorPrincipal;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton updateCrearProyecto;
-    private javax.swing.JButton updateCrearProyecto1;
     private javax.swing.JTextArea updateDescripcion;
     private com.toedter.calendar.JDateChooser updateFechaInicio;
+    private javax.swing.JComboBox<String> updateProyecto;
     // End of variables declaration//GEN-END:variables
 }
