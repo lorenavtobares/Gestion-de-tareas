@@ -6,29 +6,22 @@ public class EquipoMiembros {
     private int id_equipo_miembros;
     private String rol; 
     private LocalDate fecha_incorporacion;
-    private int id_equipo;
-    private int id_miembro;
+    private  Equipo equipo;
+    private Miembro miembro;
 
-    public EquipoMiembros(int id_equipo_miembros, String rol, LocalDate fecha_incorporacion, int id_equipo, int id_miembro) {
+    public EquipoMiembros(int id_equipo_miembros, String rol, LocalDate fecha_incorporacion, Equipo equipo, Miembro miembro) {
         this.id_equipo_miembros = id_equipo_miembros;
         this.rol = rol;
         this.fecha_incorporacion = fecha_incorporacion;
-        this.id_equipo = id_equipo;
-        this.id_miembro = id_miembro;
+        this.equipo = equipo;
+        this.miembro = miembro;
     }
 
-    public EquipoMiembros(String rol, LocalDate fecha_incorporacion, int id_equipo, int id_miembro) {
+    public EquipoMiembros(String rol, LocalDate fecha_incorporacion, Equipo equipo, Miembro miembro) {
         this.rol = rol;
         this.fecha_incorporacion = fecha_incorporacion;
-        this.id_equipo = id_equipo;
-        this.id_miembro = id_miembro;
-    }
-
-    public EquipoMiembros(int id_equipo_miembros, String rol, LocalDate fecha_incorporacion, int id_equipo) {
-        this.id_equipo_miembros = id_equipo_miembros;
-        this.rol = rol;
-        this.fecha_incorporacion = fecha_incorporacion;
-        this.id_equipo = id_equipo;
+        this.equipo = equipo;
+        this.miembro = miembro;
     }
 
     public EquipoMiembros() {
@@ -58,26 +51,27 @@ public class EquipoMiembros {
         this.fecha_incorporacion = fecha_incorporacion;
     }
 
-    public int getId_equipo() {
-        return id_equipo;
+    public Equipo getEquipo() {
+        return equipo;
     }
 
-    public void setId_equipo(int id_equipo) {
-        this.id_equipo = id_equipo;
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
     }
 
-    public int getId_miembro() {
-        return id_miembro;
+    public Miembro getMiembro() {
+        return miembro;
     }
 
-    public void setId_miembro(int id_miembro) {
-        this.id_miembro = id_miembro;
+    public void setMiembro(Miembro miembro) {
+        this.miembro = miembro;
     }
 
     @Override
     public String toString() {
-        return "EquipoMiembros{" + "id_equipo_miembros=" + id_equipo_miembros + ", rol=" + rol + ", fecha_incorporacion=" + fecha_incorporacion + ", id_equipo=" + id_equipo + ", id_miembro=" + id_miembro + '}';
+        return "EquipoMiembros{" + "id_equipo_miembros=" + id_equipo_miembros + ", rol=" + rol + ", fecha_incorporacion=" + fecha_incorporacion + ", equipo=" + equipo + ", miembro=" + miembro + '}';
     }
+
     
     
 }

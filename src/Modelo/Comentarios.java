@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 public class Comentarios {
     private int id_comentario;
-    private int id_tarea;
+    private Tarea tarea;
     private String comentario;
     private LocalDate fecha_avance;
 
-    public Comentarios(int id_comentario, int id_tarea, String comentario, LocalDate fecha_avance) {
+    public Comentarios(int id_comentario, Tarea tarea, String comentario, LocalDate fecha_avance) {
         this.id_comentario = id_comentario;
-        this.id_tarea = id_tarea;
+        this.tarea = tarea;
         this.comentario = comentario;
         this.fecha_avance = fecha_avance;
     }
 
-    public Comentarios(int id_tarea, String comentario, LocalDate fecha_avance) {
-        this.id_tarea = id_tarea;
+    public Comentarios(Tarea tarea, String comentario, LocalDate fecha_avance) {
+        this.tarea = tarea;
         this.comentario = comentario;
         this.fecha_avance = fecha_avance;
     }
@@ -32,12 +32,12 @@ public class Comentarios {
         this.id_comentario = id_comentario;
     }
 
-    public int getId_tarea() {
-        return id_tarea;
+    public Tarea getTarea() {
+        return tarea;
     }
 
-    public void setId_tarea(int id_tarea) {
-        this.id_tarea = id_tarea;
+    public void setTarea(Tarea tarea) {
+        this.tarea = tarea;
     }
 
     public String getComentario() {
@@ -58,8 +58,9 @@ public class Comentarios {
 
     @Override
     public String toString() {
-        return "Comentarios{" + "id_comentario=" + id_comentario + ", id_tarea=" + id_tarea + ", comentario=" + comentario + ", fecha_avance=" + fecha_avance + '}';
+        return "Comentarios{" + "id_comentario=" + id_comentario + ", tarea=" + tarea + ", comentario=" + comentario + ", fecha_avance=" + fecha_avance + '}';
     }
+
     
     
 }

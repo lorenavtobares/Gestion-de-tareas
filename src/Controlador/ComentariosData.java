@@ -30,7 +30,7 @@ public class ComentariosData {
             stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
             stmt.setString(1, comentarios.getComentario());
             stmt.setDate(2, Date.valueOf(comentarios.getFecha_avance()));
-            stmt.setInt(3, comentarios.getId_tarea());
+            stmt.setInt(3, comentarios.getId_comentario());
             
             
             stmt.executeUpdate();
@@ -76,7 +76,7 @@ public class ComentariosData {
                 comentariosN.setId_comentario(idComentarios);
                 comentariosN.setComentario(resultado.getString("comentario"));
                 comentariosN.setFecha_avance(resultado.getDate("fechaAvance").toLocalDate());
-                comentariosN.setId_tarea(resultado.getInt("idTarea"));
+                comentariosN.getTarea().setId_tarea(resultado.getInt("idTarea"));
             }
             else{
                 JOptionPane.showMessageDialog(null, "No se encontro la tarea solicitada.", "ERROR",JOptionPane.ERROR_MESSAGE);
@@ -108,7 +108,7 @@ public class ComentariosData {
             stmt = con.prepareStatement( query );
             stmt.setString(1, comentarios.getComentario());
             stmt.setDate(2, Date.valueOf(comentarios.getFecha_avance()));
-            stmt.setInt(3, comentarios.getId_tarea());
+            stmt.setInt(3, comentarios.getTarea().getId_tarea());
             stmt.setInt(4, comentarios.getId_comentario());
             
             stmt.executeUpdate();           

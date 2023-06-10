@@ -4,28 +4,28 @@ import java.time.LocalDate;
 
 public class Equipo {
     private int id_equipo;
-    private int id_proyecto;
+    private Proyecto proyecto;
     private String nombre;
     private LocalDate fecha_cracion;
     private boolean estado;
 
-    public Equipo(int id_equipo, int id_proyecto, String nombre, LocalDate fecha_cracion, boolean estado) {
+    public Equipo(int id_equipo, Proyecto proyecto, String nombre, LocalDate fecha_cracion, boolean estado) {
         this.id_equipo = id_equipo;
-        this.id_proyecto = id_proyecto;
+        this.proyecto = proyecto;
         this.nombre = nombre;
         this.fecha_cracion = fecha_cracion;
         this.estado = estado;
     }
 
-    public Equipo(int id_equipo, int id_proyecto, String nombre, LocalDate fecha_cracion) {
+    public Equipo(int id_equipo, Proyecto proyecto, String nombre, LocalDate fecha_cracion) {
         this.id_equipo = id_equipo;
-        this.id_proyecto = id_proyecto;
+        this.proyecto = proyecto;
         this.nombre = nombre;
         this.fecha_cracion = fecha_cracion;
     }
 
-    public Equipo(int id_proyecto, String nombre, LocalDate fecha_cracion, boolean estado) {
-        this.id_proyecto = id_proyecto;
+    public Equipo(Proyecto proyecto, String nombre, LocalDate fecha_cracion, boolean estado) {
+        this.proyecto = proyecto;
         this.nombre = nombre;
         this.fecha_cracion = fecha_cracion;
         this.estado = estado;
@@ -51,12 +51,12 @@ public class Equipo {
         this.id_equipo = id_equipo;
     }
 
-    public int getId_proyecto() {
-        return id_proyecto;
+    public Proyecto getProyecto() {
+        return proyecto;
     }
 
-    public void setId_proyecto(int id_proyecto) {
-        this.id_proyecto = id_proyecto;
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
 
     public String getNombre() {
@@ -75,7 +75,7 @@ public class Equipo {
         this.fecha_cracion = fecha_cracion;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
@@ -85,8 +85,9 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return "Equipo{" + "id_equipo=" + id_equipo + ", id_proyecto=" + id_proyecto + ", nombre=" + nombre + ", fecha_cracion=" + fecha_cracion + ", estado=" + estado + '}';
+        return "Equipo{" + "id_equipo=" + id_equipo + ", proyecto=" + proyecto + ", nombre=" + nombre + ", fecha_cracion=" + fecha_cracion + ", estado=" + estado + '}';
     }
+
     
     
     
