@@ -1,5 +1,11 @@
 package Vistas;
 
+import Controlador.ComentariosData;
+import Controlador.EquipoData;
+import Controlador.EquipoMiembrosData;
+import Controlador.MiembroData;
+import Controlador.ProyectoData;
+import Controlador.TareaData;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,7 +18,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class Menu extends javax.swing.JFrame {
+    
     private static Login formularioLogin = new Login();
+    
+    public static ComentariosData comentariosEscritorio = new ComentariosData();
+    public static EquipoData equipoEscritorio = new EquipoData();
+    public static EquipoMiembrosData equipoMiembosEscritorio = new EquipoMiembrosData();
+    public static MiembroData miembroEscritorio = new MiembroData();
+    public static ProyectoData proyectoEscritorio = new ProyectoData();
+    public static TareaData tareaEscritorio = new TareaData();
     
     private JMenuBar barra;
     private JMenu MenuAdmin, MenuProyectos, MenuEquipos, MenuTareas, MenuSalir;

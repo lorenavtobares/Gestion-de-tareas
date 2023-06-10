@@ -30,6 +30,15 @@ public class Equipo {
         this.fecha_cracion = fecha_cracion;
         this.estado = estado;
     }
+    
+    //se agrego
+    public Equipo(String nombre, LocalDate fecha_cracion, boolean estado) {
+        this.nombre = nombre;
+        this.fecha_cracion = fecha_cracion;
+        this.estado = estado;
+    }
+    
+    
 
     public Equipo() {
     }
