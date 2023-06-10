@@ -51,6 +51,7 @@ public class EquipoData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }
+    
     public Equipo buscarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -119,6 +120,7 @@ public class EquipoData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }   
     }
+    
     public void eliminarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         
