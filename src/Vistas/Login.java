@@ -61,6 +61,11 @@ public class Login extends javax.swing.JFrame {
 
         jtfUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jtfUsuario.setBorder(null);
+        jtfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfUsuarioActionPerformed(evt);
+            }
+        });
         jtfUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfUsuarioKeyTyped(evt);
@@ -88,6 +93,11 @@ public class Login extends javax.swing.JFrame {
 
         jPasswordField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jPasswordField1.setBorder(null);
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
         jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jPasswordField1KeyTyped(evt);
@@ -242,6 +252,14 @@ public class Login extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void jtfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfUsuarioActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

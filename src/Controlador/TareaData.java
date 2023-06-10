@@ -162,7 +162,6 @@ public class TareaData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }
-    
     //  zona metodos extras
     
 }

@@ -23,19 +23,24 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         nuevoApellido = new javax.swing.JTextField();
         nuevoListaRolUsuarios = new javax.swing.JComboBox<>();
         actualizacionDeUsuario = new javax.swing.JPanel();
-        upNombre = new javax.swing.JTextField();
-        upPassword = new javax.swing.JPasswordField();
-        btnUpUsuario = new javax.swing.JButton();
-        upDni = new javax.swing.JTextField();
-        upApeliido = new javax.swing.JTextField();
-        listaUpUsuarios = new javax.swing.JComboBox<>();
-        listaCrearRolUsuarios1 = new javax.swing.JComboBox<>();
+        updateNombre = new javax.swing.JTextField();
+        updatePassword = new javax.swing.JPasswordField();
+        btnUpdateUsuario = new javax.swing.JButton();
+        updateDni = new javax.swing.JTextField();
+        updateApeliido = new javax.swing.JTextField();
+        listaUpdateUsuarios = new javax.swing.JComboBox<>();
+        listaUpdateRolUsuarios = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jcbHabilitado = new javax.swing.JCheckBox();
         jcbDeshabilitados = new javax.swing.JCheckBox();
         btnCerrarABMUsuairos = new javax.swing.JButton();
 
         nuevoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRES"));
+        nuevoNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoNombreActionPerformed(evt);
+            }
+        });
         nuevoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nuevoNombreKeyTyped(evt);
@@ -43,6 +48,11 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         });
 
         nuevoPassword.setBorder(javax.swing.BorderFactory.createTitledBorder("PASSWORD"));
+        nuevoPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoPasswordActionPerformed(evt);
+            }
+        });
         nuevoPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nuevoPasswordKeyTyped(evt);
@@ -57,6 +67,11 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         });
 
         nuevoDni.setBorder(javax.swing.BorderFactory.createTitledBorder("DNI"));
+        nuevoDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoDniActionPerformed(evt);
+            }
+        });
         nuevoDni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nuevoDniKeyTyped(evt);
@@ -64,6 +79,11 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         });
 
         nuevoApellido.setBorder(javax.swing.BorderFactory.createTitledBorder("APELLIDO"));
+        nuevoApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoApellidoActionPerformed(evt);
+            }
+        });
         nuevoApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nuevoApellidoKeyTyped(evt);
@@ -117,54 +137,74 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
 
         contenedorPrincipal.addTab("Nuevo Usuario", crearUsuario);
 
-        upNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRES"));
-        upNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                upNombreKeyTyped(evt);
-            }
-        });
-
-        upPassword.setBorder(javax.swing.BorderFactory.createTitledBorder("PASSWORD"));
-        upPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                upPasswordKeyTyped(evt);
-            }
-        });
-
-        btnUpUsuario.setText("Actualizar Informacion");
-        btnUpUsuario.addActionListener(new java.awt.event.ActionListener() {
+        updateNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRES"));
+        updateNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpUsuarioActionPerformed(evt);
+                updateNombreActionPerformed(evt);
             }
         });
-
-        upDni.setBorder(javax.swing.BorderFactory.createTitledBorder("DNI"));
-        upDni.addKeyListener(new java.awt.event.KeyAdapter() {
+        updateNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                upDniKeyTyped(evt);
+                updateNombreKeyTyped(evt);
             }
         });
 
-        upApeliido.setBorder(javax.swing.BorderFactory.createTitledBorder("APELLIDO"));
-        upApeliido.addKeyListener(new java.awt.event.KeyAdapter() {
+        updatePassword.setBorder(javax.swing.BorderFactory.createTitledBorder("PASSWORD"));
+        updatePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatePasswordActionPerformed(evt);
+            }
+        });
+        updatePassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                upApeliidoKeyTyped(evt);
+                updatePasswordKeyTyped(evt);
             }
         });
 
-        listaUpUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        listaUpUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder("USUARIO"));
-        listaUpUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdateUsuario.setText("Actualizar Informacion");
+        btnUpdateUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaUpUsuariosActionPerformed(evt);
+                btnUpdateUsuarioActionPerformed(evt);
             }
         });
 
-        listaCrearRolUsuarios1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuario" }));
-        listaCrearRolUsuarios1.setBorder(javax.swing.BorderFactory.createTitledBorder("PERFIL DEL USUARIO"));
-        listaCrearRolUsuarios1.addActionListener(new java.awt.event.ActionListener() {
+        updateDni.setBorder(javax.swing.BorderFactory.createTitledBorder("DNI"));
+        updateDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaCrearRolUsuarios1ActionPerformed(evt);
+                updateDniActionPerformed(evt);
+            }
+        });
+        updateDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                updateDniKeyTyped(evt);
+            }
+        });
+
+        updateApeliido.setBorder(javax.swing.BorderFactory.createTitledBorder("APELLIDO"));
+        updateApeliido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateApeliidoActionPerformed(evt);
+            }
+        });
+        updateApeliido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                updateApeliidoKeyTyped(evt);
+            }
+        });
+
+        listaUpdateUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        listaUpdateUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder("USUARIO"));
+        listaUpdateUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaUpdateUsuariosActionPerformed(evt);
+            }
+        });
+
+        listaUpdateRolUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuario" }));
+        listaUpdateRolUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder("PERFIL DEL USUARIO"));
+        listaUpdateRolUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaUpdateRolUsuariosActionPerformed(evt);
             }
         });
 
@@ -212,17 +252,17 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, actualizacionDeUsuarioLayout.createSequentialGroup()
                 .addContainerGap(120, Short.MAX_VALUE)
                 .addGroup(actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnUpUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(upDni, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(listaUpUsuarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUpdateUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                    .addComponent(updateDni, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(listaUpdateUsuarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, actualizacionDeUsuarioLayout.createSequentialGroup()
                         .addGroup(actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(upPassword, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(upApeliido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                            .addComponent(updatePassword, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(updateApeliido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(upNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(listaCrearRolUsuarios1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(updateNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(listaUpdateRolUsuarios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(115, 115, 115))
         );
@@ -230,21 +270,21 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
             actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(actualizacionDeUsuarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(listaUpUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(listaUpdateUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(upDni, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(updateDni, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(upApeliido, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(upNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(updateApeliido, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(upPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(listaCrearRolUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(updatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listaUpdateRolUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(btnUpUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdateUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -302,24 +342,24 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_nuevoPasswordKeyTyped
 
     //Solapa 2 -> UP de Usuario - DNI
-    private void upDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_upDniKeyTyped
-        Funciones.soloNumeros(upDni, evt, 8);
-    }//GEN-LAST:event_upDniKeyTyped
+    private void updateDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updateDniKeyTyped
+        Funciones.soloNumeros(updateDni, evt, 8);
+    }//GEN-LAST:event_updateDniKeyTyped
 
     //Solapa 2 -> UP de Usuario - APELLIDO
-    private void upApeliidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_upApeliidoKeyTyped
-        Funciones.soloLetras(upApeliido, evt, 45);
-    }//GEN-LAST:event_upApeliidoKeyTyped
+    private void updateApeliidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updateApeliidoKeyTyped
+        Funciones.soloLetras(updateApeliido, evt, 45);
+    }//GEN-LAST:event_updateApeliidoKeyTyped
 
     //Solapa 2 -> UP de Usuario - NOMBRE
-    private void upNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_upNombreKeyTyped
-        Funciones.soloLetras(upNombre, evt, 45);
-    }//GEN-LAST:event_upNombreKeyTyped
+    private void updateNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updateNombreKeyTyped
+        Funciones.soloLetras(updateNombre, evt, 45);
+    }//GEN-LAST:event_updateNombreKeyTyped
 
     //Solapa 2 -> UP de Usuario - PASSWORD
-    private void upPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_upPasswordKeyTyped
-        Funciones.soloNumerosYLetras(upPassword, evt, 15);
-    }//GEN-LAST:event_upPasswordKeyTyped
+    private void updatePasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updatePasswordKeyTyped
+        Funciones.soloNumerosYLetras(updatePassword, evt, 15);
+    }//GEN-LAST:event_updatePasswordKeyTyped
 
     //Solapa 2 -> UP de Usuario - CHECKBOX
     private void jcbHabilitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHabilitadoActionPerformed
@@ -365,11 +405,11 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
 
     //Solapa 2 -> UP de Usuario - BTN
-    private void btnUpUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpUsuarioActionPerformed
-        String dni = upDni.getText();
-        String password = upPassword.getText();
-        String apellido = upApeliido.getText();
-        String nombre = upNombre.getText();
+    private void btnUpdateUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUsuarioActionPerformed
+        String dni = updateDni.getText();
+        String password = updatePassword.getText();
+        String apellido = updateApeliido.getText();
+        String nombre = updateNombre.getText();
         
         if ( !dni.isEmpty() ) {
             int dniParceado = Integer.parseInt(dni);
@@ -381,17 +421,17 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
             
         }else{
             JOptionPane.showMessageDialog(null, "Debe ingresar una contraseña", "ERROR Validacion",JOptionPane.WARNING_MESSAGE);
-            upPassword.requestFocus(); }
+            updatePassword.requestFocus(); }
         }else{
             JOptionPane.showMessageDialog(null, "Debe ingresar un nombre", "ERROR Validacion",JOptionPane.WARNING_MESSAGE);
-            upNombre.requestFocus(); }
+            updateNombre.requestFocus(); }
         }else{
             JOptionPane.showMessageDialog(null, "Debe ingresar un apellido", "ERROR Validacion",JOptionPane.WARNING_MESSAGE);
-            upApeliido.requestFocus(); }
+            updateApeliido.requestFocus(); }
         }else{
             JOptionPane.showMessageDialog(null, "Debe ingresar un dni", "ERROR Validacion",JOptionPane.WARNING_MESSAGE);
-            upDni.requestFocus(); }   
-    }//GEN-LAST:event_btnUpUsuarioActionPerformed
+            updateDni.requestFocus(); }   
+    }//GEN-LAST:event_btnUpdateUsuarioActionPerformed
 
     //BTN Cerrar
     private void btnCerrarABMUsuairosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarABMUsuairosActionPerformed
@@ -407,36 +447,68 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_nuevoListaRolUsuariosActionPerformed
 
     // Vista 2 - Up de usuario -> CB: Lista de usuarios
-    private void listaUpUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaUpUsuariosActionPerformed
+    private void listaUpdateUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaUpdateUsuariosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_listaUpUsuariosActionPerformed
+    }//GEN-LAST:event_listaUpdateUsuariosActionPerformed
 
     //Solapa 2 -> Up de Usuario - CB: Rol de sistema
-    private void listaCrearRolUsuarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaCrearRolUsuarios1ActionPerformed
+    private void listaUpdateRolUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaUpdateRolUsuariosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_listaCrearRolUsuarios1ActionPerformed
+    }//GEN-LAST:event_listaUpdateRolUsuariosActionPerformed
+
+    private void nuevoDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nuevoDniActionPerformed
+
+    private void nuevoApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nuevoApellidoActionPerformed
+
+    private void nuevoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nuevoNombreActionPerformed
+
+    private void nuevoPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nuevoPasswordActionPerformed
+
+    private void updateDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateDniActionPerformed
+
+    private void updateApeliidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateApeliidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateApeliidoActionPerformed
+
+    private void updateNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateNombreActionPerformed
+
+    private void updatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updatePasswordActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actualizacionDeUsuario;
     private javax.swing.JButton btnCerrarABMUsuairos;
     private javax.swing.JButton btnNuevoUsuario;
-    private javax.swing.JButton btnUpUsuario;
+    private javax.swing.JButton btnUpdateUsuario;
     private javax.swing.JTabbedPane contenedorPrincipal;
     private javax.swing.JPanel crearUsuario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JCheckBox jcbDeshabilitados;
     private javax.swing.JCheckBox jcbHabilitado;
-    private javax.swing.JComboBox<String> listaCrearRolUsuarios1;
-    private javax.swing.JComboBox<String> listaUpUsuarios;
+    private javax.swing.JComboBox<String> listaUpdateRolUsuarios;
+    private javax.swing.JComboBox<String> listaUpdateUsuarios;
     private javax.swing.JTextField nuevoApellido;
     private javax.swing.JTextField nuevoDni;
     private javax.swing.JComboBox<String> nuevoListaRolUsuarios;
     private javax.swing.JTextField nuevoNombre;
     private javax.swing.JPasswordField nuevoPassword;
-    private javax.swing.JTextField upApeliido;
-    private javax.swing.JTextField upDni;
-    private javax.swing.JTextField upNombre;
-    private javax.swing.JPasswordField upPassword;
+    private javax.swing.JTextField updateApeliido;
+    private javax.swing.JTextField updateDni;
+    private javax.swing.JTextField updateNombre;
+    private javax.swing.JPasswordField updatePassword;
     // End of variables declaration//GEN-END:variables
 }

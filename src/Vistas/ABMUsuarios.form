@@ -106,6 +106,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevoNombreActionPerformed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nuevoNombreKeyTyped"/>
               </Events>
             </Component>
@@ -118,6 +119,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevoPasswordActionPerformed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nuevoPasswordKeyTyped"/>
               </Events>
             </Component>
@@ -138,6 +140,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevoDniActionPerformed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nuevoDniKeyTyped"/>
               </Events>
             </Component>
@@ -150,6 +153,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevoApellidoActionPerformed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nuevoApellidoKeyTyped"/>
               </Events>
             </Component>
@@ -191,18 +195,18 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="120" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="btnUpUsuario" alignment="1" pref="550" max="32767" attributes="0"/>
-                          <Component id="upDni" alignment="0" max="32767" attributes="0"/>
-                          <Component id="listaUpUsuarios" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnUpdateUsuario" alignment="1" pref="550" max="32767" attributes="0"/>
+                          <Component id="updateDni" alignment="0" max="32767" attributes="0"/>
+                          <Component id="listaUpdateUsuarios" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="upPassword" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="upApeliido" alignment="0" pref="260" max="32767" attributes="0"/>
+                                  <Component id="updatePassword" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="updateApeliido" alignment="0" pref="260" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="upNombre" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
-                                  <Component id="listaCrearRolUsuarios1" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
+                                  <Component id="updateNombre" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
+                                  <Component id="listaUpdateRolUsuarios" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jPanel1" max="32767" attributes="0"/>
@@ -215,30 +219,30 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="listaUpUsuarios" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="listaUpdateUsuarios" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="upDni" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="updateDni" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="upApeliido" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="upNombre" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="updateApeliido" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="updateNombre" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="upPassword" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="listaCrearRolUsuarios1" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="updatePassword" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="listaUpdateRolUsuarios" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="24" max="32767" attributes="0"/>
-                      <Component id="btnUpUsuario" min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="btnUpdateUsuario" min="-2" pref="42" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="upNombre">
+            <Component class="javax.swing.JTextField" name="updateNombre">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -247,10 +251,11 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="upNombreKeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateNombreActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="updateNombreKeyTyped"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JPasswordField" name="upPassword">
+            <Component class="javax.swing.JPasswordField" name="updatePassword">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -259,18 +264,19 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="upPasswordKeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updatePasswordActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="updatePasswordKeyTyped"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnUpUsuario">
+            <Component class="javax.swing.JButton" name="btnUpdateUsuario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Actualizar Informacion"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpUsuarioActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateUsuarioActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="upDni">
+            <Component class="javax.swing.JTextField" name="updateDni">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -279,10 +285,11 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="upDniKeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateDniActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="updateDniKeyTyped"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="upApeliido">
+            <Component class="javax.swing.JTextField" name="updateApeliido">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -291,18 +298,14 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="upApeliidoKeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateApeliidoActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="updateApeliidoKeyTyped"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JComboBox" name="listaUpUsuarios">
+            <Component class="javax.swing.JComboBox" name="listaUpdateUsuarios">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { })" type="code"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -311,13 +314,13 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaUpUsuariosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaUpdateUsuariosActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JComboBox" name="listaCrearRolUsuarios1">
+            <Component class="javax.swing.JComboBox" name="listaUpdateRolUsuarios">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
@@ -332,7 +335,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaCrearRolUsuarios1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaUpdateRolUsuariosActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
