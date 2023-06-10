@@ -3,6 +3,9 @@ package Vistas;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import Funciones.Funciones;
+import Modelo.Equipo;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class ABMEquipos extends javax.swing.JInternalFrame {
 
@@ -210,10 +213,30 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nuevoNombreActionPerformed
 
+    
     private void btnNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEquipoActionPerformed
         // TODO add your handling code here:
+        String nombre = nuevoNombre.getText();
+        LocalDate fechaCreacion = nuevoFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Equipo equipos = new Equipo(nombre, fechaCreacion, true);
+         
+        Menu.equipoEscritorio.GuardarEquipo(equipos);
+        
+        
     }//GEN-LAST:event_btnNuevoEquipoActionPerformed
-
+    
+      public void formatoCalendario(){
+        //jdFechaNacimiento.setLocale(new Locale("es"));
+        //jdFechaNacimiento.setDateFormatString("dd-MM-yyyy");
+       
+        nuevoFecha.setDate(new Date());
+        actualizarFecha.setDate(new Date());
+        
+       nuevoFecha.getJCalendar().setMaxSelectableDate(new Date());
+        
+    }
+    
+    
     private void ActualizarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ActualizarNombreActionPerformed
