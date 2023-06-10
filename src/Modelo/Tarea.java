@@ -71,7 +71,7 @@ public class Tarea {
         this.fecha_cierre = fecha_cierre;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 

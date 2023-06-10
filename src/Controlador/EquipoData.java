@@ -19,6 +19,7 @@ public class EquipoData {
         con = Conexion.getConexion();
     }
     
+    //CREATE
     public void GuardarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -51,6 +52,8 @@ public class EquipoData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }
+    
+    //READ
     public Equipo buscarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -90,6 +93,7 @@ public class EquipoData {
         return equipoN;
     }
     
+    //UPDATE
     public void actualizarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -119,6 +123,8 @@ public class EquipoData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }   
     }
+    
+    //DELETE
     public void eliminarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         
@@ -151,4 +157,5 @@ public class EquipoData {
         }
     }
     
+    //zonas de metodos extras
 }

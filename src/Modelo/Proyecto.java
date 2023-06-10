@@ -66,7 +66,7 @@ public class Proyecto {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
