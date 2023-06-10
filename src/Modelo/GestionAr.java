@@ -2,8 +2,10 @@ package Modelo;
 
 import Controlador.*;
 import Vistas.Login;
+import java.awt.List;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 public class GestionAr {
@@ -28,11 +30,41 @@ public class GestionAr {
         Tarea varTarea = new Tarea();
         TareaData varTareaData = new TareaData();
         
-    /* <<-- PROYECTO DATA -->> */
-        // varProyectoData.guardarProyecto(varProyecto); // Create
-        // System.out.println( varProyectoData.buscarProyecto(3).toString()); // Read
-        // varProyectoData.actualizarProyecto(varProyecto);  // Update
+        java.util.List <Proyecto> listaProyectos = new ArrayList<Proyecto>();
+        
+    /* <<-- PROYECTO DATA -->> */ 
+        // - Create
+        // varProyectoData.guardarProyecto(varProyecto); 
+        
+        // - Read
+        // System.out.println( varProyectoData.buscarProyecto(3).toString());
+        
+        // - Update
+        // varProyectoData.actualizarProyecto(varProyecto);
+        
+        // - Delete
         // varProyectoData.eliminarProyecto(3);  //Delete
+        
+        // - Habiltiar proyecto 
+        // varProyectoData.habilitarProyecto(3);
+        
+        // - ListarHabilitados
+        //listaProyectos = varProyectoData.listarProyectosHabilitados();
+        //for (Proyecto e : listaProyectos) {
+        //    System.out.println(e.toString());
+        //}
+        
+        // - Listar Deshabilitados
+        //listaProyectos = varProyectoData.listarProyectosDeshabilitados();
+        //for (Proyecto e : listaProyectos) {
+        //    System.out.println(e.toString());
+        //}
+        
+        // - Listar Todos los proyectos
+        //listaProyectos = varProyectoData.listarTodosProyectos();
+        //for (Proyecto e : listaProyectos) {
+        //    System.out.println(e.toString());
+        //}
         
     /* <<-- EQUIPO DATA -->> */
         

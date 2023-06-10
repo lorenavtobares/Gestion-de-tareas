@@ -159,6 +159,36 @@ public class ProyectoData {
         }
     }
     
+    //Habilitar Proyecto
+    public void habilitarProyecto(int idProyecto){
+        PreparedStatement stmt = null;
+
+        String query        ="UPDATE proyecto "
+                            +"SET estado = true "
+                            +"WHERE idProyecto = ? ";
+        try{
+            stmt = con.prepareStatement( query );
+            stmt.setInt(1, idProyecto);
+            
+            if (stmt.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog( null, "Proyecto habilitado"  + " " + JOptionPane.INFORMATION_MESSAGE );
+            }
+            else{
+                JOptionPane.showMessageDialog( null, "ID ingresado incorrecto"  + " " + JOptionPane.ERROR_MESSAGE );
+            }
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try {
+                stmt.close(); 
+            }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+    }
+    
     //Listar Habilitados
     public List listarProyectosHabilitados(){
         PreparedStatement stmt = null;
@@ -180,7 +210,8 @@ public class ProyectoData {
                 proyectoN.setId_proyecto(resultado.getInt("idProyecto"));
                 proyectoN.setNombre(resultado.getString("nombre"));
                 proyectoN.setDescripcion(resultado.getString("descripcion"));
-                proyectoN.setFecha_inicio(resultado.getDate("fechaIncio").toLocalDate());
+                proyectoN.setFecha_inicio(resultado.getDate("fechaInicio").toLocalDate());
+                proyectoN.setEstado(resultado.getBoolean("estado"));
                 listaHabilitados.add(proyectoN);
             }   
         }
@@ -195,5 +226,82 @@ public class ProyectoData {
         }
         
         return listaHabilitados;
+    }
+    
+    //Listar Habilitados
+    public List listarProyectosDeshabilitados(){
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List <Proyecto> listaDeshabilitados = new ArrayList<Proyecto>();
+        
+        String query    = "SELECT * "
+                        + "FROM proyecto "
+                        + "WHERE estado = 0 "
+                        + "ORDER BY proyecto.nombre";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                Proyecto proyectoN = new Proyecto();
+                proyectoN.setId_proyecto(resultado.getInt("idProyecto"));
+                proyectoN.setNombre(resultado.getString("nombre"));
+                proyectoN.setDescripcion(resultado.getString("descripcion"));
+                proyectoN.setFecha_inicio(resultado.getDate("fechaInicio").toLocalDate());
+                proyectoN.setEstado(resultado.getBoolean("estado"));
+                listaDeshabilitados.add(proyectoN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        
+        return listaDeshabilitados;
+    }
+    
+    //Listar Todos los proyectos
+    public List listarTodosProyectos(){
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List <Proyecto> listarTodos = new ArrayList<Proyecto>();
+        
+        String query    = "SELECT * "
+                        + "FROM proyecto "
+                        + "ORDER BY proyecto.nombre";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                Proyecto proyectoN = new Proyecto();
+                proyectoN.setId_proyecto(resultado.getInt("idProyecto"));
+                proyectoN.setNombre(resultado.getString("nombre"));
+                proyectoN.setDescripcion(resultado.getString("descripcion"));
+                proyectoN.setFecha_inicio(resultado.getDate("fechaInicio").toLocalDate());
+                proyectoN.setEstado(resultado.getBoolean("estado"));
+                listarTodos.add(proyectoN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        
+        return listarTodos;
     }
 }
