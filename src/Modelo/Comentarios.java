@@ -4,25 +4,27 @@ import java.time.LocalDate;
 
 public class Comentarios {
     private int id_comentario;
-    private Tarea tarea;
     private String comentario;
     private LocalDate fecha_avance;
+    private Tarea tarea;
 
-    public Comentarios(int id_comentario, Tarea tarea, String comentario, LocalDate fecha_avance) {
+    public Comentarios(int id_comentario, String comentario, LocalDate fecha_avance, Tarea tarea) {
         this.id_comentario = id_comentario;
-        this.tarea = tarea;
         this.comentario = comentario;
         this.fecha_avance = fecha_avance;
+        this.tarea = tarea;
     }
 
-    public Comentarios(Tarea tarea, String comentario, LocalDate fecha_avance) {
-        this.tarea = tarea;
+    public Comentarios(String comentario, LocalDate fecha_avance, Tarea tarea) {
         this.comentario = comentario;
         this.fecha_avance = fecha_avance;
+        this.tarea = tarea;
     }
 
     public Comentarios() {
     }
+
+    
 
     public int getId_comentario() {
         return id_comentario;
