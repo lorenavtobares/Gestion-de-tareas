@@ -14,23 +14,29 @@ public class GestionAr {
         formLogin.setVisible(true);
         
     //VARIABLES
-        LocalDate ff = LocalDate.of(2023, 01, 23);
+        LocalDate ff = LocalDate.of(2021, 01, 23);
         
     
         Comentarios varComentarios = new Comentarios();
         ComentariosData varComentariosData = new ComentariosData();
-        Equipo varEquipo = new Equipo();
-        EquipoData varEquipoData = new EquipoData();
+        
         EquipoMiembros varEquipoMiembros = new EquipoMiembros();
         EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
+        
         Miembro varMiembro = new Miembro();
         MiembroData varMiembroData = new MiembroData();
+        
         Proyecto varProyecto = new Proyecto("Proyecto Mandibula__", "Soy una descripcion" , ff , true);
         ProyectoData varProyectoData = new ProyectoData();
+        
+        Equipo varEquipo = new Equipo(varProyectoData.buscarProyecto(3), "Equipo de Prueba 1", ff, true);
+        EquipoData varEquipoData = new EquipoData();
+        
         Tarea varTarea = new Tarea();
         TareaData varTareaData = new TareaData();
         
         java.util.List <Proyecto> listaProyectos = new ArrayList<Proyecto>();
+        java.util.List <Equipo> listaEquipos = new ArrayList<Equipo>();
         
     /* <<-- PROYECTO DATA -->> */ 
         // - Create
@@ -66,8 +72,38 @@ public class GestionAr {
         //    System.out.println(e.toString());
         //}
         
-    /* <<-- EQUIPO DATA -->> */
+    /* <<-- EQUIPOS DATA -->> */
+        // - Create
+        // varEquipoData.GuardarEquipo(varEquipo);
         
+        // - Read -> Verificar linea 87 de EquipoData
+        // System.out.println(varEquipoData.buscarEquipo(3));
         
+        // - Update
+        // varEquipoData.actualizarEquipo(varEquipo);
+        
+        // - Delete
+        // varEquipoData.eliminarEquipo(3);
+        
+        // - Habiltiar equipo
+        // varEquipoData.habilitarEquipo(3);
+        
+        // - ListarHabilitados
+        // listaEquipos = varEquipoData.listarEquiposHabilitados();
+        // for (Equipo e : listaEquipos) {
+        //    System.out.println(e.toString());
+        // }
+        
+        // - Listar Deshabilitados
+        // listaEquipos = varEquipoData.listarEquiposDeshabilitados();
+        // for (Equipo e : listaEquipos) {
+        // System.out.println(e.toString());
+        // }
+        
+        // - Listar Todos
+        // listaEquipos = varEquipoData.listarTodosEquipos();
+        // for (Equipo e : listaEquipos) {
+        //    System.out.println(e.toString());
+        // }
     }
 }
