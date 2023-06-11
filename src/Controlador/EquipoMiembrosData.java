@@ -2,6 +2,8 @@
 package Controlador;
 
 import Conexion.Conexion;
+import Modelo.Equipo;
+import Modelo.Miembro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,16 +14,22 @@ import javax.swing.JOptionPane;
 
 public class EquipoMiembrosData {
     private final Connection con;
-
+    private static Miembro miembro = new Miembro();
+    private static MiembroData miembroData = new MiembroData();
+    private static Equipo equipo = new Equipo();
+    private static EquipoData equipoData = new EquipoData();
+            
     public EquipoMiembrosData() {
         con=Conexion.getConexion();
     }
-    /*public Equipo regerarEquipo(){
-        
+    public Equipo regerarEquipo(int idEquipo){
+        equipo = equipoData.buscarEquipo(idEquipo);
+        return equipo;
     }
-    public Miembro regenerarMiembro(){
-        
-    }*/
+    public Miembro regenerarMiembro(int idMiembro){
+        miembro = miembroData.buscarMiembro(idMiembro);
+        return miembro;
+    }
     
      public void guardarMiembros(){
         PreparedStatement stmt = null;
