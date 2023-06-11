@@ -17,9 +17,6 @@ public class GestionAr {
         LocalDate ff = LocalDate.of(2021, 01, 23);
         String name = "Coraje el Perro Cobarde 2";
         
-        Comentarios varComentarios = new Comentarios();
-        ComentariosData varComentariosData = new ComentariosData();
-        
         Miembro varMiembro = new Miembro(45382543,"4321","Soloa__","Marcos",true,"admin");
         MiembroData varMiembroData = new MiembroData();
         
@@ -34,6 +31,9 @@ public class GestionAr {
         
         Tarea varTarea = new Tarea();
         TareaData varTareaData = new TareaData();
+        
+        Comentarios varComentarios = new Comentarios(name,ff,varTareaData.buscarTarea(1));
+        ComentariosData varComentariosData = new ComentariosData();
         
         java.util.List <Proyecto> listaProyectos = new ArrayList<Proyecto>();
         java.util.List <Equipo> listaEquipos = new ArrayList<Equipo>();
