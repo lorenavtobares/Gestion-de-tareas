@@ -12,9 +12,10 @@ public class Funciones {
 
         boolean mayusculas = key >= 65 && key <= 90;
         boolean minusculas = key >= 97 && key <= 122;
+        boolean especial = key == 164;
         boolean espacio = key == 32;
             
-        if (!(minusculas || mayusculas || espacio)){
+        if (!(minusculas || mayusculas || espacio || especial)){
             evt.consume();
         }
         
@@ -44,10 +45,11 @@ public class Funciones {
 
         boolean mayusculas = key >= 65 && key <= 90;
         boolean minusculas = key >= 97 && key <= 122;
+        boolean especial = key == 164;
         boolean espacio = key == 32;
         boolean numeros = key >= 48 && key <= 57;
             
-        if (!(numeros || mayusculas || minusculas || espacio)){
+        if (!(numeros || mayusculas || minusculas || espacio || especial)){
             evt.consume();
         }
         
@@ -57,8 +59,9 @@ public class Funciones {
         }
     }
     
-    public static void calendarFechaMinima(JCalendar e, Date d){
-        e.getDayChooser().setMinSelectableDate(d);
+    public static void calendarioPersonalizar(JCalendar e){
+        e.setTodayButtonVisible(true);
+        e.setTodayButtonText("Hoy Día");
     }
     
 }

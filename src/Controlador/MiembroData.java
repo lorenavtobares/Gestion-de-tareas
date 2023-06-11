@@ -55,9 +55,14 @@ public class MiembroData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
-    }
+
+
+    }//create
     
+
+        
     //READ
+
     public Miembro buscarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;

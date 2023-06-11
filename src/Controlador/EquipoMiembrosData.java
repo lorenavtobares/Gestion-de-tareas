@@ -31,7 +31,7 @@ public class EquipoMiembrosData {
         return miembro;
     }
     
-     public void guardarMiembros(){
+    public void guardarMiembros(){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         //modificar
@@ -53,6 +53,7 @@ public class EquipoMiembrosData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }//create
+    
     public void buscarMiembros(){
         PreparedStatement stmt = null;
         ResultSet resultado = null;

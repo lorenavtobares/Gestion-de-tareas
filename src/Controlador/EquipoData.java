@@ -3,44 +3,56 @@ package Controlador;
 
 import Conexion.Conexion;
 import Modelo.Equipo;
+import Modelo.Proyecto;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
 public class EquipoData {
     private final Connection con;
+    private static Proyecto proyecto = new Proyecto();
+    private static ProyectoData proyectoData = new ProyectoData();
 
     public EquipoData() {
         con = Conexion.getConexion();
+    }
+    
+    private Proyecto regenerarProyecto(int idProyecto){
+        proyecto = proyectoData.buscarProyecto(idProyecto);
+        return proyecto;
     }
     
     //CREATE
     public void GuardarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        
-        String query        = " INSERT INTO equipo "
-                            + " ( idProyecto, nombre, fechaCreacion, estado ) "
-                            + " VALUES ( ?, ?, ?, 1 ) ";
+
+        String query        = "INSERT INTO equipo "
+                            + "(idProyecto, nombre, fechaCreacion, estado) "
+                            + "VALUES ( ?, ?, ?, 1 ) ";
+
         try{
             stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
-            stmt.setInt(1, equipo.getId_proyecto());
+            stmt.setInt(1, equipo.getProyecto().getId_proyecto());
             stmt.setString(2, equipo.getNombre());
             stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
             
             stmt.executeUpdate();
-            resultado=stmt.getGeneratedKeys();
+            resultado = stmt.getGeneratedKeys();
             
-            if (resultado.next()) {
-                equipo.setId_proyecto(resultado.getInt(1));
-            }
+            if ( resultado.next() ) {
+                equipo.setId_equipo(resultado.getInt(1));
+
             JOptionPane.showMessageDialog(null, " Equipo guardado con exito ", "" ,JOptionPane.INFORMATION_MESSAGE );
 
+            }
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "Error al guardar Equipo" , JOptionPane.ERROR_MESSAGE );
@@ -53,17 +65,18 @@ public class EquipoData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
+        
     }
     
     //READ
     public Equipo buscarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        Equipo equipoN =null;
+        Equipo equipoN = null;
         
-        String query        = " SELECT * "
-                            + " FROM equipo "
-                            + " WHERE idEquipo = ? "; 
+        String query        = "SELECT * "
+                            + "FROM equipo "
+                            + "WHERE idEquipo = ? "; 
         
         try{
             stmt = con.prepareStatement( query );
@@ -73,7 +86,7 @@ public class EquipoData {
             if(resultado.next() ){
                 equipoN = new Equipo();
                 equipoN.setId_equipo(idEquipo);
-                equipoN.setId_proyecto(resultado.getInt("idProyecto"));
+                //equipoN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
                 equipoN.setNombre(resultado.getString("nombre"));
                 equipoN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
                 equipoN.setEstado(resultado.getBoolean("estado"));
@@ -100,14 +113,14 @@ public class EquipoData {
     public void actualizarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         
-        String query        = " UPDATE equipo "
-                            + " SET idProyecto = ?, nombre = ?,  fechaCreacion = ? "
-                            + " WHERE idEquipo = ? ";
+        String query        = "UPDATE equipo "
+                            + "SET idProyecto = ?, nombre = ?,  fechaCreacion = ? "
+                            + "WHERE idEquipo = ? ";
         
         try{
             
             stmt = con.prepareStatement( query );
-            stmt.setInt(1, equipo.getId_proyecto());
+            stmt.setInt(1, equipo.getProyecto().getId_proyecto());
             stmt.setString(2, equipo.getNombre());
             stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
             stmt.setInt(4, equipo.getId_equipo());
@@ -160,5 +173,152 @@ public class EquipoData {
         }
     }
     
-    //zonas de metodos extras
+    //Habilitar Equipo Data
+    public void habilitarEquipo(int idEquipo){
+        PreparedStatement stmt = null;
+        
+        String query        =" UPDATE equipo "
+                            +" SET estado = true "
+                            +" WHERE idEquipo = ? ";
+        
+        try{
+             stmt = con.prepareStatement( query );
+             stmt.setInt(1, idEquipo);
+             
+             if(stmt.executeUpdate() > 0 ){
+                JOptionPane.showMessageDialog( null, "Registro habilitado"  + " " + JOptionPane.INFORMATION_MESSAGE );
+
+             }
+             else{
+                JOptionPane.showMessageDialog( null, "ID ingresado incorrecto"  + " " + JOptionPane.ERROR_MESSAGE );
+
+             }
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try {
+                stmt.close(); 
+            }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+    }
+    
+    //Listar Equipos Habilitados
+    public List <Equipo> listarEquiposHabilitados ( ) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Equipo> list_equiposHabilitados = new ArrayList<Equipo>(); 
+        
+        String query    = "SELECT * "
+                        + "FROM equipo "
+                        + "WHERE estado = 1 "
+                        + "ORDER BY equipo.nombre ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                Equipo equiposN = new Equipo();
+                
+                equiposN.setId_equipo(resultado.getInt("idEquipo"));
+                //equiposN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
+                equiposN.setNombre(resultado.getString("nombre"));
+                equiposN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
+                equiposN.setEstado(resultado.getBoolean("estado"));
+                list_equiposHabilitados.add(equiposN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return list_equiposHabilitados;
+    }
+
+    //Listar Equipos Habilitados
+    public List <Equipo> listarEquiposDeshabilitados( ) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Equipo> list_equiposHabilitados = new ArrayList<Equipo>(); 
+        
+        String query    = "SELECT * "
+                        + "FROM equipo "
+                        + "WHERE estado = 0 "
+                        + "ORDER BY equipo.nombre ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                Equipo equiposN = new Equipo();
+                
+                equiposN.setId_equipo(resultado.getInt("idEquipo"));
+                //equiposN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
+                equiposN.setNombre(resultado.getString("nombre"));
+                equiposN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
+                equiposN.setEstado(resultado.getBoolean("estado"));
+                list_equiposHabilitados.add(equiposN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return list_equiposHabilitados;
+    }
+    
+    //Listar Todos los equipos
+    public List <Equipo> listarTodosEquipos( ) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Equipo> list_equiposHabilitados = new ArrayList<Equipo>(); 
+        
+        String query    = "SELECT * "
+                        + "FROM equipo "
+                        + "ORDER BY equipo.nombre ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                Equipo equiposN = new Equipo();
+                
+                equiposN.setId_equipo(resultado.getInt("idEquipo"));
+                //equiposN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
+                equiposN.setNombre(resultado.getString("nombre"));
+                equiposN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
+                equiposN.setEstado(resultado.getBoolean("estado"));
+                list_equiposHabilitados.add(equiposN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return list_equiposHabilitados;
+    }
 }

@@ -9,31 +9,23 @@ public class Tarea {
     private LocalDate fecha_creacion;
     private LocalDate fecha_cierre;
     private boolean estado;
-    private int id_equipo_miembros;
+    private EquipoMiembros equipoMiembros;
 
-    public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, int id_equipo_miembros) {
+    public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, EquipoMiembros equipoMiembros) {
         this.id_tarea = id_tarea;
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
         this.fecha_cierre = fecha_cierre;
         this.estado = estado;
-        this.id_equipo_miembros = id_equipo_miembros;
+        this.equipoMiembros = equipoMiembros;
     }
 
-    public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, int id_equipo_miembros) {
+    public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, EquipoMiembros equipoMiembros) {
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
         this.fecha_cierre = fecha_cierre;
         this.estado = estado;
-        this.id_equipo_miembros = id_equipo_miembros;
-    }
-
-    public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, int id_equipo_miembros) {
-        this.id_tarea = id_tarea;
-        this.nombre = nombre;
-        this.fecha_creacion = fecha_creacion;
-        this.fecha_cierre = fecha_cierre;
-        this.id_equipo_miembros = id_equipo_miembros;
+        this.equipoMiembros = equipoMiembros;
     }
 
     public Tarea() {
@@ -79,19 +71,18 @@ public class Tarea {
         this.estado = estado;
     }
 
-    public int getId_equipo_miembros() {
-        return id_equipo_miembros;
+    public EquipoMiembros getEquipoMiembros() {
+        return equipoMiembros;
     }
 
-    public void setId_equipo_miembros(int id_equipo_miembros) {
-        this.id_equipo_miembros = id_equipo_miembros;
+    public void setEquipoMiembros(EquipoMiembros equipoMiembros) {
+        this.equipoMiembros = equipoMiembros;
     }
 
     @Override
     public String toString() {
-        return "Tarea{" + "id_tarea=" + id_tarea + ", nombre=" + nombre + ", fecha_creacion=" + fecha_creacion + ", fecha_cierre=" + fecha_cierre + ", estado=" + estado + ", id_equipo_miembros=" + id_equipo_miembros + '}';
+        return "Tarea{" + "id_tarea=" + id_tarea + ", nombre=" + nombre + ", fecha_creacion=" + fecha_creacion + ", fecha_cierre=" + fecha_cierre + ", estado=" + estado + ", equipoMiembros=" + equipoMiembros + '}';
     }
-    
-    
+
     
 }
