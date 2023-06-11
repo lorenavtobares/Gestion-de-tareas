@@ -1,6 +1,5 @@
 package Funciones;
 
-import com.toedter.calendar.JCalendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -59,9 +58,6 @@ public class Funciones {
         }
     }
     
-    public static void calendarioPersonalizar(JCalendar e){
-        e.setTodayButtonVisible(true);
-        e.setTodayButtonText("Hoy Día");
-    }
+
     
 }

@@ -19,7 +19,7 @@ public class ProyectoData {
         con= Conexion.getConexion();
     }
     
-    //CREATE
+    //Create
     public void guardarProyecto(Proyecto proyecto){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -54,7 +54,7 @@ public class ProyectoData {
         }
     }
     
-    //READ
+    //Read
     public Proyecto buscarProyecto(int idProyecto){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -97,7 +97,7 @@ public class ProyectoData {
         return proyectoN;
     }
     
-    //UPDATE
+    //Update
     public void actualizarProyecto(Proyecto proyecto){
         PreparedStatement stmt = null;
                 
@@ -129,7 +129,7 @@ public class ProyectoData {
 
     }
     
-    //DELETE
+    //Delete
     public void eliminarProyecto(int idProyecto){
         PreparedStatement stmt = null;
 
@@ -189,7 +189,7 @@ public class ProyectoData {
         }
     }
     
-    //Listar Habilitados
+    //Listar Protectos Habilitados
     public List listarProyectosHabilitados(){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -228,7 +228,7 @@ public class ProyectoData {
         return listaHabilitados;
     }
     
-    //Listar Habilitados
+    //Listar Protectos Deshabilitados
     public List listarProyectosDeshabilitados(){
         PreparedStatement stmt = null;
         ResultSet resultado = null;

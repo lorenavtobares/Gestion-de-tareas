@@ -1,4 +1,3 @@
-
 package Controlador;
 
 import Conexion.Conexion;
@@ -19,7 +18,7 @@ public class MiembroData {
         con=Conexion.getConexion();
     }
 
-    //CREATE
+    //Create
     public void guardarMiembro(Miembro miembro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -59,10 +58,7 @@ public class MiembroData {
 
     }//create
     
-
-        
-    //READ
-
+    //Read
     public Miembro buscarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -105,7 +101,7 @@ public class MiembroData {
         return miembroN;
     }
     
-    //UPDATE
+    //Update
     public void actualizarMiembro(Miembro miembro){
         PreparedStatement stmt = null;
         
@@ -139,7 +135,7 @@ public class MiembroData {
 
     }
     
-    //DELETE
+    //Delete
     public void eliminarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         
@@ -168,8 +164,8 @@ public class MiembroData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }    
-    //  zona metodos extras
-    
+
+    //Habilitar Miembros Data
     public void habilitarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         String query        =" UPDATE miembro "
@@ -194,6 +190,8 @@ public class MiembroData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }
+    
+    //Listar Miembros Habilitados
     public List <Miembro> listarHabilitados( ){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -229,6 +227,8 @@ public class MiembroData {
         }
         return listaHabilitados;
     }
+    
+    //Listar Miembros Deshbilitados
     public List <Miembro> listarNoHabilitados( ){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -264,6 +264,8 @@ public class MiembroData {
         }
         return listaNoHabilitados;
     }
+    
+    //Listar Todos los miembros
     public List <Miembro> listarTodosMiembros( ){
         PreparedStatement stmt = null;
         ResultSet resultado = null;

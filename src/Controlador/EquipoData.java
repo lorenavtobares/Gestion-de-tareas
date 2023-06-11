@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,6 +20,8 @@ public class EquipoData {
     private final Connection con;
     private static Proyecto proyecto = new Proyecto();
     private static ProyectoData proyectoData = new ProyectoData();
+    private static Equipo equipo = new Equipo();
+    private static EquipoData equipoData = new EquipoData();
 
     public EquipoData() {
         con = Conexion.getConexion();
@@ -74,9 +77,11 @@ public class EquipoData {
         ResultSet resultado = null;
         Equipo equipoN = null;
         
-        String query        = "SELECT * "
-                            + "FROM equipo "
-                            + "WHERE idEquipo = ? "; 
+        String query        = "SELECT e.idProyecto, e.nombre, e.fechaCreacion, e.estado "
+                            + "FROM equipo AS e "
+                            + "JOIN proyecto AS p "
+                            + "ON e.idProyecto = p.idProyecto "
+                            + "WHERE e.idEquipo = ?";
         
         try{
             stmt = con.prepareStatement( query );
@@ -84,12 +89,13 @@ public class EquipoData {
             resultado= stmt.executeQuery();
             
             if(resultado.next() ){
-                equipoN = new Equipo();
-                equipoN.setId_equipo(idEquipo);
-                //equipoN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
-                equipoN.setNombre(resultado.getString("nombre"));
-                equipoN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
-                equipoN.setEstado(resultado.getBoolean("estado"));
+                int idLocal = idEquipo;
+                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                String nombreLocal = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                
+                equipoN = new Equipo(idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
             }
             else{
                 JOptionPane.showMessageDialog(null, "No se encontro el equipo solicitado.", "ERROR",JOptionPane.ERROR_MESSAGE);
@@ -223,14 +229,15 @@ public class EquipoData {
             
             while ( resultado.next() ) 
             {
-                Equipo equiposN = new Equipo();
+                int idLocal = resultado.getInt("idEquipo");
+                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                String nombreLocal = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
                 
-                equiposN.setId_equipo(resultado.getInt("idEquipo"));
-                //equiposN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
-                equiposN.setNombre(resultado.getString("nombre"));
-                equiposN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
-                equiposN.setEstado(resultado.getBoolean("estado"));
-                list_equiposHabilitados.add(equiposN);
+                Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
+                
+                list_equiposHabilitados.add(equipoN);
             }   
         }
         catch ( SQLException ex ) 
@@ -262,14 +269,15 @@ public class EquipoData {
             
             while ( resultado.next() ) 
             {
-                Equipo equiposN = new Equipo();
+                int idLocal = resultado.getInt("idEquipo");
+                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                String nombreLocal = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
                 
-                equiposN.setId_equipo(resultado.getInt("idEquipo"));
-                //equiposN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
-                equiposN.setNombre(resultado.getString("nombre"));
-                equiposN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
-                equiposN.setEstado(resultado.getBoolean("estado"));
-                list_equiposHabilitados.add(equiposN);
+                Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
+                
+                list_equiposHabilitados.add(equipoN);
             }   
         }
         catch ( SQLException ex ) 
@@ -300,14 +308,14 @@ public class EquipoData {
             
             while ( resultado.next() ) 
             {
-                Equipo equiposN = new Equipo();
+                int idLocal = resultado.getInt("idEquipo");
+                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                String nombreLocal = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
                 
-                equiposN.setId_equipo(resultado.getInt("idEquipo"));
-                //equiposN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
-                equiposN.setNombre(resultado.getString("nombre"));
-                equiposN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
-                equiposN.setEstado(resultado.getBoolean("estado"));
-                list_equiposHabilitados.add(equiposN);
+                Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
+                list_equiposHabilitados.add(equipoN);
             }   
         }
         catch ( SQLException ex ) 

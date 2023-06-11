@@ -99,7 +99,15 @@ public class Miembro {
 
     @Override
     public String toString() {
-        return "Miembro{" + "id_miembro=" + id_miembro + ", dni=" + dni + ", password=" + password + ", apellido=" + apellido + ", nombre=" + nombre + ", estado=" + estado + ", rolSistema=" + rolSistema + '}';
+        return  "Miembro{" + 
+                "\nid_miembro => " + id_miembro + 
+                "\ndni => " + dni + 
+                "\npassword => " + password + 
+                "\napellido => " + apellido + 
+                "\nnombre => " + nombre + 
+                "\nestado => " + estado + 
+                "\nrolSistema => " + rolSistema + 
+                "\n}";
     }
 
     
