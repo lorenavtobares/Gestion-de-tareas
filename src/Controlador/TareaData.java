@@ -146,12 +146,6 @@ public class TareaData {
         }
    }
     
-    public void buscarTarea(){
-        PreparedStatement stmt = null;
-        ResultSet resultado = null;
-        
-    }
-    
     //DELETE
     public void eliminarTarea(int idTarea){
         PreparedStatement stmt = null;
@@ -229,7 +223,7 @@ public class TareaData {
     }
 
     //Listar Tareas NO Habilitadas
-    public List <Tarea> listarTareasDeshabilitados( ) {
+    public List <Tarea> listarTareasDeshabilitadas( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         List<Tarea> list_tareasNoHabilitadas = new ArrayList<Tarea>(); 

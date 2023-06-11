@@ -254,7 +254,7 @@ public class EquipoData {
     public List <Equipo> listarEquiposDeshabilitados( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        List<Equipo> list_equiposHabilitados = new ArrayList<Equipo>(); 
+        List<Equipo> list_equiposNoHabilitados = new ArrayList<Equipo>(); 
         
         String query    = "SELECT * "
                         + "FROM equipo "
@@ -275,7 +275,7 @@ public class EquipoData {
                 
                 Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
                 
-                list_equiposHabilitados.add(equipoN);
+                list_equiposNoHabilitados.add(equipoN);
             }   
         }
         catch ( SQLException ex ) 
@@ -287,14 +287,14 @@ public class EquipoData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
-        return list_equiposHabilitados;
+        return list_equiposNoHabilitados;
     }
     
     //Listar Todos los equipos
     public List <Equipo> listarTodosEquipos( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        List<Equipo> list_equiposHabilitados = new ArrayList<Equipo>(); 
+        List<Equipo> list_todosEquipos = new ArrayList<Equipo>(); 
         
         String query    = "SELECT * "
                         + "FROM equipo "
@@ -313,7 +313,7 @@ public class EquipoData {
                 boolean estadoLocal = resultado.getBoolean("estado");
                 
                 Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
-                list_equiposHabilitados.add(equipoN);
+                list_todosEquipos.add(equipoN);
             }   
         }
         catch ( SQLException ex ) 
@@ -325,6 +325,6 @@ public class EquipoData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
-        return list_equiposHabilitados;
+        return list_todosEquipos;
     }
 }
