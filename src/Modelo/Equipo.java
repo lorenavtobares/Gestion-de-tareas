@@ -38,8 +38,6 @@ public class Equipo {
         this.estado = estado;
     }
     
-    
-
     public Equipo() {
     }
 
@@ -85,9 +83,20 @@ public class Equipo {
 
     @Override
     public String toString() {
+<<<<<<< Updated upstream
         return "Equipo{" + "id_equipo=" + id_equipo + ", proyecto=" + proyecto + ", nombre=" + nombre + ", fecha_cracion=" + fecha_cracion + ", estado=" + estado + '}';
+=======
+        return  "Equipo{" + 
+                "id_equipo => " + id_equipo + 
+                "\nproyecto => " + proyecto + 
+                "\nnombre => " + nombre + 
+                "\nfecha_cracion => " + fecha_cracion + 
+                "\nestado => " + estado + 
+                "\n}";
+>>>>>>> Stashed changes
     }
 
+    
     
     
     

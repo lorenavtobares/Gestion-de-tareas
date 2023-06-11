@@ -9,11 +9,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+<<<<<<< Updated upstream
+=======
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> Stashed changes
 import javax.swing.JOptionPane;
 
 
 public class EquipoData {
     private final Connection con;
+<<<<<<< Updated upstream
+=======
+    private static Proyecto proyecto = new Proyecto();
+    private static ProyectoData proyectoData = new ProyectoData();
+    private static Equipo equipo = new Equipo();
+    private static EquipoData equipoData = new EquipoData();
+>>>>>>> Stashed changes
 
     public EquipoData() {
         con = Conexion.getConexion();
@@ -74,9 +87,17 @@ public class EquipoData {
         ResultSet resultado = null;
         Equipo equipoN = null;
         
+<<<<<<< Updated upstream
         String query        = " SELECT * "
                             + " FROM equipo "
                             + " WHERE idEquipo = ? "; 
+=======
+        String query        = "SELECT e.idProyecto, e.nombre, e.fechaCreacion, e.estado "
+                            + "FROM equipo AS e "
+                            + "JOIN proyecto AS p "
+                            + "ON e.idProyecto = p.idProyecto "
+                            + "WHERE e.idEquipo = ?";
+>>>>>>> Stashed changes
         
         try{
             stmt = con.prepareStatement( query );
@@ -84,12 +105,22 @@ public class EquipoData {
             resultado= stmt.executeQuery();
             
             if(resultado.next() ){
+<<<<<<< Updated upstream
                 equipoN = new Equipo();
                 equipoN.setId_equipo(idEquipo);
                 equipoN.getProyecto().setId_proyecto(resultado.getInt("idProyecto"));
                 equipoN.setNombre(resultado.getString("nombre"));
                 equipoN.setFecha_cracion(resultado.getDate("fechaCreacion").toLocalDate());
                 equipoN.setEstado(resultado.getBoolean("estado"));
+=======
+                int idLocal = idEquipo;
+                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                String nombreLocal = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                
+                equipoN = new Equipo(idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
+>>>>>>> Stashed changes
             }
             else{
                 JOptionPane.showMessageDialog(null, "No se encontro el equipo solicitado.", "ERROR",JOptionPane.ERROR_MESSAGE);
@@ -176,5 +207,158 @@ public class EquipoData {
         }
     }
     
+<<<<<<< Updated upstream
     //zonas de metodos extras
+=======
+    //Habilitar Equipo Data
+    public void habilitarEquipo(int idEquipo){
+        PreparedStatement stmt = null;
+        
+        String query        =" UPDATE equipo "
+                            +" SET estado = true "
+                            +" WHERE idEquipo = ? ";
+        
+        try{
+             stmt = con.prepareStatement( query );
+             stmt.setInt(1, idEquipo);
+             
+             if(stmt.executeUpdate() > 0 ){
+                JOptionPane.showMessageDialog( null, "Registro habilitado"  + " " + JOptionPane.INFORMATION_MESSAGE );
+
+             }
+             else{
+                JOptionPane.showMessageDialog( null, "ID ingresado incorrecto"  + " " + JOptionPane.ERROR_MESSAGE );
+
+             }
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try {
+                stmt.close(); 
+            }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+    }
+    
+    //Listar Equipos Habilitados
+    public List <Equipo> listarEquiposHabilitados ( ) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Equipo> list_equiposHabilitados = new ArrayList<Equipo>(); 
+        
+        String query    = "SELECT * "
+                        + "FROM equipo "
+                        + "WHERE estado = 1 "
+                        + "ORDER BY equipo.nombre ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                int idLocal = resultado.getInt("idEquipo");
+                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                String nombreLocal = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                
+                Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
+                
+                list_equiposHabilitados.add(equipoN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return list_equiposHabilitados;
+    }
+
+    //Listar Equipos Habilitados
+    public List <Equipo> listarEquiposDeshabilitados( ) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Equipo> list_equiposHabilitados = new ArrayList<Equipo>(); 
+        
+        String query    = "SELECT * "
+                        + "FROM equipo "
+                        + "WHERE estado = 0 "
+                        + "ORDER BY equipo.nombre ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                int idLocal = resultado.getInt("idEquipo");
+                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                String nombreLocal = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                
+                Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
+                
+                list_equiposHabilitados.add(equipoN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return list_equiposHabilitados;
+    }
+    
+    //Listar Todos los equipos
+    public List <Equipo> listarTodosEquipos( ) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Equipo> list_equiposHabilitados = new ArrayList<Equipo>(); 
+        
+        String query    = "SELECT * "
+                        + "FROM equipo "
+                        + "ORDER BY equipo.nombre ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                int idLocal = resultado.getInt("idEquipo");
+                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                String nombreLocal = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                
+                Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
+                list_equiposHabilitados.add(equipoN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return list_equiposHabilitados;
+    }
+>>>>>>> Stashed changes
 }

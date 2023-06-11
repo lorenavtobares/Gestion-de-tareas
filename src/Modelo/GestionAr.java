@@ -68,6 +68,11 @@ public class GestionAr {
         
     /* <<-- EQUIPO DATA -->> */
         
+<<<<<<< Updated upstream
+=======
+        // - Read 
+        // System.out.println(varEquipoData.buscarEquipo(3).toString());
+>>>>>>> Stashed changes
         
     }
 }
