@@ -15,12 +15,10 @@ public class GestionAr {
         
     //VARIABLES
         LocalDate ff = LocalDate.of(2021, 01, 23);
+        String name = "Coraje el Perro Cobarde 2";
         
         Comentarios varComentarios = new Comentarios();
         ComentariosData varComentariosData = new ComentariosData();
-        
-        EquipoMiembros varEquipoMiembros = new EquipoMiembros();
-        EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
         
         Miembro varMiembro = new Miembro(45382543,"4321","Soloa__","Marcos",true,"admin");
         MiembroData varMiembroData = new MiembroData();
@@ -31,12 +29,16 @@ public class GestionAr {
         Equipo varEquipo = new Equipo(varProyectoData.buscarProyecto(3), "Equipo de Prueba 1", ff, true);
         EquipoData varEquipoData = new EquipoData();
         
+        EquipoMiembros varEquipoMiembros = new EquipoMiembros(3, name, ff, varEquipoData.buscarEquipo(3), varMiembroData.buscarMiembro(5));
+        EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
+        
         Tarea varTarea = new Tarea();
         TareaData varTareaData = new TareaData();
         
         java.util.List <Proyecto> listaProyectos = new ArrayList<Proyecto>();
         java.util.List <Equipo> listaEquipos = new ArrayList<Equipo>();
         java.util.List <Miembro> listaMiembros = new ArrayList<Miembro>();
+        java.util.List <EquipoMiembros> listaEquipoMiembros = new ArrayList<EquipoMiembros>();
         
     /* <<-- PROYECTO DATA -->> */ 
         // - Create
@@ -139,5 +141,21 @@ public class GestionAr {
         // for (Miembro e : listaMiembros) {
         //    System.out.println(e.toString());
         // }
+        
+        /* <<-- EQUIPO MIEMBROS DATA -->> */ 
+        // - Create
+        // varEquiposMiembrosData.guardarEquipoMiembros(varEquipoMiembros);
+        
+        // - Read 
+        // System.out.println(varEquiposMiembrosData.buscarEquipoMiembros(3).toString());
+        
+        // - Update
+        // varEquiposMiembrosData.actualizarEquipoMiembros(varEquipoMiembros);
+
+        // - Delete
+        // varEquiposMiembrosData.eliminarMiembros(3);
+        
+        // - Listar Equipos Miembros
+        // System.out.println(varEquiposMiembrosData.listarEquiposMiembros().toString());
     }
 }

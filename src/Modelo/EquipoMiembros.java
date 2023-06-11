@@ -69,7 +69,13 @@ public class EquipoMiembros {
 
     @Override
     public String toString() {
-        return "EquipoMiembros{" + "id_equipo_miembros=" + id_equipo_miembros + ", rol=" + rol + ", fecha_incorporacion=" + fecha_incorporacion + ", equipo=" + equipo + ", miembro=" + miembro + '}';
+        return  "EquipoMiembros{" + 
+                "\nid_equipo_miembros=" + id_equipo_miembros + 
+                "\nrol=" + rol + 
+                "\nfecha_incorporacion=" + fecha_incorporacion + 
+                "\nequipo=" + equipo + 
+                "\nmiembro=" + miembro + 
+                "\n}";
     }
 
     

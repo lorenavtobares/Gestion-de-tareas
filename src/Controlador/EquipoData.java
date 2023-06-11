@@ -32,7 +32,7 @@ public class EquipoData {
         return proyecto;
     }
     
-    //CREATE
+    //Create
     public void GuardarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -71,7 +71,7 @@ public class EquipoData {
         
     }
     
-    //READ
+    //Read
     public Equipo buscarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -115,16 +115,15 @@ public class EquipoData {
         return equipoN;
     }
     
-    //UPDATE
+    //Update
     public void actualizarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         
-        String query        = "UPDATE equipo "
-                            + "SET idProyecto = ?, nombre = ?,  fechaCreacion = ? "
-                            + "WHERE idEquipo = ? ";
+        String query    = "UPDATE equipo "      
+                        + "SET idProyecto = ?, nombre = ?,  fechaCreacion = ? "
+                        + "WHERE idEquipo = ? ";
         
         try{
-            
             stmt = con.prepareStatement( query );
             stmt.setInt(1, equipo.getProyecto().getId_proyecto());
             stmt.setString(2, equipo.getNombre());
@@ -146,7 +145,7 @@ public class EquipoData {
         }   
     }
     
-    //DELETE
+    //Delete
     public void eliminarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         
@@ -164,7 +163,6 @@ public class EquipoData {
              }
              else{
                 JOptionPane.showMessageDialog( null, "ID ingresado incorrecto"  + " " + JOptionPane.ERROR_MESSAGE );
-
              }
         }
         catch(SQLException ex){
@@ -252,7 +250,7 @@ public class EquipoData {
         return list_equiposHabilitados;
     }
 
-    //Listar Equipos Habilitados
+    //Listar Equipos Deshabilitados
     public List <Equipo> listarEquiposDeshabilitados( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
