@@ -2,6 +2,7 @@
 package Controlador;
 
 import Conexion.Conexion;
+import Modelo.EquipoMiembros;
 import Modelo.Tarea;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,11 +17,19 @@ import javax.swing.JOptionPane;
 
 public class TareaData {
     private final Connection con;
-
+    private static EquipoMiembros equipoMiembros = new EquipoMiembros();
+    private static EquipoMiembrosData equipoMiembrosData = new EquipoMiembrosData();
+    private static Tarea tarea = new Tarea();
+    private static TareaData tareaData = new TareaData();
+    
     public TareaData() {
         con=Conexion.getConexion();
     }
     
+    private EquipoMiembros regenerar(int idEquipoMiembros){
+        equipoMiembros = equipoMiembrosData.buscarEquipoMiembros(idEquipoMiembros);
+        return equipoMiembros;
+    }
 
     //CREATE
      public void guardarTarea(Tarea tarea){
@@ -140,7 +149,7 @@ public class TareaData {
     public void buscarTarea(){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-
+        
     }
     
     //DELETE
@@ -176,4 +185,126 @@ public class TareaData {
     }
     //  zona metodos extras
     
+    //Listar Tareas Habilitados
+    public List <Tarea> listarTareasHabilitadas ( ) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Tarea> list_tareasHabilitadas = new ArrayList<Tarea>(); 
+        
+        String query    = "SELECT * "
+                        + "FROM tarea "
+                        + "WHERE estado = 1 "
+                        + "ORDER BY tarea.nombre ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                 
+                int idTareaLocal = resultado.getInt("id_tarea");
+                String nombreLocal = resultado.getString("nombre"); 
+                LocalDate creacionLocal = resultado.getDate("fecha_creacion").toLocalDate();
+                LocalDate cierreLocal = resultado.getDate("fecha_cierre").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                equipoMiembros = regenerar(resultado.getInt("equipoMiembros"));
+                
+                Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
+                
+                list_tareasHabilitadas.add(tareaN);
+               
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return list_tareasHabilitadas;
+    }
+
+    //Listar Tareas NO Habilitadas
+    public List <Tarea> listarTareasDeshabilitados( ) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Tarea> list_tareasNoHabilitadas = new ArrayList<Tarea>(); 
+        
+        String query    = "SELECT * "
+                        + "FROM tarea "
+                        + "WHERE estado = 0 "
+                        + "ORDER BY tarea.nombre ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                int idTareaLocal = resultado.getInt("id_tarea");
+                String nombreLocal = resultado.getString("nombre"); 
+                LocalDate creacionLocal = resultado.getDate("fecha_creacion").toLocalDate();
+                LocalDate cierreLocal = resultado.getDate("fecha_cierre").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                equipoMiembros = regenerar(resultado.getInt("equipoMiembros"));
+                
+                Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
+               
+                list_tareasNoHabilitadas.add(tareaN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return list_tareasNoHabilitadas;
+    }
+    
+    //Listar Todos las tareas
+    public List <Tarea> listarTodasTareas( ) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Tarea> list_todasTareas = new ArrayList<Tarea>(); 
+        
+        String query    = "SELECT * "
+                        + "FROM tarea "
+                        + "ORDER BY tarea.nombre ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                int idTareaLocal = resultado.getInt("id_tarea");
+                String nombreLocal = resultado.getString("nombre"); 
+                LocalDate creacionLocal = resultado.getDate("fecha_creacion").toLocalDate();
+                LocalDate cierreLocal = resultado.getDate("fecha_cierre").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                equipoMiembros = regenerar(resultado.getInt("equipoMiembros"));
+                Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
+                
+                list_todasTareas.add(tareaN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return list_todasTareas;
+    }
 }

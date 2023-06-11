@@ -27,7 +27,17 @@ public class Tarea {
         this.estado = estado;
         this.equipoMiembros = equipoMiembros;
     }
+//se agrego
+    public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado) {
+        this.id_tarea = id_tarea;
+        this.nombre = nombre;
+        this.fecha_creacion = fecha_creacion;
+        this.fecha_cierre = fecha_cierre;
+        this.estado = estado;
+    }
 
+    
+    
     public Tarea() {
     }
 
