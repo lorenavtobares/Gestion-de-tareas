@@ -34,7 +34,7 @@ public class ComentariosData {
         ResultSet resultado = null;
         
         String query    = "INSERT INTO comentarios "
-                        + "( comentario, fechaAvance, idTarea ) "
+                        + "(comentario, fechaAvance, idTarea) "
                         + "VALUES ( ?, ?, ? ) ";
         try{
             stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
@@ -70,7 +70,7 @@ public class ComentariosData {
         Comentarios comentariosN = null; 
         
         String query    = "SELECT * "
-                        + "FROM comentario "
+                        + "FROM comentarios "
                         + "WHERE idComentarios = ? ";
         try{
             stmt = con.prepareStatement( query );
@@ -137,7 +137,7 @@ public class ComentariosData {
     //Delete
     public void eliminarComentarios(int idComentarios){
         PreparedStatement stmt = null;
-        String query    = "DELETE comentarios "
+        String query    = "DELETE FROM comentarios "
                         + "WHERE idComentarios = ? ";
         
         try{
@@ -163,4 +163,41 @@ public class ComentariosData {
         }
     }
     
+    //Listar todos los comentarios
+    public List listarTodosComentarios(){
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List <Comentarios> listarTodos = new ArrayList<Comentarios>();
+        
+        String query    = "SELECT * "
+                        + "FROM comentarios ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            resultado = stmt.executeQuery();
+            
+            while ( resultado.next() ) 
+            {
+                int id = resultado.getInt("idComentarios");
+                String comentario = resultado.getString("comentario");
+                LocalDate fechaAvance = resultado.getDate("fechaAvance").toLocalDate();               
+                tarea = regenerarTarea(resultado.getInt("idTarea"));
+                
+                Comentarios comentarioN = new Comentarios(id, comentario, fechaAvance, tarea);
+                        
+                listarTodos.add(comentarioN);
+            }   
+        }
+        catch ( SQLException ex ) 
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            try { stmt.close(); }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        
+        return listarTodos;
+    }    
 }

@@ -23,23 +23,27 @@ public class TareaData {
     private static TareaData tareaData = new TareaData();
     
     public TareaData() {
-        con=Conexion.getConexion();
+        con = Conexion.getConexion();
     }
     
-    private EquipoMiembros regenerar(int idEquipoMiembros){
+    private EquipoMiembros regenerarEquipoMiembro(int idEquipoMiembros){
         equipoMiembros = equipoMiembrosData.buscarEquipoMiembros(idEquipoMiembros);
         return equipoMiembros;
     }
 
-    //CREATE
+    //Create
      public void guardarTarea(Tarea tarea){
-
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         
-        String query        = " INSERT INTO tarea "
-                            + " ( nombre, fechaCreacion, fechaCierre, estado, idEquipoMiembros ) "
-                            + " VALUES ( ?, ?, ?, 1, ? ) ";
+        String query    = "INSERT INTO tarea ( "
+                            + "nombre, "
+                            + "fechaCreacion, "
+                            + "fechaCierre, "
+                            + "estado, "
+                            + "idEquipoMiembros "
+                        + ") "
+                        + "VALUES ( ?, ?, ?, 1, ? )";
         try{
             stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
             stmt.setString(1, tarea.getNombre());
@@ -48,12 +52,12 @@ public class TareaData {
             stmt.setInt(4, tarea.getEquipoMiembros().getId_equipo_miembros());
             
             stmt.executeUpdate();
-            resultado= stmt.getGeneratedKeys();
+                resultado = stmt.getGeneratedKeys();
 
             if(resultado.next()){
                 tarea.setId_tarea(resultado.getInt(1));
-                
             }
+            
             JOptionPane.showMessageDialog(null, " Tarea guardada con exito ", "" ,JOptionPane.INFORMATION_MESSAGE );
 
         }
@@ -62,7 +66,7 @@ public class TareaData {
         }
         finally {
             try { 
-                resultado.close(); 
+                resultado.close();
                 stmt.close(); 
             }
             catch ( SQLException ex )
@@ -70,15 +74,14 @@ public class TareaData {
         }
     }
      
-    //READ
+    //Read
     public Tarea buscarTarea(int idTarea){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        Tarea tareaN = null; 
         
-        String query        = " SELECT * "
-                            + " FROM tarea "
-                            + " WHERE idTarea = ? ";
+        String query        = "SELECT * "
+                            + "FROM tarea "
+                            + "WHERE idTarea = ? ";
         
         try{
             stmt = con.prepareStatement( query );
@@ -86,13 +89,14 @@ public class TareaData {
             resultado = stmt.executeQuery();
             
             if(resultado.next()){
-                tareaN = new Tarea();
-                tareaN.setId_tarea(idTarea);
-                tareaN.setNombre(resultado.getString("nombre"));
-                tareaN.setFecha_creacion(resultado.getDate("fechaCreacion").toLocalDate());
-                tareaN.setFecha_cierre(resultado.getDate("fechaCierre").toLocalDate());
-                tareaN.setEstado(resultado.getBoolean("estado"));
-                tareaN.getEquipoMiembros().setId_equipo_miembros(resultado.getInt("idEquipoMiembros"));
+                int id = idTarea;
+                String nombre = resultado.getString("nombre");
+                LocalDate fechaCreacion = resultado.getDate("fechaCreacion").toLocalDate();
+                LocalDate fechaCierre = resultado.getDate("fechaCierre").toLocalDate();
+                boolean estado = resultado.getBoolean("estado");
+                equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
+                
+                tarea = new Tarea(id, nombre, fechaCreacion, fechaCierre, estado, equipoMiembros);
             }
             else{
                 JOptionPane.showMessageDialog(null, "No se encontro la tarea solicitada.", "ERROR",JOptionPane.ERROR_MESSAGE);
@@ -110,16 +114,17 @@ public class TareaData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
-        return tareaN;
+        return tarea;
     }
     
-    //UPDATE
+    //Update
     public void actualizarTarea(Tarea tarea){
         PreparedStatement stmt = null;
         
-        String query        = " UPDATE tarea "
-                            + " SET nombre = ?, fechaCreacion = ?, fechaCierre = ?, estado = ?, idEquipoMiembros = ? "
-                            + " WHERE idTarea = ? ";
+        String query    = "UPDATE tarea "
+                        + "SET nombre = ?, fechaCreacion = ?, fechaCierre = ?, estado = ?, idEquipoMiembros = ? " 
+                        + "WHERE idTarea = ?";
+                            
         
         try{
             stmt = con.prepareStatement( query );
@@ -146,21 +151,19 @@ public class TareaData {
         }
    }
     
-    //DELETE
+    //Delete
     public void eliminarTarea(int idTarea){
         PreparedStatement stmt = null;
-
         
-        String query        = " UPDATE tarea "
-                            + " SET estado = false "
-                            + " WHERE idTarea = ? ";
+        String query    = "UPDATE tarea "
+                        + "SET estado = false "
+                        + "WHERE idTarea = ? ";
         try{
             stmt = con.prepareStatement( query );
             stmt.setInt(1, idTarea);
             
             if(stmt.executeUpdate() > 0){
                 JOptionPane.showMessageDialog( null, "Registro eliminado"  + " " + JOptionPane.INFORMATION_MESSAGE );
-
             }
             else{
                 JOptionPane.showMessageDialog( null, "ID ingresado incorrecto"  + " " + JOptionPane.ERROR_MESSAGE );
@@ -177,18 +180,47 @@ public class TareaData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }
-    //  zona metodos extras
+    
+    //Habilitar Tarea
+    public void habilitarTarea(int idTarea){
+        PreparedStatement stmt = null;
+        
+        String query    = "UPDATE tarea "
+                        + "SET estado = true "
+                        + "WHERE idTarea = ? ";
+        try{
+            stmt = con.prepareStatement( query );
+            stmt.setInt(1, idTarea);
+            
+            if(stmt.executeUpdate() > 0){
+                JOptionPane.showMessageDialog( null, "Registro habilitato"  + " " + JOptionPane.INFORMATION_MESSAGE );
+            }
+            else{
+                JOptionPane.showMessageDialog( null, "ID ingresado incorrecto"  + " " + JOptionPane.ERROR_MESSAGE );
+            }
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try {
+                stmt.close(); 
+            }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+    }
     
     //Listar Tareas Habilitados
     public List <Tarea> listarTareasHabilitadas ( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        List<Tarea> list_tareasHabilitadas = new ArrayList<Tarea>(); 
+        List<Tarea> listaTareasHabilitadas = new ArrayList<Tarea>(); 
         
         String query    = "SELECT * "
                         + "FROM tarea "
                         + "WHERE estado = 1 "
-                        + "ORDER BY tarea.nombre ";
+                        + "ORDER BY nombre";
         
         try{
             stmt = con.prepareStatement( query );
@@ -197,16 +229,16 @@ public class TareaData {
             while ( resultado.next() ) 
             {
                  
-                int idTareaLocal = resultado.getInt("id_tarea");
+                int idTareaLocal = resultado.getInt("idTarea");
                 String nombreLocal = resultado.getString("nombre"); 
-                LocalDate creacionLocal = resultado.getDate("fecha_creacion").toLocalDate();
-                LocalDate cierreLocal = resultado.getDate("fecha_cierre").toLocalDate();
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                LocalDate cierreLocal = resultado.getDate("fechaCierre").toLocalDate();
                 boolean estadoLocal = resultado.getBoolean("estado");
-                equipoMiembros = regenerar(resultado.getInt("equipoMiembros"));
+                equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
                 Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
                 
-                list_tareasHabilitadas.add(tareaN);
+                listaTareasHabilitadas.add(tareaN);
                
             }   
         }
@@ -219,19 +251,19 @@ public class TareaData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
-        return list_tareasHabilitadas;
+        return listaTareasHabilitadas;
     }
 
-    //Listar Tareas NO Habilitadas
-    public List <Tarea> listarTareasDeshabilitadas( ) {
+    //Listar Tareas Deshabilitadas
+    public List <Tarea> listarTareasDeshabilitadas ( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        List<Tarea> list_tareasNoHabilitadas = new ArrayList<Tarea>(); 
+        List<Tarea> listaTareasDeshabilitadas = new ArrayList<Tarea>(); 
         
         String query    = "SELECT * "
                         + "FROM tarea "
                         + "WHERE estado = 0 "
-                        + "ORDER BY tarea.nombre ";
+                        + "ORDER BY nombre";
         
         try{
             stmt = con.prepareStatement( query );
@@ -239,16 +271,18 @@ public class TareaData {
             
             while ( resultado.next() ) 
             {
-                int idTareaLocal = resultado.getInt("id_tarea");
+                 
+                int idTareaLocal = resultado.getInt("idTarea");
                 String nombreLocal = resultado.getString("nombre"); 
-                LocalDate creacionLocal = resultado.getDate("fecha_creacion").toLocalDate();
-                LocalDate cierreLocal = resultado.getDate("fecha_cierre").toLocalDate();
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                LocalDate cierreLocal = resultado.getDate("fechaCierre").toLocalDate();
                 boolean estadoLocal = resultado.getBoolean("estado");
-                equipoMiembros = regenerar(resultado.getInt("equipoMiembros"));
+                equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
                 Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
+                
+                listaTareasDeshabilitadas.add(tareaN);
                
-                list_tareasNoHabilitadas.add(tareaN);
             }   
         }
         catch ( SQLException ex ) 
@@ -260,18 +294,18 @@ public class TareaData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
-        return list_tareasNoHabilitadas;
+        return listaTareasDeshabilitadas;
     }
     
     //Listar Todos las tareas
-    public List <Tarea> listarTodasTareas( ) {
+    public List <Tarea> listarTodasTareas ( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        List<Tarea> list_todasTareas = new ArrayList<Tarea>(); 
+        List<Tarea> listaTareasTodas = new ArrayList<Tarea>(); 
         
         String query    = "SELECT * "
                         + "FROM tarea "
-                        + "ORDER BY tarea.nombre ";
+                        + "ORDER BY nombre";
         
         try{
             stmt = con.prepareStatement( query );
@@ -279,15 +313,18 @@ public class TareaData {
             
             while ( resultado.next() ) 
             {
-                int idTareaLocal = resultado.getInt("id_tarea");
+                 
+                int idTareaLocal = resultado.getInt("idTarea");
                 String nombreLocal = resultado.getString("nombre"); 
-                LocalDate creacionLocal = resultado.getDate("fecha_creacion").toLocalDate();
-                LocalDate cierreLocal = resultado.getDate("fecha_cierre").toLocalDate();
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                LocalDate cierreLocal = resultado.getDate("fechaCierre").toLocalDate();
                 boolean estadoLocal = resultado.getBoolean("estado");
-                equipoMiembros = regenerar(resultado.getInt("equipoMiembros"));
+                equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
+                
                 Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
                 
-                list_todasTareas.add(tareaN);
+                listaTareasTodas.add(tareaN);
+               
             }   
         }
         catch ( SQLException ex ) 
@@ -299,6 +336,6 @@ public class TareaData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
-        return list_todasTareas;
+        return listaTareasTodas;
     }
 }

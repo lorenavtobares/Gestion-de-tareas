@@ -99,7 +99,7 @@ public class EquipoMiembrosData {
                 equipo = regerarEquipo(resultado.getInt("idEquipo"));
                 miembro = regenerarMiembro(resultado.getInt("idMiembro"));
                 
-                equipoMiembros = new EquipoMiembros(rol, fechaIncorporacion, equipo, miembro);
+                equipoMiembros = new EquipoMiembros(idEquipoMiebro, rol, fechaIncorporacion, equipo, miembro);
             }
         }
         catch(SQLException ex){

@@ -60,9 +60,11 @@ public class Comentarios {
 
     @Override
     public String toString() {
-        return "Comentarios{" + "id_comentario=" + id_comentario + ", tarea=" + tarea + ", comentario=" + comentario + ", fecha_avance=" + fecha_avance + '}';
+        return  "Comentarios{" + 
+                "\nid_comentario => " + id_comentario + 
+                "\ntarea => " + tarea + 
+                "\ncomentario => " + comentario + 
+                "\nfecha_avance => " + fecha_avance + 
+                "\n}";
     }
-
-    
-    
 }

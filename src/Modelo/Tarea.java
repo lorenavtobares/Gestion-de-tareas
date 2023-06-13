@@ -20,7 +20,7 @@ public class Tarea {
         this.equipoMiembros = equipoMiembros;
     }
 
-    public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, EquipoMiembros equipoMiembros) {
+    public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado ,EquipoMiembros equipoMiembros) {
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
         this.fecha_cierre = fecha_cierre;
@@ -91,7 +91,14 @@ public class Tarea {
 
     @Override
     public String toString() {
-        return "Tarea{" + "id_tarea=" + id_tarea + ", nombre=" + nombre + ", fecha_creacion=" + fecha_creacion + ", fecha_cierre=" + fecha_cierre + ", estado=" + estado + ", equipoMiembros=" + equipoMiembros + '}';
+        return  "Tarea{" + 
+                "\nid_tarea => " + id_tarea + 
+                "\nnombre => " + nombre + 
+                "\nfecha_creacion => " + fecha_creacion + 
+                "\nfecha_cierre => " + fecha_cierre + 
+                "\nestado => " + estado + 
+                "\nequipoMiembros => " + equipoMiembros + 
+                "\n}";
     }
 
     

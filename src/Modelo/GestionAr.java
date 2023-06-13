@@ -15,30 +15,40 @@ public class GestionAr {
         
     //VARIABLES
         LocalDate ff = LocalDate.of(2021, 01, 23);
-        String name = "Coraje el Perro Cobarde 2";
+        LocalDate tareaInicio = LocalDate.of(2023, 02, 21);
+        LocalDate tareaFin = LocalDate.of(2023, 04, 14);
+        String Rol1 = "Project Manager";
+        String Rol2 = "Lider de Equipo";
+        String Rol3 = "Diseñador UX y UI";
+        String Rol4 = "Desarrollador de Software";
+        String comentario1 = "Comentario 2 nuevo comentario";
         
-        Miembro varMiembro = new Miembro(45382543,"4321","Soloa__","Marcos",true,"admin");
+        Miembro varMiembro = new Miembro(21437839,"123","Perez","Roberto",true,"usuario");
         MiembroData varMiembroData = new MiembroData();
         
         Proyecto varProyecto = new Proyecto("Proyecto Mandibula__", "Soy una descripcion" , ff , true);
         ProyectoData varProyectoData = new ProyectoData();
         
-        Equipo varEquipo = new Equipo(varProyectoData.buscarProyecto(3), "Equipo de Prueba 1", ff, true);
+        Equipo varEquipo = new Equipo(varProyectoData.buscarProyecto(4), "Equipo de Desarrollo 4", ff, true);
         EquipoData varEquipoData = new EquipoData();
         
-        EquipoMiembros varEquipoMiembros = new EquipoMiembros(3, name, ff, varEquipoData.buscarEquipo(3), varMiembroData.buscarMiembro(5));
+        EquipoMiembros varEquipoMiembros = new EquipoMiembros(Rol4, ff, varEquipoData.buscarEquipo(4), varMiembroData.buscarMiembro(7));
         EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
         
-        Tarea varTarea = new Tarea();
+        Tarea varTarea = new Tarea(3,"Presentacion del proyecto al equipo modificado", tareaInicio, tareaFin, true,  varEquiposMiembrosData.buscarEquipoMiembros(16));
         TareaData varTareaData = new TareaData();
         
-        Comentarios varComentarios = new Comentarios(name,ff,varTareaData.buscarTarea(1));
+        Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
         ComentariosData varComentariosData = new ComentariosData();
         
         java.util.List <Proyecto> listaProyectos = new ArrayList<Proyecto>();
         java.util.List <Equipo> listaEquipos = new ArrayList<Equipo>();
         java.util.List <Miembro> listaMiembros = new ArrayList<Miembro>();
         java.util.List <EquipoMiembros> listaEquipoMiembros = new ArrayList<EquipoMiembros>();
+        java.util.List <Tarea> listaTareas = new ArrayList<Tarea>();
+        java.util.List <Comentarios> listaComentarios = new ArrayList<Comentarios>();
+        
+        
         
     /* <<-- PROYECTO DATA -->> */ 
         // - Create
@@ -142,7 +152,7 @@ public class GestionAr {
         //    System.out.println(e.toString());
         // }
         
-        /* <<-- EQUIPO MIEMBROS DATA -->> */ 
+    /* <<-- EQUIPO MIEMBROS DATA -->> */ 
         // - Create
         // varEquiposMiembrosData.guardarEquipoMiembros(varEquipoMiembros);
         
@@ -156,6 +166,62 @@ public class GestionAr {
         // varEquiposMiembrosData.eliminarMiembros(3);
         
         // - Listar Equipos Miembros
-        // System.out.println(varEquiposMiembrosData.listarEquiposMiembros().toString());
+        // System.out.println(varEquiposMiembrosData.listarEquiposMiembros().toString()); 
+    
+    /* <<-- TAREA DATA -->> */ 
+        // - Create
+        // varTareaData.guardarTarea(varTarea);
+        
+        // - Read 
+        // System.out.println(varTareaData.buscarTarea(3).toString());
+        
+        // - Update
+        // varEquiposMiembrosData.actualizarEquipoMiembros(varEquipoMiembros);
+        // varTareaData.actualizarTarea(varTarea);
+
+        // - Delete
+        // varTareaData.eliminarTarea(3);
+        
+        // - Habilitar Tarea
+        // varTareaData.habilitarTarea(3);
+        
+        // - Listar Tareas Habilitadas
+        // listaTareas = varTareaData.listarTareasHabilitadas();
+        // for (Tarea e : listaTareas) {
+        //    System.out.println(e.toString());
+        // }
+        
+        // - Listar Tareas Deshabilitdas
+        // listaTareas = varTareaData.listarTareasDeshabilitadas();
+        // for (Tarea e : listaTareas) {
+        //    System.out.println(e.toString());
+        // }
+        
+        // - Listar Todas las tareas
+        // listaTareas = varTareaData.listarTodasTareas();
+        // for (Tarea e : listaTareas) {
+        //    System.out.println(e.toString());
+        // }
+        
+        
+        /* <<-- COMENTARIOS DATA -->> */ 
+        // - Create
+        // varComentariosData.guardarComentarios(varComentarios);
+        
+        // - Read
+        // System.out.println(varComentariosData.buscarComentarios(2).toString());
+        
+        // - Update
+        // varComentariosData.actualizarComentarios(varComentarios);
+        
+        // - Delete
+        // varComentariosData.eliminarComentarios(2);
+        
+        // - Listar todos los comentarios
+        // listaComentarios = varComentariosData.listarTodosComentarios();
+        // for (Comentarios e : listaComentarios) {
+        //    System.out.println(e.toString());
+        // }
+        
     }
 }

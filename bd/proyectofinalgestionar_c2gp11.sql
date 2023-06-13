@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2023 a las 00:12:11
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,6 +11,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `proyectofinalgestionar_c2gp11`
 --
+CREATE DATABASE IF NOT EXISTS `proyectofinalgestionar_c2gp11` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE `proyectofinalgestionar_c2gp11`;
 
 -- --------------------------------------------------------
 
@@ -39,7 +32,8 @@ CREATE TABLE `comentarios` (
 --
 
 INSERT INTO `comentarios` (`idComentarios`, `comentario`, `fechaAvance`, `idTarea`) VALUES
-(1, 'hace bien tu trabajo Marcos', '2023-06-09', 1);
+(3, 'Comentario 1 creado despues del delete', '2021-01-23', 3),
+(4, 'Comentario 2 nuevo comentario', '2021-01-23', 3);
 
 -- --------------------------------------------------------
 
@@ -60,8 +54,10 @@ CREATE TABLE `equipo` (
 --
 
 INSERT INTO `equipo` (`idEquipo`, `idProyecto`, `nombre`, `fechaCreacion`, `estado`) VALUES
-(0, 0, 'sin nombre', '2023-06-16', 1),
-(1, 1, 'equipoTest', '2023-06-09', 1);
+(1, 1, 'Equipo de Desarrollo 1', '2023-03-23', 1),
+(2, 2, 'Equipo de Desarrollo 2', '2023-02-20', 1),
+(3, 3, 'Equipo de Desarrollo 3', '2023-01-13', 1),
+(4, 4, 'Equipo de Desarrollo 4', '2023-04-15', 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +78,22 @@ CREATE TABLE `equipomiembros` (
 --
 
 INSERT INTO `equipomiembros` (`idEquipoMiembros`, `rol`, `fechaIncorporacion`, `idEquipo`, `idMiembro`) VALUES
-(1, 'payaso', '2023-06-09', 1, 1);
+(1, 'Project Manager', '2021-01-23', 1, 1),
+(2, 'Lider de Equipo', '2021-01-23', 1, 2),
+(3, 'Diseñador UX y UI', '2021-01-23', 1, 3),
+(4, 'Desarrollador de Software', '2021-01-23', 1, 4),
+(5, 'Project Manager', '2021-01-23', 2, 8),
+(6, 'Lider de Equipo', '2021-01-23', 2, 7),
+(7, 'Diseñador UX y UI', '2021-01-23', 2, 6),
+(8, 'Desarrollador de Software', '2021-01-23', 2, 5),
+(9, 'Project Manager', '2021-01-23', 3, 2),
+(11, 'Lider de Equipo', '2021-01-23', 3, 4),
+(12, 'Diseñador UX y UI', '2021-01-23', 3, 6),
+(13, 'Desarrollador de Software', '2021-01-23', 3, 8),
+(14, 'Project Manager', '2021-01-23', 4, 1),
+(15, 'Lider de Equipo', '2021-01-23', 4, 3),
+(16, 'Diseñador UX y UI', '2021-01-23', 4, 5),
+(17, 'Desarrollador de Software', '2021-01-23', 4, 7);
 
 -- --------------------------------------------------------
 
@@ -105,7 +116,14 @@ CREATE TABLE `miembro` (
 --
 
 INSERT INTO `miembro` (`idMiembro`, `dni`, `password`, `apellido`, `nombre`, `estado`, `rolSistema`) VALUES
-(1, 25765432, '1234', 'arjona', 'pepe', 1, 'admin');
+(1, 1, '123', 'user', 'desarrollo', 1, 'admin'),
+(2, 35475532, '123', 'Soria', 'Cristian', 1, 'admin'),
+(3, 34738473, '123', 'Gonzalez', 'Federico', 1, 'usuario'),
+(4, 21437839, '123', 'Perez', 'Roberto', 1, 'usuario'),
+(5, 37463263, '123', 'Perez', 'Gisela', 1, 'usuario'),
+(6, 31425678, '123', 'Lucero', 'Lorena', 1, 'usuario'),
+(7, 25367899, '123', 'Lucero', 'Carlos', 1, 'usuario'),
+(8, 39872635, '123', 'Fernandez', 'Francisco', 1, 'usuario');
 
 -- --------------------------------------------------------
 
@@ -126,91 +144,7 @@ CREATE TABLE `proyecto` (
 --
 
 INSERT INTO `proyecto` (`idProyecto`, `nombre`, `descripcion`, `fechaInicio`, `estado`) VALUES
-(1, 'proyectoPrueba', 'prueba para verificar ', '2023-06-09', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tarea`
---
-
-CREATE TABLE `tarea` (
-  `idTarea` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `fechaCreacion` date NOT NULL,
-  `fechaCierre` date NOT NULL,
-  `estado` tinyint(1) NOT NULL,
-  `idEquipoMiembros` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Volcado de datos para la tabla `tarea`
---
-
-INSERT INTO `tarea` (`idTarea`, `nombre`, `fechaCreacion`, `fechaCierre`, `estado`, `idEquipoMiembros`) VALUES
-(1, 'tareaPruebas', '2023-06-09', '2023-06-16', 1, 1);
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `comentarios`
---
-ALTER TABLE `comentarios`
-  ADD PRIMARY KEY (`idComentarios`),
-  ADD UNIQUE KEY `idTarea` (`idTarea`),
-  ADD KEY `idTarea_2` (`idTarea`),
-  ADD KEY `idTarea_3` (`idTarea`),
-  ADD KEY `idTarea_4` (`idTarea`);
-
---
--- Indices de la tabla `equipo`
---
-ALTER TABLE `equipo`
-  ADD PRIMARY KEY (`idEquipo`),
-  ADD KEY `idProyecto` (`idProyecto`);
-
---
--- Indices de la tabla `equipomiembros`
---
-ALTER TABLE `equipomiembros`
-  ADD PRIMARY KEY (`idEquipoMiembros`),
-  ADD KEY `idEquipo` (`idEquipo`),
-  ADD KEY `idMiembro` (`idMiembro`);
-
---
--- Indices de la tabla `miembro`
---
-ALTER TABLE `miembro`
-  ADD PRIMARY KEY (`idMiembro`),
-  ADD KEY `dni` (`dni`);
-
---
--- Indices de la tabla `proyecto`
---
-ALTER TABLE `proyecto`
-  ADD PRIMARY KEY (`idProyecto`),
-  ADD KEY `nombre` (`nombre`);
-
---
--- Indices de la tabla `tarea`
---
-ALTER TABLE `tarea`
-  ADD PRIMARY KEY (`idTarea`),
-  ADD KEY `idEquipoMiembros` (`idEquipoMiembros`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `tarea`
---
-ALTER TABLE `tarea`
-  MODIFY `idTarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+(1, 'Chiariani SA', 'Sistema de gestion de patentes automotriz', '2023-01-23', 1),
+(2, 'Milaye', 'Sistema de gestion de inventario comercio', '2023-05-03', 1),
+(3, 'FruTars', 'Sistema de gestion de inventario comercio', '2023-05-20', 1),
+(4, 'Almacen el Gringo', 'Sistema de gestion de inventario ', '2023-05-01', 1);
