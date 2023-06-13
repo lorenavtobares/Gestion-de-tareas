@@ -30,6 +30,12 @@ public class Proyecto {
         this.fecha_inicio = fecha_inicio;
         this.estado = estado;
     }
+    
+    public Proyecto(String nombre, String descripcion, LocalDate fecha_inicio) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fecha_inicio = fecha_inicio;
+    }
 
     public Proyecto() {
     }

@@ -16,7 +16,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     public ABMEquipos() {
         initComponents();
         nuevoFecha.setMinSelectableDate(new Date());
-        //nuevoFecha.setDateFormatString("dd/MM/yyyy");
         cargandoEquiposV2();
     }
 
@@ -70,7 +69,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                     .addComponent(nuevoFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addComponent(nuevoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         nuevoDeEquiposLayout.setVerticalGroup(
             nuevoDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +147,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                         .addComponent(ActualizarNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                         .addComponent(btnActualizarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         actualizacionDeEquiposLayout.setVerticalGroup(
             actualizacionDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +215,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nuevoNombreActionPerformed
     //Solapa 2 -> carga la lista de equipos
-        private void cargandoEquiposV2() {
+    private void cargandoEquiposV2() {
             
         jcbListaEquipos.removeAllItems();
         List<Equipo> arrayEquipos= Menu.equipoEscritorio.listarTodosEquipos();
@@ -227,7 +226,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     
     }
         
-        
     private void btnNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEquipoActionPerformed
         // TODO add your handling code here:
         String nombre = nuevoNombre.getText();
@@ -235,11 +233,9 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         Equipo equipos = new Equipo(nombre, fechaCreacion, true);
          
         Menu.equipoEscritorio.GuardarEquipo(equipos);
-        
-        
     }//GEN-LAST:event_btnNuevoEquipoActionPerformed
     
-      public void formatoCalendario(){
+    public void formatoCalendario(){
         //jdFechaNacimiento.setLocale(new Locale("es"));
         //jdFechaNacimiento.setDateFormatString("dd-MM-yyyy");
        
@@ -271,7 +267,8 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             ActualizarNombre.requestFocus(); }
         
     }//GEN-LAST:event_btnActualizarEquipoActionPerformed
-//Solapa 2 - Actualizar Datos -> Cargar Datos del furmulario Items ComboBox
+
+    //Solapa 2 - Actualizar Datos -> Cargar Datos del furmulario Items ComboBox
     private void jcbListaEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaEquiposActionPerformed
         
          List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarTodosEquipos();
@@ -316,6 +313,5 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser nuevoFecha;
     private javax.swing.JTextField nuevoNombre;
     // End of variables declaration//GEN-END:variables
-
 
 }

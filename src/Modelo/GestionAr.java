@@ -35,11 +35,11 @@ public class GestionAr {
         EquipoMiembros varEquipoMiembros = new EquipoMiembros(Rol4, ff, varEquipoData.buscarEquipo(4), varMiembroData.buscarMiembro(7));
         EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
         
-        Tarea varTarea = new Tarea(3,"Presentacion del proyecto al equipo modificado", tareaInicio, tareaFin, true,  varEquiposMiembrosData.buscarEquipoMiembros(16));
-        TareaData varTareaData = new TareaData();
+        //Tarea varTarea = new Tarea(3,"Presentacion del proyecto al equipo modificado", tareaInicio, tareaFin, true,  varEquiposMiembrosData.buscarEquipoMiembros(16));
+        //TareaData varTareaData = new TareaData();
         
-        Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
-        ComentariosData varComentariosData = new ComentariosData();
+        //Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
+        //ComentariosData varComentariosData = new ComentariosData();
         
         java.util.List <Proyecto> listaProyectos = new ArrayList<Proyecto>();
         java.util.List <Equipo> listaEquipos = new ArrayList<Equipo>();
@@ -204,7 +204,7 @@ public class GestionAr {
         // }
         
         
-        /* <<-- COMENTARIOS DATA -->> */ 
+    /* <<-- COMENTARIOS DATA -->> */ 
         // - Create
         // varComentariosData.guardarComentarios(varComentarios);
         
