@@ -41,11 +41,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         btnCerrar = new javax.swing.JButton();
 
         nuevoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
-        nuevoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevoNombreActionPerformed(evt);
-            }
-        });
         nuevoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nuevoNombreKeyTyped(evt);
@@ -214,10 +209,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private void ActualizarNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ActualizarNombreKeyTyped
         Funciones.soloLetras(ActualizarNombre, evt, 45);
     }//GEN-LAST:event_ActualizarNombreKeyTyped
-
-    private void nuevoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nuevoNombreActionPerformed
     //Solapa 2 -> carga la lista de equipos
     private void cargandoEquiposV2() {
 
