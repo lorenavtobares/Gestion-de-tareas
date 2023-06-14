@@ -33,10 +33,10 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         updateDni = new javax.swing.JTextField();
         updateApeliido = new javax.swing.JTextField();
         listaUpdateUsuarios = new javax.swing.JComboBox<>();
-        listaUpdateRolUsuarios = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jcbHabilitado = new javax.swing.JCheckBox();
         jcbDeshabilitados = new javax.swing.JCheckBox();
+        listaUpdateRolUsuarios = new javax.swing.JComboBox<>();
         btnCerrarABMUsuairos = new javax.swing.JButton();
 
         nuevoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRES"));
@@ -133,8 +133,8 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(crearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nuevoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nuevoListaRolUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                    .addComponent(nuevoListaRolUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addComponent(btnNuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -203,19 +203,6 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        listaUpdateRolUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuario" }));
-        listaUpdateRolUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder("PERFIL DEL USUARIO"));
-        listaUpdateRolUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaUpdateRolUsuariosMouseClicked(evt);
-            }
-        });
-        listaUpdateRolUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaUpdateRolUsuariosActionPerformed(evt);
-            }
-        });
-
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Estado del Usuairo"));
 
         jcbHabilitado.setText("Habilitado");
@@ -253,6 +240,9 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
+        listaUpdateRolUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin ", "Usuario" }));
+        listaUpdateRolUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder("¨Perfil de Usuario"));
+
         javax.swing.GroupLayout actualizacionDeUsuarioLayout = new javax.swing.GroupLayout(actualizacionDeUsuario);
         actualizacionDeUsuario.setLayout(actualizacionDeUsuarioLayout);
         actualizacionDeUsuarioLayout.setHorizontalGroup(
@@ -268,9 +258,9 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                             .addComponent(updatePassword, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(updateApeliido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(updateNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(listaUpdateRolUsuarios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(updateNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(listaUpdateRolUsuarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(115, 115, 115))
         );
@@ -286,15 +276,17 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                     .addComponent(updateApeliido, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(listaUpdateRolUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(actualizacionDeUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(updatePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(listaUpdateRolUsuarios))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(btnUpdateUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        listaUpdateRolUsuarios.getAccessibleContext().setAccessibleName("Perfil de Usuario");
 
         contenedorPrincipal.addTab("Actualizacion de Usuario", actualizacionDeUsuario);
 
@@ -440,7 +432,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         if( !nombre.isEmpty() ) {
         if( !password.isEmpty() ) {
             int posicionRol = -1;
-            posicionRol = nuevoListaRolUsuario.getSelectedIndex();
+            posicionRol = listaUpdateRolUsuarios.getSelectedIndex();
             
         if(posicionRol == 0 ){
             rolSistema = "admin";
@@ -459,7 +451,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
             jcbHabilitado.setSelected(false);
             jcbDeshabilitados.setSelected(true);
         }
-        if(posicionUsuario > -1 && posicionRol >-1){
+        if(posicionUsuario > -1 ){
             int IdUsuario = listaUsuariosAll.get(posicionUsuario).getId_miembro();
             Miembro usuarioActualizado = new Miembro(IdUsuario,dniParceado, password, apellido, nombre, estado, rolSistema);
             Menu.miembroEscritorio.actualizarMiembro(usuarioActualizado);
@@ -492,20 +484,25 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         List <Miembro> listaUsuariosAll = Menu.miembroEscritorio.listarTodosMiembros();
         int posicion = -1;
         posicion = listaUpdateUsuarios.getSelectedIndex();
+        boolean estado;
         if ( posicion > - 1 ) {
             updateDni.setText(listaUsuariosAll.get(posicion).getDni() + " ");
             updateApeliido.setText(listaUsuariosAll.get(posicion).getApellido());
             updateNombre.setText(listaUsuariosAll.get(posicion).getNombre());
             updatePassword.setText(listaUsuariosAll.get(posicion).getPassword());
+            estado = listaUsuariosAll.get(posicion).getEstado();
+            if (estado) {
+                jcbHabilitado.setSelected(true);
+                jcbDeshabilitados.setSelected(false);
+            } else {
+                jcbHabilitado.setSelected(false);
+                jcbDeshabilitados.setSelected(true);
+            }
+            
         }else if (posicion == -1){
             JOptionPane.showMessageDialog(null, "No se encuentran usuario para dar de modificar", "",JOptionPane.WARNING_MESSAGE); 
         } 
     }//GEN-LAST:event_listaUpdateUsuariosActionPerformed
-
-    //Solapa 2 -> Up de Usuario - CB: Rol de sistema
-    private void listaUpdateRolUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaUpdateRolUsuariosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaUpdateRolUsuariosActionPerformed
 
     private void nuevoDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoDniActionPerformed
         // TODO add your handling code here:
@@ -542,11 +539,6 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
     private void nuevoListaRolUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoListaRolUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nuevoListaRolUsuarioActionPerformed
-
-    private void listaUpdateRolUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaUpdateRolUsuariosMouseClicked
-        // TODO add your handling code here:
-        System.out.println(listaUpdateRolUsuarios.getSelectedIndex());
-    }//GEN-LAST:event_listaUpdateRolUsuariosMouseClicked
 
     private void cargarListaUsuarios(){
         listaUpdateUsuarios.removeAllItems();
