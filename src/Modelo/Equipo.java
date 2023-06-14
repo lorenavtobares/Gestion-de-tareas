@@ -82,7 +82,7 @@ public class Equipo {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
+/*
     @Override
     public String toString() {
         return  "Equipo{" + 
@@ -95,6 +95,13 @@ public class Equipo {
                 
     }
 
+    
+    */
+
+    @Override
+    public String toString() {
+        return  nombre ;
+    }
     
     
     

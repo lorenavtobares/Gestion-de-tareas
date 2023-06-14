@@ -120,7 +120,7 @@ public class EquipoData {
         PreparedStatement stmt = null;
         
         String query    = "UPDATE equipo "      
-                        + "SET idProyecto = ?, nombre = ?,  fechaCreacion = ? "
+                        + "SET idProyecto = ?, nombre = ?,  fechaCreacion = ? , estado = ? "
                         + "WHERE idEquipo = ? ";
         
         try{
@@ -128,7 +128,9 @@ public class EquipoData {
             stmt.setInt(1, equipo.getProyecto().getId_proyecto());
             stmt.setString(2, equipo.getNombre());
             stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
-            stmt.setInt(4, equipo.getId_equipo());
+            stmt.setBoolean(4, equipo.getEstado());
+            stmt.setInt(5, equipo.getId_equipo());
+           
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);
