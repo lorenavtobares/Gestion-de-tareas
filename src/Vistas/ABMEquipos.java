@@ -273,7 +273,9 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 estado = false;
             }
 
-          
+            Equipo equipos = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, estado);
+
+            Menu.equipoEscritorio.actualizarEquipo(equipos);
 
         } else {
             JOptionPane.showMessageDialog(null, "Debe ingresar un nombre", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
