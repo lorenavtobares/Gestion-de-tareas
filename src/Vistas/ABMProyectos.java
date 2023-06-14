@@ -5,14 +5,17 @@ import Modelo.Proyecto;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ABMProyectos extends javax.swing.JInternalFrame {
 
     public ABMProyectos() {
         initComponents();
+        cargandoListaProyectos();
         nuevoFechaInicio.setMinSelectableDate(new Date());
         dehsabilitandoEdicion();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -31,10 +34,10 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         updateDescripcion = new javax.swing.JTextArea();
         btnUpdateProyecto = new javax.swing.JButton();
-        updateProyecto = new javax.swing.JComboBox<>();
         upProyectoEstado = new javax.swing.JPanel();
         jcbHabilitado = new javax.swing.JCheckBox();
         jcbDeshabilitados = new javax.swing.JCheckBox();
+        jcbListProyecto = new javax.swing.JComboBox<>();
         btnCerrar = new javax.swing.JButton();
 
         contenedorPrincipal.setPreferredSize(new java.awt.Dimension(800, 450));
@@ -78,7 +81,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
                     .addComponent(nuevoFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCrearProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         nuevoProyectoLayout.setVerticalGroup(
             nuevoProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,9 +114,11 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(updateDescripcion);
 
         btnUpdateProyecto.setText("Actualizar Informacion");
-
-        updateProyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-        updateProyecto.setBorder(javax.swing.BorderFactory.createTitledBorder("PROYECTO"));
+        btnUpdateProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateProyectoActionPerformed(evt);
+            }
+        });
 
         upProyectoEstado.setBorder(javax.swing.BorderFactory.createTitledBorder("Estado del proyecto"));
 
@@ -142,32 +147,42 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
+        jcbListProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbListProyectoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout actualizacionDeProyectoLayout = new javax.swing.GroupLayout(actualizacionDeProyecto);
         actualizacionDeProyecto.setLayout(actualizacionDeProyectoLayout);
         actualizacionDeProyectoLayout.setHorizontalGroup(
             actualizacionDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(actualizacionDeProyectoLayout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addGroup(actualizacionDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(updateProyecto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(updateFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(btnUpdateProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(upProyectoEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addGroup(actualizacionDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(actualizacionDeProyectoLayout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addGroup(actualizacionDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(updateFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                            .addComponent(btnUpdateProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                            .addComponent(upProyectoEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(actualizacionDeProyectoLayout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(jcbListProyecto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         actualizacionDeProyectoLayout.setVerticalGroup(
             actualizacionDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(actualizacionDeProyectoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(updateProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcbListProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(upProyectoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addComponent(btnUpdateProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -186,7 +201,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contenedorPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+            .addComponent(contenedorPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 797, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,7 +209,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contenedorPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -253,10 +268,76 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             nuevoNombre.requestFocus();
         }
     }//GEN-LAST:event_btnCrearProyectoActionPerformed
+//Solapa 2 -> Carga los datos segun la posicion de la lista
+    private void jcbListProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListProyectoActionPerformed
+         List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
+         int posicion = -1;
+            posicion = jcbListProyecto.getSelectedIndex();
+           
+          
+        boolean estado;
+        if (posicion != -1 ) {
+            updateFechaInicio.setDateFormatString(arrayProyectos.get(posicion).getFecha_inicio()+ "" );
+            updateDescripcion.setText(arrayProyectos.get(posicion).getDescripcion());
+            updateFechaInicio.setDateFormatString(arrayProyectos.get(posicion).getFecha_inicio()+ "");
+         
+            estado = arrayProyectos.get(posicion).getEstado();
+            if (estado){
+                jcbHabilitado.setSelected(true);
+                jcbDeshabilitados.setSelected(false);
+            } else{
+                jcbHabilitado.setSelected(false);
+                jcbDeshabilitados.setSelected(true);}
+        }else if (posicion == -1){
+            JOptionPane.showMessageDialog(null, "No se encuentran proyectos", "",JOptionPane.WARNING_MESSAGE); 
+        }
+    }//GEN-LAST:event_jcbListProyectoActionPerformed
+//Solapa 2 -> Guarda los proyectos actualizados
+    private void btnUpdateProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProyectoActionPerformed
+        // TODO add your handling code here:
+         List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
+         int posicion = -1;
+            posicion = jcbListProyecto.getSelectedIndex();
+         
+        boolean estadoLocal;
+        
+        if (posicion != -1) {
+            String nombreLocal = arrayProyectos.get(posicion).getNombre();
+            String descripcionLocal = updateDescripcion.getText();
+            LocalDate fechaInicioLocal = updateFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            int idLocal =arrayProyectos.get(posicion).getId_proyecto();
+            if (jcbHabilitado.isSelected()){
+                    jcbHabilitado.setSelected(true);
+                    jcbDeshabilitados.setSelected(false);
+                    estadoLocal = true;
+                } else{
+                    jcbHabilitado.setSelected(false);
+                    jcbDeshabilitados.setSelected(true);
+                    estadoLocal = false;
+                }
+        
+            
+            Proyecto actualizandoProyecto = new Proyecto(idLocal, nombreLocal, descripcionLocal, fechaInicioLocal, estadoLocal);
+            Menu.proyectoEscritorio.actualizarProyecto(actualizandoProyecto);
+        }
+        
+    }//GEN-LAST:event_btnUpdateProyectoActionPerformed
     
     
                 /* <<-- Metodos Extreas -->> */
     
+    //Solapa 2 -> Carga los datos de la lista
+    private void cargandoListaProyectos() {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       jcbListProyecto.removeAllItems();
+        List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
+        
+        for (Proyecto proyectos : arrayProyectos) {
+            jcbListProyecto.addItem(proyectos);
+        }
+    
+        
+    }
     private void dehsabilitandoEdicion(){
     }
     
@@ -273,6 +354,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox jcbDeshabilitados;
     private javax.swing.JCheckBox jcbHabilitado;
+    private javax.swing.JComboBox<Proyecto> jcbListProyecto;
     private javax.swing.JTextArea nuevoDescripcion;
     private com.toedter.calendar.JDateChooser nuevoFechaInicio;
     private javax.swing.JTextField nuevoNombre;
@@ -280,6 +362,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel upProyectoEstado;
     private javax.swing.JTextArea updateDescripcion;
     private com.toedter.calendar.JDateChooser updateFechaInicio;
-    private javax.swing.JComboBox<String> updateProyecto;
     // End of variables declaration//GEN-END:variables
+
+
 }

@@ -6,16 +6,17 @@ import Funciones.Funciones;
 import com.toedter.calendar.JCalendar;
 import java.awt.Color;
 import Modelo.Equipo;
+import Modelo.Proyecto;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
-
 
 public class ABMEquipos extends javax.swing.JInternalFrame {
 
     public ABMEquipos() {
         initComponents();
         nuevoFecha.setMinSelectableDate(new Date());
+        cargandoProyectoV1();
         cargandoEquiposV2();
     }
 
@@ -28,6 +29,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         nuevoNombre = new javax.swing.JTextField();
         nuevoFecha = new com.toedter.calendar.JDateChooser();
         btnNuevoEquipo = new javax.swing.JButton();
+        jcbProyectos = new javax.swing.JComboBox<>();
         actualizacionDeEquipos = new javax.swing.JPanel();
         ActualizarNombre = new javax.swing.JTextField();
         actualizarFecha = new com.toedter.calendar.JDateChooser();
@@ -39,11 +41,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         btnCerrar = new javax.swing.JButton();
 
         nuevoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
-        nuevoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevoNombreActionPerformed(evt);
-            }
-        });
         nuevoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nuevoNombreKeyTyped(evt);
@@ -68,19 +65,22 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 .addGroup(nuevoDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(nuevoFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addComponent(nuevoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcbProyectos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         nuevoDeEquiposLayout.setVerticalGroup(
             nuevoDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nuevoDeEquiposLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(16, 16, 16)
+                .addComponent(jcbProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(nuevoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(28, 28, 28)
                 .addComponent(nuevoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(63, 63, 63)
                 .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         contenedorPrincipal.addTab("Nuevo Equipo", nuevoDeEquipos);
@@ -199,8 +199,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-                /* <<-- Validacion de datos -->> */
-    
+    /* <<-- Validacion de datos -->> */
     // Vista 1 - nuevo Equipo -> NOMBRE: Validacion de datos
     private void nuevoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoNombreKeyTyped
         Funciones.soloLetras(nuevoNombre, evt, 45);
@@ -210,92 +209,99 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private void ActualizarNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ActualizarNombreKeyTyped
         Funciones.soloLetras(ActualizarNombre, evt, 45);
     }//GEN-LAST:event_ActualizarNombreKeyTyped
-
-    private void nuevoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nuevoNombreActionPerformed
     //Solapa 2 -> carga la lista de equipos
     private void cargandoEquiposV2() {
-            
+
         jcbListaEquipos.removeAllItems();
-        List<Equipo> arrayEquipos= Menu.equipoEscritorio.listarTodosEquipos();
-        
-        for (Equipo equipos : arrayEquipos) {
-            jcbListaEquipos.addItem(equipos);
+        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
+
+        for (Proyecto proyectos : arrayProyectos) {
+            jcbListaEquipos.addItem(proyectos);
         }
-    
     }
-        
+
     private void btnNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEquipoActionPerformed
         // TODO add your handling code here:
         String nombre = nuevoNombre.getText();
         LocalDate fechaCreacion = nuevoFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Equipo equipos = new Equipo(nombre, fechaCreacion, true);
-         
+        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
+        Proyecto proyectoLocal = new Proyecto();
+        int posicion = -1;
+        posicion = jcbProyectos.getSelectedIndex();
+
+        Equipo equipos = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, true);
+
         Menu.equipoEscritorio.GuardarEquipo(equipos);
     }//GEN-LAST:event_btnNuevoEquipoActionPerformed
-    
-    public void formatoCalendario(){
+
+    public void formatoCalendario() {
         //jdFechaNacimiento.setLocale(new Locale("es"));
         //jdFechaNacimiento.setDateFormatString("dd-MM-yyyy");
-       
+
         //nuevoFecha.setDate(new Date());
         actualizarFecha.setDate(new Date());
-       // actualizarFecha.getJCalendar().setMaxSelectableDate(new Date());
+        // actualizarFecha.getJCalendar().setMaxSelectableDate(new Date());
         nuevoFecha.getJCalendar().setMaxSelectableDate(new Date());
-        
+
     }
-    
+
     //Solapa 2 - Actualizar Datos -> Btn guardar datos
     private void btnActualizarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEquipoActionPerformed
-        
+
         String nombre = ActualizarNombre.getText();
         LocalDate fechaCreacion = actualizarFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        boolean estado ;
+        boolean estado;
+        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
+        Proyecto proyectoLocal = new Proyecto();
+        int posicion = -1;
+        posicion = jcbListaEquipos.getSelectedIndex();
         if (!nombre.isEmpty()) {
-            
-             if (jcbHabilitado.isSelected()){
-               estado = true;  
-            } else{
-               estado = false;  
+
+            if (jcbHabilitado.isSelected()) {
+                estado = true;
+
+            } else {
+                estado = false;
             }
-            Equipo equipos = new Equipo(nombre, fechaCreacion, estado); 
+
+            Equipo equipos = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, estado);
+
             Menu.equipoEscritorio.actualizarEquipo(equipos);
-                            
+
         } else {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre", "ERROR Validacion",JOptionPane.WARNING_MESSAGE);
-            ActualizarNombre.requestFocus(); }
-        
+            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+            ActualizarNombre.requestFocus();
+        }
+
     }//GEN-LAST:event_btnActualizarEquipoActionPerformed
 
     //Solapa 2 - Actualizar Datos -> Cargar Datos del furmulario Items ComboBox
     private void jcbListaEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaEquiposActionPerformed
-        
-         List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarTodosEquipos();
-         int posicion = -1;
-            posicion = jcbListaEquipos.getSelectedIndex();
+
+        List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarTodosEquipos();
+        int posicion = -1;
+        posicion = jcbListaEquipos.getSelectedIndex();
         boolean estado;
-        if (posicion > -1 ) {
+        if (posicion > -1) {
             ActualizarNombre.setText(arrayEquipos.get(posicion).getNombre());
             actualizarFecha.setDateFormatString(arrayEquipos.get(posicion).getFecha_cracion() + "");
             estado = arrayEquipos.get(posicion).getEstado();
-            if (estado){
+            if (estado) {
                 jcbHabilitado.setSelected(true);
                 jcbDeshabilitados.setSelected(false);
-            } else{
+            } else {
                 jcbHabilitado.setSelected(false);
-                jcbDeshabilitados.setSelected(true);}
-        }else if (posicion == -1){
-            JOptionPane.showMessageDialog(null, "No se encuentran equipos", "",JOptionPane.WARNING_MESSAGE); 
+                jcbDeshabilitados.setSelected(true);
+            }
+
+        } else if (posicion == -1) {
+            JOptionPane.showMessageDialog(null, "No se encuentran equipos", "", JOptionPane.WARNING_MESSAGE);
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jcbListaEquiposActionPerformed
 
-                /* <<-- Metodos Extras -->> */
-  
+    /* <<-- Metodos Extras -->> */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ActualizarNombre;
@@ -308,10 +314,20 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JCheckBox jcbDeshabilitados;
     private javax.swing.JCheckBox jcbHabilitado;
-    private javax.swing.JComboBox<Equipo> jcbListaEquipos;
+    private javax.swing.JComboBox<Proyecto> jcbListaEquipos;
+    private javax.swing.JComboBox<Proyecto> jcbProyectos;
     private javax.swing.JPanel nuevoDeEquipos;
     private com.toedter.calendar.JDateChooser nuevoFecha;
     private javax.swing.JTextField nuevoNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void cargandoProyectoV1() {
+        jcbProyectos.removeAllItems();
+        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
+
+        for (Proyecto proyectos : arrayProyectos) {
+            jcbProyectos.addItem(proyectos);
+        }
+    }
 
 }
