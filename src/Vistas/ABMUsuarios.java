@@ -1,11 +1,14 @@
 package Vistas;
 
 import Funciones.Funciones;
+import Modelo.Miembro;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
 public class ABMUsuarios extends javax.swing.JInternalFrame {
-
+    
     public ABMUsuarios() {
         initComponents();
     }
@@ -22,6 +25,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         nuevoDni = new javax.swing.JTextField();
         nuevoApellido = new javax.swing.JTextField();
         nuevoListaRolUsuarios = new javax.swing.JComboBox<>();
+        nuevoListaRolUsuario = new javax.swing.JComboBox<>();
         actualizacionDeUsuario = new javax.swing.JPanel();
         updateNombre = new javax.swing.JTextField();
         updatePassword = new javax.swing.JPasswordField();
@@ -90,13 +94,16 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        nuevoListaRolUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuario" }));
+        nuevoListaRolUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(/*new String[] { "Administrador", "Usuario" }*/));
         nuevoListaRolUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder("PERFIL DEL USUARIO"));
+        nuevoListaRolUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         nuevoListaRolUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nuevoListaRolUsuariosActionPerformed(evt);
             }
         });
+
+        nuevoListaRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Usuario" }));
 
         javax.swing.GroupLayout crearUsuarioLayout = new javax.swing.GroupLayout(crearUsuario);
         crearUsuario.setLayout(crearUsuarioLayout);
@@ -108,13 +115,15 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                     .addComponent(btnNuevoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addComponent(nuevoDni, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(crearUsuarioLayout.createSequentialGroup()
-                        .addGroup(crearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(nuevoPassword, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nuevoApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addGroup(crearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nuevoListaRolUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nuevoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(crearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(nuevoPassword, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nuevoApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                            .addComponent(nuevoListaRolUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(crearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nuevoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(nuevoListaRolUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(115, 115, 115))
         );
         crearUsuarioLayout.setVerticalGroup(
@@ -129,11 +138,16 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(crearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nuevoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nuevoListaRolUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                    .addComponent(nuevoListaRolUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(nuevoListaRolUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
                 .addComponent(btnNuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
+
+        nuevoListaRolUsuarios.getAccessibleContext().setAccessibleName("");
+        nuevoListaRolUsuarios.getAccessibleContext().setAccessibleDescription("");
 
         contenedorPrincipal.addTab("Nuevo Usuario", crearUsuario);
 
@@ -380,13 +394,22 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         String password = nuevoPassword.getText();
         String apellido = nuevoApellido.getText();
         String nombre = nuevoNombre.getText();
-        
+        String rolSistema = "";
         if ( !dni.isEmpty() ) {
             int dniParceado = Integer.parseInt(dni);
         if( !apellido.isEmpty() ) {
         if( !nombre.isEmpty() ) {
         if( !password.isEmpty() ) {
-        
+            int posicion = -1;
+            posicion = nuevoListaRolUsuario.getSelectedIndex();
+        if(posicion ==0){
+            rolSistema = "Admin";
+        }else{
+            rolSistema = "Usuario";
+        }
+            Miembro usuario = new Miembro(dniParceado, password, apellido, nombre, true, rolSistema);
+            Menu.miembroEscritorio.guardarMiembro(usuario);
+            Menu.miembroEscritorio.actualizarMiembro(usuario);
             
             
         }else{
@@ -410,15 +433,28 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         String password = updatePassword.getText();
         String apellido = updateApeliido.getText();
         String nombre = updateNombre.getText();
-        
+        String rolSistema ="";
+        boolean estado;
         if ( !dni.isEmpty() ) {
             int dniParceado = Integer.parseInt(dni);
         if( !apellido.isEmpty() ) {
         if( !nombre.isEmpty() ) {
         if( !password.isEmpty() ) {
-        
-            
-            
+            int posicion = -1;
+            posicion = nuevoListaRolUsuario.getSelectedIndex();
+        if(posicion ==0){
+            rolSistema = "Admin";
+        }else{
+            rolSistema = "Usuario";
+        }
+        if(jcbHabilitado.isSelected()){
+            estado = true;
+        }
+        else{
+            estado = false;
+        }
+            Miembro usuarioActualizado = new Miembro(dniParceado, password, apellido, nombre, estado, rolSistema);
+            Menu.miembroEscritorio.actualizarMiembro(usuarioActualizado);
         }else{
             JOptionPane.showMessageDialog(null, "Debe ingresar una contraseña", "ERROR Validacion",JOptionPane.WARNING_MESSAGE);
             updatePassword.requestFocus(); }
@@ -444,11 +480,23 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
     //Solapa 1 -> Alta de Usuario - CB: Rol de sistema
     private void nuevoListaRolUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoListaRolUsuariosActionPerformed
         // TODO add your handling code here:
+       
+            
+
     }//GEN-LAST:event_nuevoListaRolUsuariosActionPerformed
 
     // Vista 2 - Up de usuario -> CB: Lista de usuarios
     private void listaUpdateUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaUpdateUsuariosActionPerformed
         // TODO add your handling code here:
+        List <Miembro> listaUsuariosAll = Menu.miembroEscritorio.listarTodosMiembros();
+        int posicion = -1;
+         posicion = listaUpdateUsuarios.getSelectedIndex();
+        if ( posicion > - 1 ) {
+            updateDni.setText(listaUsuariosAll.get(posicion).getDni() + " ");
+            updateApeliido.setText(listaUsuariosAll.get(posicion).getApellido());
+            updateNombre.setText(listaUsuariosAll.get(posicion).getNombre());
+            updatePassword.setText(listaUsuariosAll.get(posicion).getPassword());
+        }
     }//GEN-LAST:event_listaUpdateUsuariosActionPerformed
 
     //Solapa 2 -> Up de Usuario - CB: Rol de sistema
@@ -503,7 +551,8 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> listaUpdateUsuarios;
     private javax.swing.JTextField nuevoApellido;
     private javax.swing.JTextField nuevoDni;
-    private javax.swing.JComboBox<String> nuevoListaRolUsuarios;
+    private javax.swing.JComboBox<String> nuevoListaRolUsuario;
+    private javax.swing.JComboBox<Miembro> nuevoListaRolUsuarios;
     private javax.swing.JTextField nuevoNombre;
     private javax.swing.JPasswordField nuevoPassword;
     private javax.swing.JTextField updateApeliido;
