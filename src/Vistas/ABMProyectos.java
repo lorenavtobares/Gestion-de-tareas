@@ -34,7 +34,6 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         updateDescripcion = new javax.swing.JTextArea();
         btnUpdateProyecto = new javax.swing.JButton();
-        updateProyecto = new javax.swing.JComboBox<>();
         upProyectoEstado = new javax.swing.JPanel();
         jcbHabilitado = new javax.swing.JCheckBox();
         jcbDeshabilitados = new javax.swing.JCheckBox();
@@ -121,9 +120,6 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             }
         });
 
-        updateProyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-        updateProyecto.setBorder(javax.swing.BorderFactory.createTitledBorder("PROYECTO"));
-
         upProyectoEstado.setBorder(javax.swing.BorderFactory.createTitledBorder("Estado del proyecto"));
 
         jcbHabilitado.setText("Habilitado");
@@ -171,26 +167,22 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
                             .addComponent(btnUpdateProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                             .addComponent(upProyectoEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(actualizacionDeProyectoLayout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(updateProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(114, 114, 114)
                         .addComponent(jcbListProyecto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         actualizacionDeProyectoLayout.setVerticalGroup(
             actualizacionDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(actualizacionDeProyectoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(actualizacionDeProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbListProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jcbListProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(upProyectoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addComponent(btnUpdateProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -370,7 +362,6 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel upProyectoEstado;
     private javax.swing.JTextArea updateDescripcion;
     private com.toedter.calendar.JDateChooser updateFechaInicio;
-    private javax.swing.JComboBox<String> updateProyecto;
     // End of variables declaration//GEN-END:variables
 
 
