@@ -79,7 +79,7 @@ public class Proyecto {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
+/*
     @Override
     public String toString() {
         return  "Proyecto{" + 
@@ -90,6 +90,15 @@ public class Proyecto {
                 "\nestado => " + estado + 
                 "\n}";
     }
+    
+    */
+
+    @Override
+    public String toString() {
+        return nombre ;
+    }
+    
+    
     
     
 }

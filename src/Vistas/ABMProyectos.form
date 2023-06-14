@@ -19,7 +19,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="contenedorPrincipal" pref="790" max="32767" attributes="0"/>
+          <Component id="contenedorPrincipal" pref="797" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Component id="btnCerrar" min="-2" pref="58" max="-2" attributes="0"/>
@@ -29,7 +29,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="btnCerrar" pref="37" max="32767" attributes="0"/>
+              <Component id="btnCerrar" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="contenedorPrincipal" min="-2" pref="450" max="-2" attributes="0"/>
           </Group>
@@ -71,7 +71,7 @@
                           <Component id="jScrollPane1" min="-2" pref="550" max="-2" attributes="0"/>
                           <Component id="btnCrearProyecto" min="-2" pref="550" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="125" max="32767" attributes="0"/>
+                      <EmptySpace pref="135" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -164,15 +164,24 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="updateProyecto" max="32767" attributes="0"/>
-                          <Component id="updateFechaInicio" alignment="0" pref="550" max="32767" attributes="0"/>
-                          <Component id="jScrollPane2" alignment="0" pref="550" max="32767" attributes="0"/>
-                          <Component id="btnUpdateProyecto" alignment="0" pref="550" max="32767" attributes="0"/>
-                          <Component id="upProyectoEstado" alignment="1" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="updateFechaInicio" alignment="0" pref="550" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="550" max="32767" attributes="0"/>
+                                  <Component id="btnUpdateProyecto" alignment="0" pref="550" max="32767" attributes="0"/>
+                                  <Component id="upProyectoEstado" alignment="1" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                              <Component id="updateProyecto" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jcbListProyecto" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="126" max="32767" attributes="0"/>
+                      <EmptySpace pref="120" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -180,14 +189,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="updateProyecto" min="-2" pref="59" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="updateProyecto" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
+                          <Component id="jcbListProyecto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="updateFechaInicio" min="-2" pref="64" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="114" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="upProyectoEstado" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="25" max="32767" attributes="0"/>
+                      <EmptySpace pref="41" max="32767" attributes="0"/>
                       <Component id="btnUpdateProyecto" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -231,6 +243,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Actualizar Informacion"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateProyectoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="updateProyecto">
               <Properties>
@@ -294,6 +309,19 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JComboBox" name="jcbListProyecto">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbListProyectoActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Proyecto&gt;"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

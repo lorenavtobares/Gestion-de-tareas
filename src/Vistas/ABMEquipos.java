@@ -284,7 +284,12 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 jcbDeshabilitados.setSelected(false);
             } else{
                 jcbHabilitado.setSelected(false);
-                jcbDeshabilitados.setSelected(true);}
+                jcbDeshabilitados.setSelected(true);
+            }
+            
+            
+            
+            
         }else if (posicion == -1){
             JOptionPane.showMessageDialog(null, "No se encuentran equipos", "",JOptionPane.WARNING_MESSAGE); 
         }
