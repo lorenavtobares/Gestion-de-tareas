@@ -5,6 +5,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.*;
 
 public class Funciones {
     
@@ -80,25 +83,29 @@ public class Funciones {
     }
     
     //Validacion de fecha -> Posterior a la actual
-    public static boolean validarFechaPosterior(JDateChooser e){
-        Date dat = new Date(); //Instancia la fecha del sistema
+    public static boolean validarFechaPosterior( JDateChooser e ) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date fechaParametro = e.getDate();
+        Date fechaSistema = new Date();
         boolean bandera = false;
         
-        try{
-            if ( e.getDate().before(dat) ){ //Compara si la fecha seleccionada es mayor o igual a la fecha actual
+        System.out.println("Fecha parametros -> " + fechaParametro);
+        System.out.println("Fecha Sistema -> " + fechaSistema);
+        
+        try{    
+            //int estado = fechaParametro.compareTo(fechaSistema);
+            int estado = 0;
+            
+            if ( estado == 1 ){ 
+                //bandera = true;
+                JOptionPane.showMessageDialog(null, "Las fechas son iguales", "OK",JOptionPane.WARNING_MESSAGE);                
+            }else {
                 JOptionPane.showMessageDialog(null, "Para el ingreso de un proyecto, se debe seleccionar una fecha posterior a la actual.", "ERROR",JOptionPane.ERROR_MESSAGE);                
-            }else {bandera = true;}
+            }
         }catch (Exception ex){
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fecha", "ERROR",JOptionPane.ERROR_MESSAGE);
         }
         
         return bandera;
-    }
-    
-    
-    
-   
-    
-
-    
+    }    
 }
