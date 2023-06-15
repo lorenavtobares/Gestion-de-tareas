@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class ABMEquipos extends javax.swing.JInternalFrame {
     
@@ -25,7 +26,9 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     
     private static List <Miembro> usuarioSeleccionado = new ArrayList<>();
     private static List <Equipo> equipoSeleccionado = new ArrayList<>();
+    private static List <Equipo> equipoSeleccionadoTabla = new ArrayList<>();
     
+    private DefaultTableModel modelo=new DefaultTableModel();
     public ABMEquipos() {
         initComponents();
         nuevoFecha.setMinSelectableDate(new Date());
@@ -34,6 +37,9 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         mostrarUsuariosAsignacion();
         mostrarEquipoAsignacion();
         mostrarEquiposInfo();
+        armarCabecera();
+        borrarFilas();
+        llenarTabla();
     }
 
     @SuppressWarnings("unchecked")
@@ -63,7 +69,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         mostrarInformacionDeEquipo = new javax.swing.JPanel();
         listaEquiposMiembrosInfo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
 
         nuevoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
@@ -260,8 +265,13 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         contenedorPrincipal.addTab("Asignar Persona a Equipo", asignarPersonaaEquipo);
 
         listaEquiposMiembrosInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(" Equipos"));
+        listaEquiposMiembrosInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaEquiposMiembrosInfoActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -280,10 +290,14 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        tablaMostrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(tablaMostrar);
+        if (tablaMostrar.getColumnModel().getColumnCount() > 0) {
+            tablaMostrar.getColumnModel().getColumn(0).setResizable(false);
+            tablaMostrar.getColumnModel().getColumn(1).setResizable(false);
+            tablaMostrar.getColumnModel().getColumn(2).setResizable(false);
+            tablaMostrar.getColumnModel().getColumn(3).setResizable(false);
+            tablaMostrar.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout mostrarInformacionDeEquipoLayout = new javax.swing.GroupLayout(mostrarInformacionDeEquipo);
@@ -292,10 +306,12 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
                 .addGap(112, 112, 112)
-                .addGroup(mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(listaEquiposMiembrosInfo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(114, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mostrarInformacionDeEquipoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listaEquiposMiembrosInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106))
         );
         mostrarInformacionDeEquipoLayout.setVerticalGroup(
             mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -510,6 +526,17 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_listaAsignacionUsuariosMouseClicked
 
+    private void listaEquiposMiembrosInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaEquiposMiembrosInfoActionPerformed
+        // TODO add your handling code here:
+        List <Equipo> listaEquipoH = Menu.equipoEscritorio.listarEquiposHabilitados();
+        int posicion = -1;
+        posicion = listaEquiposMiembrosInfo.getSelectedIndex();
+        for (Equipo equipo1 : listaEquipoH) {
+            equipoSeleccionadoTabla.add(equipo1);
+        }
+        llenarTabla();
+    }//GEN-LAST:event_listaEquiposMiembrosInfoActionPerformed
+
     /* <<-- Metodos Extras -->> */
 
     
@@ -526,7 +553,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fechaAsignacion;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JCheckBox jcbDeshabilitados;
     private javax.swing.JCheckBox jcbHabilitado;
     private javax.swing.JComboBox<Proyecto> jcbListaEquipos;
@@ -539,6 +565,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel nuevoDeEquipos;
     private com.toedter.calendar.JDateChooser nuevoFecha;
     private javax.swing.JTextField nuevoNombre;
+    private final javax.swing.JTable tablaMostrar = new javax.swing.JTable();
     // End of variables declaration//GEN-END:variables
 
     private void cargandoProyectoV1() {
@@ -588,6 +615,36 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         List <Equipo> listaEquiposH = Menu.equipoEscritorio.listarEquiposHabilitados();
         for (Equipo equipo : listaEquiposH) {
             listaEquiposMiembrosInfo.addItem(equipo);
+        }
+    }
+    private void armarCabecera(){
+        ArrayList<Object> titulos=new ArrayList<>();
+        titulos.add("Dni");
+        titulos.add("Apellido");
+        titulos.add("Nombre");
+        titulos.add("Fecha Incorporacion");
+        titulos.add("Rol");
+        
+        for (Object titulo : titulos) {
+            modelo.addColumn(titulo);
+        }
+        tablaMostrar.setModel(modelo);
+    }
+    private void borrarFilas(){
+        int filas=modelo.getRowCount()-1;
+        for(int i=filas;i >=0;i--){
+            modelo.removeRow(i);
+        }
+    }
+    private void llenarTabla(){
+        borrarFilas();
+        int posicionEquipo =-1;
+        posicionEquipo = listaEquiposMiembrosInfo.getSelectedIndex();
+        if(posicionEquipo > -1){
+        List <EquipoMiembros> EMSeleccionado = Menu.equipoMiembosEscritorio.listarMiembrosEquiposTabla(equipoSeleccionadoTabla.get(posicionEquipo).getId_equipo());
+            for (EquipoMiembros EM : EMSeleccionado) {
+                modelo.addRow(new Object[]{EM.getMiembro().getDni(),EM.getMiembro().getApellido(),EM.getMiembro().getNombre(),EM.getFecha_incorporacion(),EM.getRol()});
+            }
         }
     }
 }
