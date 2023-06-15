@@ -1,5 +1,7 @@
 package Vistas;
 
+import Controlador.EquipoData;
+import Controlador.MiembroData;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import Funciones.Funciones;
@@ -15,17 +17,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ABMEquipos extends javax.swing.JInternalFrame {
-    private int idUsuario = -1;
-    private int idEquipo = -1;
-    private List <Miembro> usuarioSeleccionado = new ArrayList<>();
-    private List <Equipo> equipoSeleccionado = new ArrayList<>();
+    
+    private static Miembro usuario = new Miembro();
+    private static MiembroData usuarioData = new  MiembroData();
+    private static Equipo equipo = new  Equipo();
+    private static EquipoData equipoData = new EquipoData();
+    
+    private static List <Miembro> usuarioSeleccionado = new ArrayList<>();
+    private static List <Equipo> equipoSeleccionado = new ArrayList<>();
+    
     public ABMEquipos() {
         initComponents();
         nuevoFecha.setMinSelectableDate(new Date());
         cargandoProyectoV1();
         cargandoEquiposV2();
         mostrarUsuariosAsignacion();
-        MostrarEquipoAsignacion();
+        mostrarEquipoAsignacion();
+        mostrarEquiposInfo();
     }
 
     @SuppressWarnings("unchecked")
@@ -46,12 +54,16 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         jcbHabilitado = new javax.swing.JCheckBox();
         jcbDeshabilitados = new javax.swing.JCheckBox();
         jcbListaEquipos = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
+        asignarPersonaaEquipo = new javax.swing.JPanel();
         listaAsignacionUsuarios = new javax.swing.JComboBox<>();
         listaAsignacionEquipos = new javax.swing.JComboBox<>();
         listaAsignacionRolUsuarios = new javax.swing.JComboBox<>();
         fechaAsignacion = new com.toedter.calendar.JDateChooser();
         btnAsignar = new javax.swing.JButton();
+        mostrarInformacionDeEquipo = new javax.swing.JPanel();
+        listaEquiposMiembrosInfo = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
 
         nuevoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
@@ -94,7 +106,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 .addComponent(nuevoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         contenedorPrincipal.addTab("Nuevo Equipo", nuevoDeEquipos);
@@ -176,7 +188,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnActualizarEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         contenedorPrincipal.addTab("Actualizacion de Equipos", actualizacionDeEquipos);
@@ -215,13 +227,13 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout asignarPersonaaEquipoLayout = new javax.swing.GroupLayout(asignarPersonaaEquipo);
+        asignarPersonaaEquipo.setLayout(asignarPersonaaEquipoLayout);
+        asignarPersonaaEquipoLayout.setHorizontalGroup(
+            asignarPersonaaEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(asignarPersonaaEquipoLayout.createSequentialGroup()
                 .addGap(111, 111, 111)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(asignarPersonaaEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(listaAsignacionUsuarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(listaAsignacionEquipos, 0, 552, Short.MAX_VALUE)
                     .addComponent(listaAsignacionRolUsuarios, 0, 552, Short.MAX_VALUE)
@@ -229,9 +241,9 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                     .addComponent(btnAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        asignarPersonaaEquipoLayout.setVerticalGroup(
+            asignarPersonaaEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(asignarPersonaaEquipoLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(listaAsignacionUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -245,7 +257,57 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15))
         );
 
-        contenedorPrincipal.addTab("Asignar Persona a Equipo", jPanel2);
+        contenedorPrincipal.addTab("Asignar Persona a Equipo", asignarPersonaaEquipo);
+
+        listaEquiposMiembrosInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(" Equipos"));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Dni", "Apellido", "Nombre", "Fecha Incorporacion", "Rol"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        javax.swing.GroupLayout mostrarInformacionDeEquipoLayout = new javax.swing.GroupLayout(mostrarInformacionDeEquipo);
+        mostrarInformacionDeEquipo.setLayout(mostrarInformacionDeEquipoLayout);
+        mostrarInformacionDeEquipoLayout.setHorizontalGroup(
+            mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addGroup(mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(listaEquiposMiembrosInfo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
+        );
+        mostrarInformacionDeEquipoLayout.setVerticalGroup(
+            mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(listaEquiposMiembrosInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+
+        contenedorPrincipal.addTab("Mostrar Informacion de Equipo", mostrarInformacionDeEquipo);
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cerrar.png"))); // NOI18N
         btnCerrar.setBorder(null);
@@ -378,19 +440,9 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         List <Miembro> listaUsuariosH =  Menu.miembroEscritorio.listarHabilitados();
         int posicion = -1;
         posicion = listaAsignacionUsuarios.getSelectedIndex();
-        if (posicion > -1 ){
-        Miembro usuarios;
-        int dni = listaUsuariosH.get(posicion).getDni();
-        String password = listaUsuariosH.get(posicion).getPassword();
-        String apellido = listaUsuariosH.get(posicion).getApellido();
-        String nombre = listaUsuariosH.get(posicion).getNombre();
-        boolean estado = listaUsuariosH.get(posicion).getEstado();
-        String rolSistema = listaUsuariosH.get(posicion).getRolSistema();
-        usuarios = new Miembro(dni, password, apellido, nombre, estado, rolSistema);
-        usuarioSeleccionado.add(usuarios);
+        for (Miembro miembro : listaUsuariosH) {
+            usuarioSeleccionado.add(miembro);
         }
-        
-        
     }//GEN-LAST:event_listaAsignacionUsuariosActionPerformed
 
     private void listaAsignacionEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaAsignacionEquiposActionPerformed
@@ -398,15 +450,8 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         List <Equipo> listaEquipoH = Menu.equipoEscritorio.listarEquiposHabilitados();
         int posicion = -1;
         posicion = listaAsignacionEquipos.getSelectedIndex();
-        if (posicion > -1 ){
-            Equipo equipos;
-            int idProyecto = listaEquipoH.get(posicion).getProyecto().getId_proyecto();
-            String nombre = listaEquipoH.get(posicion).getNombre();
-            LocalDate fechaCreacion = listaEquipoH.get(posicion).getFecha_cracion();
-            boolean estado = listaEquipoH.get(posicion).getEstado();
-            equipos = new Equipo(nombre, fechaCreacion, estado);
-            equipoSeleccionado.add(equipos);
-            
+        for (Equipo equipo1 : listaEquipoH) {
+            equipoSeleccionado.add(equipo1);
         }
     }//GEN-LAST:event_listaAsignacionEquiposActionPerformed
 
@@ -422,34 +467,41 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         String rolUsuario ="";
         int idEquipo = -1;
         int idUsuario = -1;
-        Equipo equipoBuscar = new Equipo();
-        Miembro usuarioBuscar = new Miembro();
         posicionUsuario = listaAsignacionUsuarios.getSelectedIndex();
         posicionEquipo = listaAsignacionEquipos.getSelectedIndex();
         posicionRolUsuario = listaAsignacionRolUsuarios.getSelectedIndex();
-        if(posicionRolUsuario == 0){
-            rolUsuario = "Lider de Equipo";
+        switch(posicionRolUsuario){
+            case 0:
+                rolUsuario = "Lider de Equipo";
+                System.out.println(rolUsuario);
+                break;
+            case 1:
+                rolUsuario ="Project Manager";
+                System.out.println(rolUsuario);
+                break;
+            case 2:
+                rolUsuario = "Desarrolador de Sotfware";
+                System.out.println(rolUsuario);
+                break;
+            case 3:
+                rolUsuario = "Diseñador UX y UI";
+                System.out.println(rolUsuario);
+                break;
         }
-        else if(posicionRolUsuario == 1){
-            rolUsuario ="Project Manager";
-        }
-        else if (posicionRolUsuario == 2) {
-            rolUsuario = "Desarrolador de Sotfware";
-        }
-        else if(posicionRolUsuario == 3){
-            rolUsuario = "Diseñador UX y UI";
-        }
+
         if(posicionUsuario > -1) {
             idUsuario = usuarioSeleccionado.get(posicionUsuario).getId_miembro();
-            usuarioBuscar = Menu.miembroEscritorio.buscarMiembro(idUsuario);
-            
+            usuario = regenerarUsuarios(idUsuario);
+            System.out.println(usuario.toString());
         }
         if (posicionEquipo > -1 ) {
             idEquipo = equipoSeleccionado.get(posicionEquipo).getId_equipo();
-            equipoBuscar = Menu.equipoEscritorio.buscarEquipo(idEquipo);
+            equipo = regenerarEquipos(idEquipo);
+            System.out.println(equipo.toString());
+            
         }
         LocalDate fecha_Incorporacion = fechaAsignacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        EquipoMiembros usuarioAsignado = new EquipoMiembros(rolUsuario, fecha_Incorporacion, equipoBuscar,usuarioBuscar);
+        EquipoMiembros usuarioAsignado = new EquipoMiembros(rolUsuario, fecha_Incorporacion, equipo,usuario);
         Menu.equipoMiembosEscritorio.guardarEquipoMiembros(usuarioAsignado);
     }//GEN-LAST:event_btnAsignarActionPerformed
 
@@ -465,6 +517,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField ActualizarNombre;
     private javax.swing.JPanel actualizacionDeEquipos;
     private com.toedter.calendar.JDateChooser actualizarFecha;
+    private javax.swing.JPanel asignarPersonaaEquipo;
     private javax.swing.JButton btnActualizarEquipo;
     private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnCerrar;
@@ -472,7 +525,8 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane contenedorPrincipal;
     private com.toedter.calendar.JDateChooser fechaAsignacion;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JCheckBox jcbDeshabilitados;
     private javax.swing.JCheckBox jcbHabilitado;
     private javax.swing.JComboBox<Proyecto> jcbListaEquipos;
@@ -480,6 +534,8 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Equipo> listaAsignacionEquipos;
     private javax.swing.JComboBox<String> listaAsignacionRolUsuarios;
     private javax.swing.JComboBox<Miembro> listaAsignacionUsuarios;
+    private javax.swing.JComboBox<Equipo> listaEquiposMiembrosInfo;
+    private javax.swing.JPanel mostrarInformacionDeEquipo;
     private javax.swing.JPanel nuevoDeEquipos;
     private com.toedter.calendar.JDateChooser nuevoFecha;
     private javax.swing.JTextField nuevoNombre;
@@ -512,11 +568,26 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         }
     }
     
-    private void MostrarEquipoAsignacion(){
+    private void mostrarEquipoAsignacion(){
         listaAsignacionEquipos.removeAllItems();
         List <Equipo> listaEquiposH = Menu.equipoEscritorio.listarEquiposHabilitados();
         for (Equipo equipo : listaEquiposH) {
             listaAsignacionEquipos.addItem(equipo);
+        }
+    }
+    private Miembro regenerarUsuarios (int idUsuario){
+        usuario = usuarioData.buscarMiembro(idUsuario);
+        return usuario;
+    }
+    private Equipo regenerarEquipos(int idEquipo){
+        equipo = equipoData.buscarEquipo(idEquipo);
+        return equipo;
+    }
+    private void mostrarEquiposInfo(){
+        listaEquiposMiembrosInfo.removeAllItems();
+        List <Equipo> listaEquiposH = Menu.equipoEscritorio.listarEquiposHabilitados();
+        for (Equipo equipo : listaEquiposH) {
+            listaEquiposMiembrosInfo.addItem(equipo);
         }
     }
 }

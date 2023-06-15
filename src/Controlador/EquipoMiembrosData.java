@@ -216,4 +216,18 @@ public class EquipoMiembrosData {
         }
         return listaEM;
     }
+    public List<EquipoMiembros> listarMiembrosEquipos(int idEquipo){
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<EquipoMiembros> listaEM = new ArrayList<EquipoMiembros>();
+        
+        String query        = " SELECT M.dni, M.apellido, M.nombre, EM.fechaIncorporacion, EM.rol " 
+                            + " FROM equipomiembros AS EM " 
+                            + " JOIN miembro AS M " 
+                            + " ON EM.idMiembro = M.idMiembro "
+                            + " JOIN equipo AS E " 
+                            + " ON EM.idEquipo = E.idEquipo " 
+                            + " WHERE EM.idEquipoMiembros = ? ";
+        return listaEM;
+    }
 }
