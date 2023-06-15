@@ -6,18 +6,26 @@ import Funciones.Funciones;
 import com.toedter.calendar.JCalendar;
 import java.awt.Color;
 import Modelo.Equipo;
+import Modelo.EquipoMiembros;
+import Modelo.Miembro;
 import Modelo.Proyecto;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ABMEquipos extends javax.swing.JInternalFrame {
-
+    private int idUsuario = -1;
+    private int idEquipo = -1;
+    private List <Miembro> usuarioSeleccionado = new ArrayList<>();
+    private List <Equipo> equipoSeleccionado = new ArrayList<>();
     public ABMEquipos() {
         initComponents();
         nuevoFecha.setMinSelectableDate(new Date());
         cargandoProyectoV1();
         cargandoEquiposV2();
+        mostrarUsuariosAsignacion();
+        MostrarEquipoAsignacion();
     }
 
     @SuppressWarnings("unchecked")
@@ -38,6 +46,12 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         jcbHabilitado = new javax.swing.JCheckBox();
         jcbDeshabilitados = new javax.swing.JCheckBox();
         jcbListaEquipos = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        listaAsignacionUsuarios = new javax.swing.JComboBox<>();
+        listaAsignacionEquipos = new javax.swing.JComboBox<>();
+        listaAsignacionRolUsuarios = new javax.swing.JComboBox<>();
+        fechaAsignacion = new com.toedter.calendar.JDateChooser();
+        btnAsignar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
 
         nuevoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
@@ -167,6 +181,72 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
 
         contenedorPrincipal.addTab("Actualizacion de Equipos", actualizacionDeEquipos);
 
+        listaAsignacionUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuarios"));
+        listaAsignacionUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaAsignacionUsuariosMouseClicked(evt);
+            }
+        });
+        listaAsignacionUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaAsignacionUsuariosActionPerformed(evt);
+            }
+        });
+
+        listaAsignacionEquipos.setBorder(javax.swing.BorderFactory.createTitledBorder("Equipos"));
+        listaAsignacionEquipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaAsignacionEquiposActionPerformed(evt);
+            }
+        });
+
+        listaAsignacionRolUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lider de Equipo", "Project Manager", "Desarrolador de Sotfware", "Diseñador UX y UI" }));
+        listaAsignacionRolUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder("Roles Usuarios"));
+        listaAsignacionRolUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaAsignacionRolUsuariosActionPerformed(evt);
+            }
+        });
+
+        btnAsignar.setText("Asignacion a Equipo");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(listaAsignacionUsuarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(listaAsignacionEquipos, 0, 552, Short.MAX_VALUE)
+                    .addComponent(listaAsignacionRolUsuarios, 0, 552, Short.MAX_VALUE)
+                    .addComponent(fechaAsignacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(listaAsignacionUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(listaAsignacionEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(listaAsignacionRolUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(fechaAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        contenedorPrincipal.addTab("Asignar Persona a Equipo", jPanel2);
+
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cerrar.png"))); // NOI18N
         btnCerrar.setBorder(null);
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -210,15 +290,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         Funciones.soloLetras(ActualizarNombre, evt, 45);
     }//GEN-LAST:event_ActualizarNombreKeyTyped
     //Solapa 2 -> carga la lista de equipos
-    private void cargandoEquiposV2() {
-
-        jcbListaEquipos.removeAllItems();
-        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
-
-        for (Proyecto proyectos : arrayProyectos) {
-            jcbListaEquipos.addItem(proyectos);
-        }
-    }
+    
 
     private void btnNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEquipoActionPerformed
         // TODO add your handling code here:
@@ -301,21 +373,113 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jcbListaEquiposActionPerformed
 
+    private void listaAsignacionUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaAsignacionUsuariosActionPerformed
+        // TODO add your handling code here:
+        List <Miembro> listaUsuariosH =  Menu.miembroEscritorio.listarHabilitados();
+        int posicion = -1;
+        posicion = listaAsignacionUsuarios.getSelectedIndex();
+        if (posicion > -1 ){
+        Miembro usuarios;
+        int dni = listaUsuariosH.get(posicion).getDni();
+        String password = listaUsuariosH.get(posicion).getPassword();
+        String apellido = listaUsuariosH.get(posicion).getApellido();
+        String nombre = listaUsuariosH.get(posicion).getNombre();
+        boolean estado = listaUsuariosH.get(posicion).getEstado();
+        String rolSistema = listaUsuariosH.get(posicion).getRolSistema();
+        usuarios = new Miembro(dni, password, apellido, nombre, estado, rolSistema);
+        usuarioSeleccionado.add(usuarios);
+        }
+        
+        
+    }//GEN-LAST:event_listaAsignacionUsuariosActionPerformed
+
+    private void listaAsignacionEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaAsignacionEquiposActionPerformed
+        // TODO add your handling code here:
+        List <Equipo> listaEquipoH = Menu.equipoEscritorio.listarEquiposHabilitados();
+        int posicion = -1;
+        posicion = listaAsignacionEquipos.getSelectedIndex();
+        if (posicion > -1 ){
+            Equipo equipos;
+            int idProyecto = listaEquipoH.get(posicion).getProyecto().getId_proyecto();
+            String nombre = listaEquipoH.get(posicion).getNombre();
+            LocalDate fechaCreacion = listaEquipoH.get(posicion).getFecha_cracion();
+            boolean estado = listaEquipoH.get(posicion).getEstado();
+            equipos = new Equipo(nombre, fechaCreacion, estado);
+            equipoSeleccionado.add(equipos);
+            
+        }
+    }//GEN-LAST:event_listaAsignacionEquiposActionPerformed
+
+    private void listaAsignacionRolUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaAsignacionRolUsuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaAsignacionRolUsuariosActionPerformed
+
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        // TODO add your handling code here:
+        int posicionUsuario = -1;
+        int posicionEquipo = -1;
+        int posicionRolUsuario =-1;
+        String rolUsuario ="";
+        int idEquipo = -1;
+        int idUsuario = -1;
+        Equipo equipoBuscar = new Equipo();
+        Miembro usuarioBuscar = new Miembro();
+        posicionUsuario = listaAsignacionUsuarios.getSelectedIndex();
+        posicionEquipo = listaAsignacionEquipos.getSelectedIndex();
+        posicionRolUsuario = listaAsignacionRolUsuarios.getSelectedIndex();
+        if(posicionRolUsuario == 0){
+            rolUsuario = "Lider de Equipo";
+        }
+        else if(posicionRolUsuario == 1){
+            rolUsuario ="Project Manager";
+        }
+        else if (posicionRolUsuario == 2) {
+            rolUsuario = "Desarrolador de Sotfware";
+        }
+        else if(posicionRolUsuario == 3){
+            rolUsuario = "Diseñador UX y UI";
+        }
+        if(posicionUsuario > -1) {
+            idUsuario = usuarioSeleccionado.get(posicionUsuario).getId_miembro();
+            usuarioBuscar = Menu.miembroEscritorio.buscarMiembro(idUsuario);
+            
+        }
+        if (posicionEquipo > -1 ) {
+            idEquipo = equipoSeleccionado.get(posicionEquipo).getId_equipo();
+            equipoBuscar = Menu.equipoEscritorio.buscarEquipo(idEquipo);
+        }
+        LocalDate fecha_Incorporacion = fechaAsignacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        EquipoMiembros usuarioAsignado = new EquipoMiembros(rolUsuario, fecha_Incorporacion, equipoBuscar,usuarioBuscar);
+        Menu.equipoMiembosEscritorio.guardarEquipoMiembros(usuarioAsignado);
+    }//GEN-LAST:event_btnAsignarActionPerformed
+
+    private void listaAsignacionUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaAsignacionUsuariosMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_listaAsignacionUsuariosMouseClicked
+
     /* <<-- Metodos Extras -->> */
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ActualizarNombre;
     private javax.swing.JPanel actualizacionDeEquipos;
     private com.toedter.calendar.JDateChooser actualizarFecha;
     private javax.swing.JButton btnActualizarEquipo;
+    private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnNuevoEquipo;
     private javax.swing.JTabbedPane contenedorPrincipal;
+    private com.toedter.calendar.JDateChooser fechaAsignacion;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JCheckBox jcbDeshabilitados;
     private javax.swing.JCheckBox jcbHabilitado;
     private javax.swing.JComboBox<Proyecto> jcbListaEquipos;
     private javax.swing.JComboBox<Proyecto> jcbProyectos;
+    private javax.swing.JComboBox<Equipo> listaAsignacionEquipos;
+    private javax.swing.JComboBox<String> listaAsignacionRolUsuarios;
+    private javax.swing.JComboBox<Miembro> listaAsignacionUsuarios;
     private javax.swing.JPanel nuevoDeEquipos;
     private com.toedter.calendar.JDateChooser nuevoFecha;
     private javax.swing.JTextField nuevoNombre;
@@ -330,4 +494,29 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         }
     }
 
+    private void cargandoEquiposV2() {
+
+        jcbListaEquipos.removeAllItems();
+        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
+
+        for (Proyecto proyectos : arrayProyectos) {
+            jcbListaEquipos.addItem(proyectos);
+        }
+    }
+    
+    private void mostrarUsuariosAsignacion(){
+        listaAsignacionUsuarios.removeAllItems();
+        List <Miembro> listaUsuariosH = Menu.miembroEscritorio.listarHabilitados();
+        for (Miembro miembro : listaUsuariosH) {
+            listaAsignacionUsuarios.addItem(miembro);
+        }
+    }
+    
+    private void MostrarEquipoAsignacion(){
+        listaAsignacionEquipos.removeAllItems();
+        List <Equipo> listaEquiposH = Menu.equipoEscritorio.listarEquiposHabilitados();
+        for (Equipo equipo : listaEquiposH) {
+            listaAsignacionEquipos.addItem(equipo);
+        }
+    }
 }
