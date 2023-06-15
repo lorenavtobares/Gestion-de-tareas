@@ -16,6 +16,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
     
@@ -139,8 +140,13 @@ public class Menu extends javax.swing.JFrame {
             MS_CerrarSesion = new JMenuItem(nameItemsSalir);
             MS_CerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             MS_CerrarSesion.addActionListener((java.awt.event.ActionEvent evt) -> {
-                this.dispose();
-                formularioLogin.setVisible(true);
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                
+                if( opcion == 0 ) {
+                    this.dispose();
+                    formularioLogin.setVisible(true);
+                }
+                
             });
         
     /* <-- Agregando Items a los Menus --> */

@@ -2,20 +2,25 @@ package Vistas;
 
 import Funciones.Funciones;
 import Modelo.Proyecto;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ABMProyectos extends javax.swing.JInternalFrame {
-
+    private Date fechaSistema = new Date();
     public ABMProyectos() {
         initComponents();
         cargandoListaProyectos();
-        nuevoFechaInicio.setMinSelectableDate(new Date());
+        nuevoFechaInicio.setDate(fechaSistema);
+        updateFechaInicio.setDate(fechaSistema);
+        updateFechaInicio.setDateFormatString("dd/MM/yyyy");
+        nuevoFechaInicio.setMinSelectableDate(fechaSistema);
+        updateFechaInicio.setMinSelectableDate(fechaSistema);
         dehsabilitandoEdicion();
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -123,8 +128,18 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         upProyectoEstado.setBorder(javax.swing.BorderFactory.createTitledBorder("Estado del proyecto"));
 
         jcbHabilitado.setText("Habilitado");
+        jcbHabilitado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbHabilitadoActionPerformed(evt);
+            }
+        });
 
         jcbDeshabilitados.setText("Deshabilitado");
+        jcbDeshabilitados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbDeshabilitadosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout upProyectoEstadoLayout = new javax.swing.GroupLayout(upProyectoEstado);
         upProyectoEstado.setLayout(upProyectoEstadoLayout);
@@ -182,9 +197,9 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(upProyectoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(btnUpdateProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(29, 29, 29))
         );
 
         contenedorPrincipal.addTab("Actualizacion de Proyecto", actualizacionDeProyecto);
@@ -225,19 +240,20 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
     
     // Vista 1 - nuevo proyecto -> NOMBRE: validacion de datos
     private void nuevoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoNombreKeyTyped
-        Funciones.soloLetras(nuevoNombre, evt, 150);
+        Funciones.soloLetras(nuevoNombre, evt, 45);
     }//GEN-LAST:event_nuevoNombreKeyTyped
 
     // Vista 1 - nuevo proyecto -> DESCRIPCION: validacion de datos
     private void nuevoDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoDescripcionKeyTyped
-        Funciones.soloNumerosYLetras(nuevoDescripcion, evt, 45);
+        Funciones.soloNumerosYLetras(nuevoDescripcion, evt, 300);
     }//GEN-LAST:event_nuevoDescripcionKeyTyped
 
     // Vista 2 - actualizar proyecto -> DESCRIPCION: validacion de datos
     private void updateDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updateDescripcionKeyTyped
-        // TODO add your handling code here:
+        Funciones.soloNumerosYLetras(updateDescripcion, evt, 300);
     }//GEN-LAST:event_updateDescripcionKeyTyped
 
+    // Vista 1 - nuevo Proyecto -> BTN Crear
     private void btnCrearProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProyectoActionPerformed
         String nombre = nuevoNombre.getText();
         String descripcion = nuevoDescripcion.getText();
@@ -268,82 +284,103 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             nuevoNombre.requestFocus();
         }
     }//GEN-LAST:event_btnCrearProyectoActionPerformed
-//Solapa 2 -> Carga los datos segun la posicion de la lista
+
+    //Solapa 2 -> Carga los datos segun la posicion de la lista
     private void jcbListProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListProyectoActionPerformed
-         List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
-         int posicion = -1;
-            posicion = jcbListProyecto.getSelectedIndex();
-           
-          
+        List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
+        int posicion = -1;
+        posicion = jcbListProyecto.getSelectedIndex();
         boolean estado;
+        
         if (posicion != -1 ) {
-            updateFechaInicio.setDateFormatString(arrayProyectos.get(posicion).getFecha_inicio()+ "" );
+            updateDescripcion.setText(arrayProyectos.get(posicion).getFecha_inicio() + "");
             updateDescripcion.setText(arrayProyectos.get(posicion).getDescripcion());
-            updateFechaInicio.setDateFormatString(arrayProyectos.get(posicion).getFecha_inicio()+ "");
-         
             estado = arrayProyectos.get(posicion).getEstado();
+            
             if (estado){
                 jcbHabilitado.setSelected(true);
                 jcbDeshabilitados.setSelected(false);
-            } else{
+            }else{
                 jcbHabilitado.setSelected(false);
-                jcbDeshabilitados.setSelected(true);}
+                jcbDeshabilitados.setSelected(true);
+            }
+            
         }else if (posicion == -1){
             JOptionPane.showMessageDialog(null, "No se encuentran proyectos", "",JOptionPane.WARNING_MESSAGE); 
         }
     }//GEN-LAST:event_jcbListProyectoActionPerformed
-//Solapa 2 -> Guarda los proyectos actualizados
+
+    //Solapa 2 -> Guarda los proyectos actualizados
     private void btnUpdateProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProyectoActionPerformed
-        // TODO add your handling code here:
-         List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
-         int posicion = -1;
-            posicion = jcbListProyecto.getSelectedIndex();
-         
+        List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
+        int posicion = -1;
+        String descripcion = updateDescripcion.getText();
+        posicion = jcbListProyecto.getSelectedIndex();
         boolean estadoLocal;
         
-        if (posicion != -1) {
-            String nombreLocal = arrayProyectos.get(posicion).getNombre();
-            String descripcionLocal = updateDescripcion.getText();
-            LocalDate fechaInicioLocal = updateFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            int idLocal =arrayProyectos.get(posicion).getId_proyecto();
-            if (jcbHabilitado.isSelected()){
-                    jcbHabilitado.setSelected(true);
-                    jcbDeshabilitados.setSelected(false);
-                    estadoLocal = true;
-                } else{
-                    jcbHabilitado.setSelected(false);
-                    jcbDeshabilitados.setSelected(true);
-                    estadoLocal = false;
-                }
+        boolean estadoFecha = Funciones.validarFechaPosterior(nuevoFechaInicio);
         
-            
-            Proyecto actualizandoProyecto = new Proyecto(idLocal, nombreLocal, descripcionLocal, fechaInicioLocal, estadoLocal);
-            Menu.proyectoEscritorio.actualizarProyecto(actualizandoProyecto);
+        if (estadoFecha  == true){
+            if ( !descripcion.isEmpty() ){
+                if (posicion != -1) {
+                    String nombreLocal = arrayProyectos.get(posicion).getNombre();
+                    String descripcionLocal = updateDescripcion.getText();
+                    LocalDate fechaInicioLocal = updateFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    int idLocal = arrayProyectos.get(posicion).getId_proyecto();
+
+                    if (jcbHabilitado.isSelected()){
+                        jcbHabilitado.setSelected(true);
+                        jcbDeshabilitados.setSelected(false);
+                        estadoLocal = true;
+                    } else{
+                        jcbHabilitado.setSelected(false);
+                        jcbDeshabilitados.setSelected(true);
+                        estadoLocal = false;
+                    }
+
+                    Proyecto actualizandoProyecto = new Proyecto(idLocal, nombreLocal, descripcionLocal, fechaInicioLocal, estadoLocal);
+                    Menu.proyectoEscritorio.actualizarProyecto(actualizandoProyecto);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR",JOptionPane.WARNING_MESSAGE);
+                updateDescripcion.requestFocus();
+            }
+        }else{
+            updateFechaInicio.requestFocus();
         }
         
+                    
+        
     }//GEN-LAST:event_btnUpdateProyectoActionPerformed
+
+    private void jcbHabilitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHabilitadoActionPerformed
+        jcbHabilitado.setSelected(true);
+        jcbDeshabilitados.setSelected(false);
+    }//GEN-LAST:event_jcbHabilitadoActionPerformed
+
+    private void jcbDeshabilitadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDeshabilitadosActionPerformed
+        jcbHabilitado.setSelected(false);
+        jcbDeshabilitados.setSelected(true);
+    }//GEN-LAST:event_jcbDeshabilitadosActionPerformed
     
     
                 /* <<-- Metodos Extreas -->> */
     
     //Solapa 2 -> Carga los datos de la lista
     private void cargandoListaProyectos() {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
        jcbListProyecto.removeAllItems();
         List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
         
         for (Proyecto proyectos : arrayProyectos) {
             jcbListProyecto.addItem(proyectos);
-        }
+    }
     
         
     }
+    
     private void dehsabilitandoEdicion(){
     }
     
-    
-    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actualizacionDeProyecto;
     private javax.swing.JButton btnCerrar;
