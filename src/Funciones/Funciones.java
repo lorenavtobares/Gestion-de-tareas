@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 import com.toedter.calendar.JDateChooser;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.*;
 
 public class Funciones {
@@ -85,27 +86,39 @@ public class Funciones {
     //Validacion de fecha -> Posterior a la actual
     public static boolean validarFechaPosterior( JDateChooser e ) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date fechaParametro = e.getDate();
-        Date fechaSistema = new Date();
+        String stringParametro = dateFormat.format(e.getDate());
+        String stringSistema = dateFormat.format(new Date());
         boolean bandera = false;
         
-        System.out.println("Fecha parametros -> " + fechaParametro);
-        System.out.println("Fecha Sistema -> " + fechaSistema);
-        
         try{    
-            //int estado = fechaParametro.compareTo(fechaSistema);
-            int estado = 0;
+            Date dateParametro = dateFormat.parse(stringParametro);
+            Date dateSistema = dateFormat.parse(stringSistema);
             
-            if ( estado == 1 ){ 
-                //bandera = true;
-                JOptionPane.showMessageDialog(null, "Las fechas son iguales", "OK",JOptionPane.WARNING_MESSAGE);                
-            }else {
-                JOptionPane.showMessageDialog(null, "Para el ingreso de un proyecto, se debe seleccionar una fecha posterior a la actual.", "ERROR",JOptionPane.ERROR_MESSAGE);                
-            }
+            if( dateSistema.equals(dateParametro) ){ bandera = true; }
+            else if (dateSistema.before(dateParametro)) { bandera = true; }
+            else{ JOptionPane.showMessageDialog(null, "Debe seleccionar una fecha mayor a la actual." + bandera, "ERROR",JOptionPane.ERROR_MESSAGE); }
+                        
         }catch (Exception ex){
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fecha", "ERROR",JOptionPane.ERROR_MESSAGE);
         }
         
         return bandera;
-    }    
+    }   
+    
+    //LocalDate a Date
+    public static Date convertirLocalDateADate(LocalDate date) {
+        return java.util.Date.from(date.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
+    }
 }
+
+
+/*
+
+    Date fechaDeBd = dateFormat.parse(arrayProyectos.get(posicion).getFecha_inicio()+"");
+    dateFormat.applyPattern(FORMATO_FECHA);
+    String fechaString = dateFormat.format(fechaDeBd);
+    Date fechaStringADate = dateFormat.parse(fechaString);
+
+*/

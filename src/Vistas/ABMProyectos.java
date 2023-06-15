@@ -2,6 +2,7 @@ package Vistas;
 
 import Funciones.Funciones;
 import Modelo.Proyecto;
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -12,15 +13,20 @@ import javax.swing.JOptionPane;
 
 public class ABMProyectos extends javax.swing.JInternalFrame {
     private Date fechaSistema = new Date();
+    private final String FORMATO_FECHA = "dd/MM/yyyy";
+    SimpleDateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA);
+    
     public ABMProyectos() {
         initComponents();
         cargandoListaProyectos();
-        nuevoFechaInicio.setDate(fechaSistema);
+        
+        nuevoFechaInicio.setDateFormatString(FORMATO_FECHA); // Definiendo Formato jDateChooser
+        nuevoFechaInicio.setDate(fechaSistema); // Seteando fecha Default
+        nuevoFechaInicio.setMinSelectableDate(fechaSistema); // Fecha Minima aceptada
+        
+        updateFechaInicio.setDateFormatString(FORMATO_FECHA); 
         updateFechaInicio.setDate(fechaSistema);
-        updateFechaInicio.setDateFormatString("dd/MM/yyyy");
-        nuevoFechaInicio.setMinSelectableDate(fechaSistema);
         updateFechaInicio.setMinSelectableDate(fechaSistema);
-        dehsabilitandoEdicion();
     }
 
     @SuppressWarnings("unchecked")
@@ -293,10 +299,12 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         boolean estado;
         
         if (posicion != -1 ) {
-            updateDescripcion.setText(arrayProyectos.get(posicion).getFecha_inicio() + "");
+            Date f = Funciones.convertirLocalDateADate(arrayProyectos.get(posicion).getFecha_inicio());
+            
+            updateFechaInicio.setDate(f);
             updateDescripcion.setText(arrayProyectos.get(posicion).getDescripcion());
             estado = arrayProyectos.get(posicion).getEstado();
-            
+
             if (estado){
                 jcbHabilitado.setSelected(true);
                 jcbDeshabilitados.setSelected(false);
@@ -318,7 +326,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         posicion = jcbListProyecto.getSelectedIndex();
         boolean estadoLocal;
         
-        boolean estadoFecha = Funciones.validarFechaPosterior(nuevoFechaInicio);
+        boolean estadoFecha = Funciones.validarFechaPosterior(updateFechaInicio);
         
         if (estadoFecha  == true){
             if ( !descripcion.isEmpty() ){
@@ -362,8 +370,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         jcbHabilitado.setSelected(false);
         jcbDeshabilitados.setSelected(true);
     }//GEN-LAST:event_jcbDeshabilitadosActionPerformed
-    
-    
+        
                 /* <<-- Metodos Extreas -->> */
     
     //Solapa 2 -> Carga los datos de la lista
@@ -378,8 +385,6 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         
     }
     
-    private void dehsabilitandoEdicion(){
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actualizacionDeProyecto;
@@ -400,6 +405,4 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea updateDescripcion;
     private com.toedter.calendar.JDateChooser updateFechaInicio;
     // End of variables declaration//GEN-END:variables
-
-
 }
