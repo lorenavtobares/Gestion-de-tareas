@@ -216,4 +216,46 @@ public class EquipoMiembrosData {
         }
         return listaEM;
     }
+    public List<EquipoMiembros> listarMiembrosEquiposTabla(int idEquipo){
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<EquipoMiembros> listaEM = new ArrayList<EquipoMiembros>();
+        
+        String query        = " SELECT M.dni, M.apellido, M.nombre, EM.fechaIncorporacion, EM.rol, EM.idMiembro, EM.idEquipo " 
+                            + " FROM equipomiembros AS EM " 
+                            + " JOIN miembro AS M " 
+                            + " ON EM.idMiembro = M.idMiembro "
+                            + " JOIN equipo AS E " 
+                            + " ON EM.idEquipo = E.idEquipo " 
+                            + " WHERE EM.idEquipo = ? ";
+        
+        try{
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, idEquipo);
+            resultado = stmt.executeQuery();
+            while (resultado.next()) {                
+                int dni = resultado.getInt("dni");
+                String apellido = resultado.getNString("apellido");
+                LocalDate fechaIncorporacion = resultado.getDate("fechaIncorporacion").toLocalDate();
+                String rol = resultado.getString("rol");
+                miembro = regenerarMiembro(resultado.getInt("idMiembro"));
+                equipo = regerarEquipo(resultado.getInt("idEquipo"));
+                EquipoMiembros miembrosDelEquipo = new EquipoMiembros(rol, fechaIncorporacion, equipo, miembro);
+                listaEM.add(miembrosDelEquipo);
+                
+            }
+        }
+        catch ( SQLException ex ) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() ,"", JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try {
+                resultado.close();
+                stmt.close();
+            } catch ( SQLException ex ) {
+                JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() ,"", JOptionPane.ERROR_MESSAGE );
+            }
+        }
+        return listaEM;
+    }
 }
