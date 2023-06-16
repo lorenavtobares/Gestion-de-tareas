@@ -19,6 +19,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
+    public static final String FECHA_ERRONEA = "Debe selecciona una fecha valida \nFormato correcto: dd/MM/yyyy";
+    public static final String FECHA_ERRONEA_TT = "Error de validacion";
     
     private static Login formularioLogin = new Login();
     

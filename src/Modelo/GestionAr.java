@@ -35,7 +35,7 @@ public class GestionAr {
         EquipoMiembros varEquipoMiembros = new EquipoMiembros(Rol4, ff, varEquipoData.buscarEquipo(4), varMiembroData.buscarMiembro(7));
         EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
         
-        //Tarea varTarea = new Tarea(3,"Presentacion del proyecto al equipo modificado", tareaInicio, tareaFin, true,  varEquiposMiembrosData.buscarEquipoMiembros(16));
+        //Tarea varTarea = new Tarea("Tarea ingresada de Main", tareaInicio, tareaFin, true,  varEquiposMiembrosData.buscarEquipoMiembros(16));
         //TareaData varTareaData = new TareaData();
         
         //Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
@@ -170,7 +170,7 @@ public class GestionAr {
     
     /* <<-- TAREA DATA -->> */ 
         // - Create
-        // varTareaData.guardarTarea(varTarea);
+         //varTareaData.guardarTarea(varTarea);
         
         // - Read 
         // System.out.println(varTareaData.buscarTarea(3).toString());

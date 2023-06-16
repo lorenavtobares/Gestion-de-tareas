@@ -261,34 +261,43 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
 
     // Vista 1 - nuevo Proyecto -> BTN Crear
     private void btnCrearProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProyectoActionPerformed
-        String nombre = nuevoNombre.getText();
-        String descripcion = nuevoDescripcion.getText();
-    
-        if (!nombre.isEmpty()){
-            boolean estadoFecha = Funciones.validarFechaPosterior(nuevoFechaInicio);
-            if (estadoFecha  == true)
-            if ( !descripcion.isEmpty() ){
-                LocalDate fechaInicio = nuevoFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        try{
+            
+            boolean estadoFecha = Funciones.verificarFecha(nuevoFechaInicio);
+            String nombre = nuevoNombre.getText();
+            String descripcion = nuevoDescripcion.getText();
+            
+            if (estadoFecha  == true){
+                if (!nombre.isEmpty()){
+                    if ( !descripcion.isEmpty() ){
+                    
+                        LocalDate fechaInicio = nuevoFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        
+                        try{
+                            Proyecto proyecto = new Proyecto(0, nombre, descripcion, fechaInicio);
+                            Menu.proyectoEscritorio.guardarProyecto(proyecto);
 
-                try{
-                    
-                    Proyecto proyecto = new Proyecto(0, nombre, descripcion, fechaInicio);
-                    Menu.proyectoEscritorio.guardarProyecto(proyecto);
-                    
-                }catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, "Error al guardar el registro " + ex.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE);
+                        }catch(Exception ex){
+                            JOptionPane.showMessageDialog(null, "Error al guardar el registro " + ex.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE);
+                        }
+                        
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR",JOptionPane.WARNING_MESSAGE);
+                        nuevoDescripcion.requestFocus();
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Debe ingresar un nombre", "ERROR",JOptionPane.WARNING_MESSAGE);
+                    nuevoNombre.requestFocus();
                 }
-
             }else{
-                JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR",JOptionPane.WARNING_MESSAGE);
-                nuevoDescripcion.requestFocus();
-            }else{
-                System.out.println("-> Prueba Error <-");
+                System.out.println("Error al comprobar fecha -_-");
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre", "ERROR",JOptionPane.WARNING_MESSAGE);
-            nuevoNombre.requestFocus();
+    
+        }catch ( Exception ex) {
+            JOptionPane.showMessageDialog(null, Menu.FECHA_ERRONEA, Menu.FECHA_ERRONEA_TT,JOptionPane.WARNING_MESSAGE);
         }
+        
     }//GEN-LAST:event_btnCrearProyectoActionPerformed
 
     //Solapa 2 -> Carga los datos segun la posicion de la lista
@@ -320,45 +329,49 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
 
     //Solapa 2 -> Guarda los proyectos actualizados
     private void btnUpdateProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProyectoActionPerformed
-        List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
-        int posicion = -1;
-        String descripcion = updateDescripcion.getText();
-        posicion = jcbListProyecto.getSelectedIndex();
-        boolean estadoLocal;
         
-        boolean estadoFecha = Funciones.validarFechaPosterior(updateFechaInicio);
+        try{
+            boolean estadoFecha = Funciones.verificarFecha(updateFechaInicio);
+            
+            List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
+            int posicion = -1;
+            String descripcion = updateDescripcion.getText();
+            posicion = jcbListProyecto.getSelectedIndex();
+            boolean estadoLocal;
         
-        if (estadoFecha  == true){
-            if ( !descripcion.isEmpty() ){
-                if (posicion != -1) {
-                    String nombreLocal = arrayProyectos.get(posicion).getNombre();
-                    String descripcionLocal = updateDescripcion.getText();
-                    LocalDate fechaInicioLocal = updateFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    int idLocal = arrayProyectos.get(posicion).getId_proyecto();
+                if (estadoFecha  == true){
+                    if ( !descripcion.isEmpty() ){
+                        if (posicion != -1) {
+                            String nombreLocal = arrayProyectos.get(posicion).getNombre();
+                            String descripcionLocal = updateDescripcion.getText();
+                            LocalDate fechaInicioLocal = updateFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                            int idLocal = arrayProyectos.get(posicion).getId_proyecto();
 
-                    if (jcbHabilitado.isSelected()){
-                        jcbHabilitado.setSelected(true);
-                        jcbDeshabilitados.setSelected(false);
-                        estadoLocal = true;
-                    } else{
-                        jcbHabilitado.setSelected(false);
-                        jcbDeshabilitados.setSelected(true);
-                        estadoLocal = false;
+                            if (jcbHabilitado.isSelected()){
+                                jcbHabilitado.setSelected(true);
+                                jcbDeshabilitados.setSelected(false);
+                                estadoLocal = true;
+                            } else{
+                                jcbHabilitado.setSelected(false);
+                                jcbDeshabilitados.setSelected(true);
+                                estadoLocal = false;
+                            }
+
+                            Proyecto actualizandoProyecto = new Proyecto(idLocal, nombreLocal, descripcionLocal, fechaInicioLocal, estadoLocal);
+                            Menu.proyectoEscritorio.actualizarProyecto(actualizandoProyecto);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR",JOptionPane.WARNING_MESSAGE);
+                        updateDescripcion.requestFocus();
                     }
-
-                    Proyecto actualizandoProyecto = new Proyecto(idLocal, nombreLocal, descripcionLocal, fechaInicioLocal, estadoLocal);
-                    Menu.proyectoEscritorio.actualizarProyecto(actualizandoProyecto);
+                }else{
+                    updateFechaInicio.requestFocus();
                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR",JOptionPane.WARNING_MESSAGE);
-                updateDescripcion.requestFocus();
-            }
-        }else{
-            updateFechaInicio.requestFocus();
+                
+        }catch ( Exception ex) {
+            JOptionPane.showMessageDialog(null, Menu.FECHA_ERRONEA, Menu.FECHA_ERRONEA_TT,JOptionPane.WARNING_MESSAGE);
         }
-        
                     
-        
     }//GEN-LAST:event_btnUpdateProyectoActionPerformed
 
     private void jcbHabilitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHabilitadoActionPerformed
@@ -370,7 +383,8 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         jcbHabilitado.setSelected(false);
         jcbDeshabilitados.setSelected(true);
     }//GEN-LAST:event_jcbDeshabilitadosActionPerformed
-        
+
+       
                 /* <<-- Metodos Extreas -->> */
     
     //Solapa 2 -> Carga los datos de la lista
