@@ -13,7 +13,11 @@ public class GestionAr {
         Login formLogin = new Login();
         formLogin.setVisible(true);
         
-    //VARIABLES
+
+                /*|--------------------|*/
+                /*|      Variables     |*/
+                /*|--------------------|*/
+                
         LocalDate ff = LocalDate.of(2021, 01, 23);
         LocalDate tareaInicio = LocalDate.of(2023, 02, 21);
         LocalDate tareaFin = LocalDate.of(2023, 04, 14);
@@ -40,6 +44,11 @@ public class GestionAr {
         
         //Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
         //ComentariosData varComentariosData = new ComentariosData();
+
+
+                /*|--------------------|*/
+                /*|       Listas       |*/
+                /*|--------------------|*/
         
         java.util.List <Proyecto> listaProyectos = new ArrayList<Proyecto>();
         java.util.List <Equipo> listaEquipos = new ArrayList<Equipo>();
@@ -48,6 +57,10 @@ public class GestionAr {
         java.util.List <Tarea> listaTareas = new ArrayList<Tarea>();
         java.util.List <Comentarios> listaComentarios = new ArrayList<Comentarios>();
         
+        
+                /*|------------------------------|*/
+                /*|    Pruebas de los metodos    |*/
+                /*|------------------------------|*/
         
         
     /* <<-- PROYECTO DATA -->> */ 

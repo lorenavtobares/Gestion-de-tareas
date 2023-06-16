@@ -10,6 +10,12 @@ public class Miembro {
     private boolean estado;
     private String rolSistema;
 
+    
+    
+                /*|--------------------|*/
+                /*|    Constructores   |*/
+                /*|--------------------|*/
+    
     public Miembro(int id_miembro, int dni, String password, String apellido, String nombre, boolean estado, String rolSistema) {
         this.id_miembro = id_miembro;
         this.dni = dni;
@@ -41,24 +47,48 @@ public class Miembro {
     public Miembro() {
     }
     
+    
+    
+                /*|------------------------|*/
+                /*|         Getters        |*/
+                /*|------------------------|*/
+    
     public int getId_miembro() {
         return id_miembro;
-    }
-
-    public void setId_miembro(int id_miembro) {
-        this.id_miembro = id_miembro;
     }
 
     public int getDni() {
         return dni;
     }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+    
+    public boolean getEstado() {
+        return estado;
+    }
+    
+    public String getRolSistema() {
+        return rolSistema;
+    }
+    
+    
+    
+                /*|------------------------|*/
+                /*|         Setters        |*/
+                /*|------------------------|*/
+    
+    public void setId_miembro(int id_miembro) {
+        this.id_miembro = id_miembro;
+    }
 
     public void setDni(int dni) {
         this.dni = dni;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {
@@ -73,30 +103,24 @@ public class Miembro {
         this.apellido = apellido;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public boolean getEstado() {
-        return estado;
     }
 
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
     
-    public String getRolSistema() {
-        return rolSistema;
-    }
-
     public void setRolSistema(String rolSistema) {
         this.rolSistema = rolSistema;
     }
 
+    
+    
+                /*|-------------------------|*/
+                /*|         ToString        |*/
+                /*|-------------------------|*/    
+    
     @Override
     public String toString() {
         return  apellido + " " + nombre;
