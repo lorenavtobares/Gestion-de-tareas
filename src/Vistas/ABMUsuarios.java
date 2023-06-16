@@ -394,8 +394,8 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
             rolSistema = "usuario";
         }
             Miembro usuario = new Miembro(dniParceado, password, apellido, nombre, true, rolSistema);
-            Menu.miembroEscritorio.guardarMiembro(usuario);
-            Menu.miembroEscritorio.actualizarMiembro(usuario);
+            Menu.miembroDataLocal.guardarMiembro(usuario);
+            Menu.miembroDataLocal.actualizarMiembro(usuario);
             
             
         }else{
@@ -422,7 +422,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         String rolSistema ="";
         boolean estado;
         
-        List <Miembro> listaUsuariosAll = Menu.miembroEscritorio.listarTodosMiembros();
+        List <Miembro> listaUsuariosAll = Menu.miembroDataLocal.listarTodosMiembros();
         int posicionUsuario =-1;
         posicionUsuario = listaUpdateUsuarios.getSelectedIndex();
         
@@ -454,7 +454,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         if(posicionUsuario > -1 ){
             int IdUsuario = listaUsuariosAll.get(posicionUsuario).getId_miembro();
             Miembro usuarioActualizado = new Miembro(IdUsuario,dniParceado, password, apellido, nombre, estado, rolSistema);
-            Menu.miembroEscritorio.actualizarMiembro(usuarioActualizado);
+            Menu.miembroDataLocal.actualizarMiembro(usuarioActualizado);
             System.out.println(rolSistema);
         }
             
@@ -481,7 +481,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
     // Vista 2 - Up de usuario -> CB: Lista de usuarios
     private void listaUpdateUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaUpdateUsuariosActionPerformed
         // TODO add your handling code here:
-        List <Miembro> listaUsuariosAll = Menu.miembroEscritorio.listarTodosMiembros();
+        List <Miembro> listaUsuariosAll = Menu.miembroDataLocal.listarTodosMiembros();
         int posicion = -1;
         posicion = listaUpdateUsuarios.getSelectedIndex();
         boolean estado;
@@ -542,7 +542,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
 
     private void cargarListaUsuarios(){
         listaUpdateUsuarios.removeAllItems();
-        List <Miembro> listaUsuarios = Menu.miembroEscritorio.listarTodosMiembros();
+        List <Miembro> listaUsuarios = Menu.miembroDataLocal.listarTodosMiembros();
         for (Miembro listaUsuario : listaUsuarios) {
             listaUpdateUsuarios.addItem(listaUsuario);
             

@@ -1,11 +1,7 @@
 package Vistas;
 
-import Controlador.ComentariosData;
-import Controlador.EquipoData;
-import Controlador.EquipoMiembrosData;
-import Controlador.MiembroData;
-import Controlador.ProyectoData;
-import Controlador.TareaData;
+import Controlador.*;
+import Modelo.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -19,17 +15,51 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
-    public static final String FECHA_ERRONEA = "Debe selecciona una fecha valida \nFormato correcto: dd/MM/yyyy";
-    public static final String FECHA_ERRONEA_TT = "Error de validacion";
+    
+                /*|----------------------|*/
+                /*|      Constantes      |*/
+                /*|----------------------|*/
+    
+    public static final String FORMATO_FECHA = "dd/MM/yyyy";
+    
+    public static final String TT_ERROR = "Error";
+    public static final String TT_FECHA_ERRONEA = "Error de validacion";
+    
+    public static final String ERROR_FECHA = "Debe selecciona una fecha valida \nFormato correcto: dd/MM/yyyy\n";
+    public static final String ERROR_DESCRIPCION = "Debe ingresar una descripcion.";
+    public static final String ERROR_NOMBRE = "Debe ingresar un nombre.";
+    public static final String ERROR_GUARDAR_R = "No se pudo guardar el registro.";
+    public static final String ERROR_PROYECTOS = "No se encuentran proyectos.";
+    public static final String ERROR_EQUIPOS = "No se encuentran equipos.";
+    
+    public static final String ROL_LIDER_PROYECTO = "Lider de Equipo";
+    public static final String ROL_PROJECT_MANAGER = "Project Manager";
+    public static final String ROL_DEVELOPER = "Desarrolador de Sotfware";
+    public static final String ROL_DISENIADOR = "Diseñador UX y UI";
+    
+                /*|---------------------|*/
+                /*|      Variables      |*/
+                /*|---------------------|*/
     
     private static Login formularioLogin = new Login();
     
-    public static ComentariosData comentariosEscritorio = new ComentariosData();
-    public static EquipoData equipoEscritorio = new EquipoData();
-    public static EquipoMiembrosData equipoMiembosEscritorio = new EquipoMiembrosData();
-    public static MiembroData miembroEscritorio = new MiembroData();
-    public static ProyectoData proyectoEscritorio = new ProyectoData();
-    public static TareaData tareaEscritorio = new TareaData();
+    public static ComentariosData comentarioDataLocal = new ComentariosData();
+    public static EquipoData equipoDataLocal = new EquipoData();
+    public static EquipoMiembrosData equipoMiembosDataLocal = new EquipoMiembrosData();
+    public static MiembroData miembroDataLocal = new MiembroData();
+    public static ProyectoData proyectoDataLocal = new ProyectoData();
+    public static TareaData tareaDataLocal = new TareaData();
+    
+    public static Comentarios comentarioLocal = new Comentarios();
+    public static Equipo equipoLocal = new Equipo();
+    public static EquipoMiembros equipoMiembrosLocal = new EquipoMiembros();
+    public static Miembro miembroLocal = new Miembro();
+    public static Proyecto proyectoLocal = new Proyecto();
+    public static Tarea tareaLocal = new Tarea();
+    
+                /*|----------------------|*/
+                /*|         Menu         |*/
+                /*|----------------------|*/
     
     private JMenuBar barra;
     private JMenu MenuAdmin, MenuProyectos, MenuEquipos, MenuTareas, MenuSalir;

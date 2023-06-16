@@ -13,18 +13,17 @@ import javax.swing.JOptionPane;
 
 public class ABMProyectos extends javax.swing.JInternalFrame {
     private Date fechaSistema = new Date();
-    private final String FORMATO_FECHA = "dd/MM/yyyy";
-    SimpleDateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA);
+    SimpleDateFormat dateFormat = new SimpleDateFormat(Menu.FORMATO_FECHA);
     
     public ABMProyectos() {
         initComponents();
         cargandoListaProyectos();
         
-        nuevoFechaInicio.setDateFormatString(FORMATO_FECHA); // Definiendo Formato jDateChooser
+        nuevoFechaInicio.setDateFormatString(Menu.FORMATO_FECHA); // Definiendo Formato jDateChooser
         nuevoFechaInicio.setDate(fechaSistema); // Seteando fecha Default
         nuevoFechaInicio.setMinSelectableDate(fechaSistema); // Fecha Minima aceptada
         
-        updateFechaInicio.setDateFormatString(FORMATO_FECHA); 
+        updateFechaInicio.setDateFormatString(Menu.FORMATO_FECHA); 
         updateFechaInicio.setDate(fechaSistema);
         updateFechaInicio.setMinSelectableDate(fechaSistema);
     }
@@ -244,17 +243,17 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
 
                 /* <<-- Validacion de datos -->> */
     
-    // Vista 1 - nuevo proyecto -> NOMBRE: validacion de datos
+    // Vista 1 - nuevo proyectoLocal -> NOMBRE: validacion de datos
     private void nuevoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoNombreKeyTyped
         Funciones.soloLetras(nuevoNombre, evt, 45);
     }//GEN-LAST:event_nuevoNombreKeyTyped
 
-    // Vista 1 - nuevo proyecto -> DESCRIPCION: validacion de datos
+    // Vista 1 - nuevo proyectoLocal -> DESCRIPCION: validacion de datos
     private void nuevoDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoDescripcionKeyTyped
         Funciones.soloNumerosYLetras(nuevoDescripcion, evt, 300);
     }//GEN-LAST:event_nuevoDescripcionKeyTyped
 
-    // Vista 2 - actualizar proyecto -> DESCRIPCION: validacion de datos
+    // Vista 2 - actualizar proyectoLocal -> DESCRIPCION: validacion de datos
     private void updateDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updateDescripcionKeyTyped
         Funciones.soloNumerosYLetras(updateDescripcion, evt, 300);
     }//GEN-LAST:event_updateDescripcionKeyTyped
@@ -276,18 +275,18 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
                         
                         try{
                             Proyecto proyecto = new Proyecto(0, nombre, descripcion, fechaInicio);
-                            Menu.proyectoEscritorio.guardarProyecto(proyecto);
+                            Menu.proyectoDataLocal.guardarProyecto(proyecto);
 
                         }catch(Exception ex){
-                            JOptionPane.showMessageDialog(null, "Error al guardar el registro " + ex.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, Menu.ERROR_GUARDAR_R + ex.getMessage(), Menu.TT_ERROR,JOptionPane.ERROR_MESSAGE);
                         }
                         
                     }else{
-                        JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR",JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, Menu.ERROR_DESCRIPCION, Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE);
                         nuevoDescripcion.requestFocus();
                     }
                 }else{
-                    JOptionPane.showMessageDialog(null, "Debe ingresar un nombre", "ERROR",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, Menu.ERROR_NOMBRE, Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE);
                     nuevoNombre.requestFocus();
                 }
             }else{
@@ -295,14 +294,14 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             }
     
         }catch ( Exception ex) {
-            JOptionPane.showMessageDialog(null, Menu.FECHA_ERRONEA, Menu.FECHA_ERRONEA_TT,JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Menu.ERROR_FECHA, Menu.TT_FECHA_ERRONEA,JOptionPane.WARNING_MESSAGE);
         }
         
     }//GEN-LAST:event_btnCrearProyectoActionPerformed
 
     //Solapa 2 -> Carga los datos segun la posicion de la lista
     private void jcbListProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListProyectoActionPerformed
-        List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
+        List<Proyecto> arrayProyectos= Menu.proyectoDataLocal.listarTodosProyectos();
         int posicion = -1;
         posicion = jcbListProyecto.getSelectedIndex();
         boolean estado;
@@ -323,7 +322,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             }
             
         }else if (posicion == -1){
-            JOptionPane.showMessageDialog(null, "No se encuentran proyectos", "",JOptionPane.WARNING_MESSAGE); 
+            JOptionPane.showMessageDialog(null, Menu.ERROR_PROYECTOS, Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE); 
         }
     }//GEN-LAST:event_jcbListProyectoActionPerformed
 
@@ -333,7 +332,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         try{
             boolean estadoFecha = Funciones.verificarFecha(updateFechaInicio);
             
-            List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
+            List<Proyecto> arrayProyectos= Menu.proyectoDataLocal.listarTodosProyectos();
             int posicion = -1;
             String descripcion = updateDescripcion.getText();
             posicion = jcbListProyecto.getSelectedIndex();
@@ -358,10 +357,10 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
                             }
 
                             Proyecto actualizandoProyecto = new Proyecto(idLocal, nombreLocal, descripcionLocal, fechaInicioLocal, estadoLocal);
-                            Menu.proyectoEscritorio.actualizarProyecto(actualizandoProyecto);
+                            Menu.proyectoDataLocal.actualizarProyecto(actualizandoProyecto);
                         }
                     }else{
-                        JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR",JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, Menu.ERROR_DESCRIPCION, Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE);
                         updateDescripcion.requestFocus();
                     }
                 }else{
@@ -369,7 +368,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
                 }
                 
         }catch ( Exception ex) {
-            JOptionPane.showMessageDialog(null, Menu.FECHA_ERRONEA, Menu.FECHA_ERRONEA_TT,JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Menu.ERROR_FECHA, Menu.TT_FECHA_ERRONEA,JOptionPane.WARNING_MESSAGE);
         }
                     
     }//GEN-LAST:event_btnUpdateProyectoActionPerformed
@@ -390,7 +389,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
     //Solapa 2 -> Carga los datos de la lista
     private void cargandoListaProyectos() {
        jcbListProyecto.removeAllItems();
-        List<Proyecto> arrayProyectos= Menu.proyectoEscritorio.listarTodosProyectos();
+        List<Proyecto> arrayProyectos= Menu.proyectoDataLocal.listarTodosProyectos();
         
         for (Proyecto proyectos : arrayProyectos) {
             jcbListProyecto.addItem(proyectos);

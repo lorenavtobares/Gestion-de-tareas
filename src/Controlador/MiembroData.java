@@ -18,7 +18,12 @@ public class MiembroData {
         con=Conexion.getConexion();
     }
 
-    //Create
+
+    
+                /*|---------------------|*/
+                /*|         CRUD        |*/
+                /*|---------------------|*/
+    
     public void guardarMiembro(Miembro miembro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -58,7 +63,6 @@ public class MiembroData {
 
     }//create
     
-    //Read
     public Miembro buscarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -101,7 +105,6 @@ public class MiembroData {
         return miembroN;
     }
     
-    //Update
     public void actualizarMiembro(Miembro miembro){
         PreparedStatement stmt = null;
         
@@ -135,7 +138,6 @@ public class MiembroData {
 
     }
     
-    //Delete
     public void eliminarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         
@@ -165,7 +167,6 @@ public class MiembroData {
         }
     }    
 
-    //Habilitar Miembros Data
     public void habilitarMiembro(int idMiembro){
         PreparedStatement stmt = null;
         String query        =" UPDATE miembro "
@@ -191,7 +192,12 @@ public class MiembroData {
         }
     }
     
-    //Listar Miembros Habilitados
+    
+    
+                /*|---------------------|*/
+                /*|        Listas       |*/
+                /*|---------------------|*/
+    
     public List <Miembro> listarHabilitados( ){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -228,7 +234,6 @@ public class MiembroData {
         return listaHabilitados;
     }
     
-    //Listar Miembros Deshbilitados
     public List <Miembro> listarNoHabilitados( ){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -265,7 +270,6 @@ public class MiembroData {
         return listaNoHabilitados;
     }
     
-    //Listar Todos los miembros
     public List <Miembro> listarTodosMiembros( ){
         PreparedStatement stmt = null;
         ResultSet resultado = null;

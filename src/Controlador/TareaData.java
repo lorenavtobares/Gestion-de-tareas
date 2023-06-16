@@ -26,13 +26,13 @@ public class TareaData {
         con = Conexion.getConexion();
     }
     
-    private EquipoMiembros regenerarEquipoMiembro(int idEquipoMiembros){
-        equipoMiembros = equipoMiembrosData.buscarEquipoMiembros(idEquipoMiembros);
-        return equipoMiembros;
-    }
-
-    //Create
-     public void guardarTarea(Tarea tarea){
+    
+                /*|---------------------|*/
+                /*|         CRUD        |*/
+                /*|---------------------|*/
+    
+    
+    public void guardarTarea(Tarea tarea){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         
@@ -74,7 +74,6 @@ public class TareaData {
         }
     }
      
-    //Read
     public Tarea buscarTarea(int idTarea){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -117,7 +116,6 @@ public class TareaData {
         return tarea;
     }
     
-    //Update
     public void actualizarTarea(Tarea tarea){
         PreparedStatement stmt = null;
         
@@ -151,7 +149,6 @@ public class TareaData {
         }
    }
     
-    //Delete
     public void eliminarTarea(int idTarea){
         PreparedStatement stmt = null;
         
@@ -181,7 +178,6 @@ public class TareaData {
         }
     }
     
-    //Habilitar Tarea
     public void habilitarTarea(int idTarea){
         PreparedStatement stmt = null;
         
@@ -211,7 +207,13 @@ public class TareaData {
         }
     }
     
-    //Listar Tareas Habilitados
+    
+    
+                /*|---------------------|*/
+                /*|        Listas       |*/
+                /*|---------------------|*/
+    
+    
     public List <Tarea> listarTareasHabilitadas ( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -254,7 +256,6 @@ public class TareaData {
         return listaTareasHabilitadas;
     }
 
-    //Listar Tareas Deshabilitadas
     public List <Tarea> listarTareasDeshabilitadas ( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -297,7 +298,6 @@ public class TareaData {
         return listaTareasDeshabilitadas;
     }
     
-    //Listar Todos las tareas
     public List <Tarea> listarTodasTareas ( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -337,5 +337,16 @@ public class TareaData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
         return listaTareasTodas;
+    }
+    
+    
+                /*|---------------------|*/
+                /*|    Metodos extras   |*/
+                /*|---------------------|*/
+    
+    
+    private EquipoMiembros regenerarEquipoMiembro(int idEquipoMiembros){
+        equipoMiembros = equipoMiembrosData.buscarEquipoMiembros(idEquipoMiembros);
+        return equipoMiembros;
     }
 }

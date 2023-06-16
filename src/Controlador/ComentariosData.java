@@ -23,12 +23,12 @@ public class ComentariosData {
         con = Conexion.getConexion();
     }
     
-    private Tarea regenerarTarea(int idTarea){
-        tarea = tareaData.buscarTarea(idTarea);
-        return tarea;
-    }
     
-    //Create
+                /*|---------------------|*/
+                /*|         CRUD        |*/
+                /*|---------------------|*/
+    
+    
     public void guardarComentarios(Comentarios comentarios){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -63,7 +63,6 @@ public class ComentariosData {
         }        
     }
     
-    //Read
     public Comentarios buscarComentarios(int idComentarios){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -104,7 +103,6 @@ public class ComentariosData {
         return comentariosN;
     }
     
-    //Update
     public void actualizarComentarios(Comentarios comentarios){
         PreparedStatement stmt = null;
         
@@ -134,7 +132,6 @@ public class ComentariosData {
         }
     }
     
-    //Delete
     public void eliminarComentarios(int idComentarios){
         PreparedStatement stmt = null;
         String query    = "DELETE FROM comentarios "
@@ -163,7 +160,13 @@ public class ComentariosData {
         }
     }
     
-    //Listar todos los comentarios
+
+    
+                /*|---------------------|*/
+                /*|        Listas       |*/
+                /*|---------------------|*/
+    
+    
     public List listarTodosComentarios(){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -199,5 +202,16 @@ public class ComentariosData {
         }
         
         return listarTodos;
-    }    
+    } 
+    
+    
+    
+                /*|---------------------|*/
+                /*|    Metodos extras   |*/
+                /*|---------------------|*/
+    
+    private Tarea regenerarTarea(int idTarea){
+        tarea = tareaData.buscarTarea(idTarea);
+        return tarea;
+    }
 }

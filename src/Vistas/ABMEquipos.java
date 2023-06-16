@@ -1,16 +1,14 @@
 package Vistas;
 
-import Controlador.EquipoData;
-import Controlador.MiembroData;
+
+import Controlador.*;
+import Funciones.*;
+import Modelo.*;
+import static Vistas.Menu.*;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import Funciones.Funciones;
 import com.toedter.calendar.JCalendar;
 import java.awt.Color;
-import Modelo.Equipo;
-import Modelo.EquipoMiembros;
-import Modelo.Miembro;
-import Modelo.Proyecto;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -18,6 +16,10 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class ABMEquipos extends javax.swing.JInternalFrame {
+
+                /*|---------------------|*/
+                /*|      Variables      |*/
+                /*|---------------------|*/
     
     private static Miembro usuario = new Miembro();
     private static MiembroData usuarioData = new  MiembroData();
@@ -28,7 +30,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private static List <Equipo> equipoSeleccionado = new ArrayList<>();
     private static List <Equipo> equipoSeleccionadoTabla = new ArrayList<>();
     
-    private DefaultTableModel modelo=new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel();
     public ABMEquipos() {
         initComponents();
         nuevoFecha.setMinSelectableDate(new Date());
@@ -357,7 +359,10 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    /* <<-- Validacion de datos -->> */
+                /*|-------------------------|*/
+                /*|   Validacion de datos   |*/
+                /*|-------------------------|*/
+    
     // Vista 1 - nuevo Equipo -> NOMBRE: Validacion de datos
     private void nuevoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoNombreKeyTyped
         Funciones.soloLetras(nuevoNombre, evt, 45);
@@ -367,59 +372,49 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private void ActualizarNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ActualizarNombreKeyTyped
         Funciones.soloLetras(ActualizarNombre, evt, 45);
     }//GEN-LAST:event_ActualizarNombreKeyTyped
-    //Solapa 2 -> carga la lista de equipos
+    
     
 
     private void btnNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEquipoActionPerformed
-        // TODO add your handling code here:
         String nombre = nuevoNombre.getText();
         LocalDate fechaCreacion = nuevoFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
-        Proyecto proyectoLocal = new Proyecto();
+        List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
+        //Proyecto proyectoLocal = new Proyecto();
         int posicion = -1;
         posicion = jcbProyectos.getSelectedIndex();
 
-        Equipo equipos = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, true);
-
-        Menu.equipoEscritorio.GuardarEquipo(equipos);
+        Menu.equipoLocal = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, true);
+        Menu.equipoDataLocal.GuardarEquipo(equipoLocal);
     }//GEN-LAST:event_btnNuevoEquipoActionPerformed
 
     public void formatoCalendario() {
-        //jdFechaNacimiento.setLocale(new Locale("es"));
-        //jdFechaNacimiento.setDateFormatString("dd-MM-yyyy");
-
-        //nuevoFecha.setDate(new Date());
         actualizarFecha.setDate(new Date());
-        // actualizarFecha.getJCalendar().setMaxSelectableDate(new Date());
         nuevoFecha.getJCalendar().setMaxSelectableDate(new Date());
-
     }
 
     //Solapa 2 - Actualizar Datos -> Btn guardar datos
     private void btnActualizarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEquipoActionPerformed
-
         String nombre = ActualizarNombre.getText();
         LocalDate fechaCreacion = actualizarFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         boolean estado;
-        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
+        List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
         Proyecto proyectoLocal = new Proyecto();
         int posicion = -1;
         posicion = jcbListaEquipos.getSelectedIndex();
+        
         if (!nombre.isEmpty()) {
 
             if (jcbHabilitado.isSelected()) {
                 estado = true;
-
             } else {
                 estado = false;
             }
 
-            Equipo equipos = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, estado);
-
-            Menu.equipoEscritorio.actualizarEquipo(equipos);
+            Menu.equipoLocal = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, estado);
+            Menu.equipoDataLocal.actualizarEquipo(equipoLocal);
 
         } else {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Menu.ERROR_NOMBRE, Menu.TT_ERROR, JOptionPane.WARNING_MESSAGE);
             ActualizarNombre.requestFocus();
         }
 
@@ -427,15 +422,16 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
 
     //Solapa 2 - Actualizar Datos -> Cargar Datos del furmulario Items ComboBox
     private void jcbListaEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaEquiposActionPerformed
-
-        List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarTodosEquipos();
+        List<Equipo> arrayEquipos = Menu.equipoDataLocal.listarTodosEquipos();
         int posicion = -1;
         posicion = jcbListaEquipos.getSelectedIndex();
         boolean estado;
+        
         if (posicion > -1) {
             ActualizarNombre.setText(arrayEquipos.get(posicion).getNombre());
             actualizarFecha.setDateFormatString(arrayEquipos.get(posicion).getFecha_cracion() + "");
             estado = arrayEquipos.get(posicion).getEstado();
+            
             if (estado) {
                 jcbHabilitado.setSelected(true);
                 jcbDeshabilitados.setSelected(false);
@@ -445,27 +441,27 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             }
 
         } else if (posicion == -1) {
-            JOptionPane.showMessageDialog(null, "No se encuentran equipos", "", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Menu.ERROR_EQUIPOS, Menu.TT_ERROR, JOptionPane.WARNING_MESSAGE);
         }
 
 
     }//GEN-LAST:event_jcbListaEquiposActionPerformed
 
     private void listaAsignacionUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaAsignacionUsuariosActionPerformed
-        // TODO add your handling code here:
-        List <Miembro> listaUsuariosH =  Menu.miembroEscritorio.listarHabilitados();
+        List <Miembro> listaUsuariosH =  Menu.miembroDataLocal.listarHabilitados();
         int posicion = -1;
         posicion = listaAsignacionUsuarios.getSelectedIndex();
+        
         for (Miembro miembro : listaUsuariosH) {
             usuarioSeleccionado.add(miembro);
         }
     }//GEN-LAST:event_listaAsignacionUsuariosActionPerformed
 
     private void listaAsignacionEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaAsignacionEquiposActionPerformed
-        // TODO add your handling code here:
-        List <Equipo> listaEquipoH = Menu.equipoEscritorio.listarEquiposHabilitados();
+        List <Equipo> listaEquipoH = Menu.equipoDataLocal.listarEquiposHabilitados();
         int posicion = -1;
         posicion = listaAsignacionEquipos.getSelectedIndex();
+        
         for (Equipo equipo1 : listaEquipoH) {
             equipoSeleccionado.add(equipo1);
         }
@@ -476,49 +472,44 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_listaAsignacionRolUsuariosActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-        // TODO add your handling code here:
         int posicionUsuario = -1;
         int posicionEquipo = -1;
         int posicionRolUsuario =-1;
         String rolUsuario ="";
         int idEquipo = -1;
         int idUsuario = -1;
+        
         posicionUsuario = listaAsignacionUsuarios.getSelectedIndex();
         posicionEquipo = listaAsignacionEquipos.getSelectedIndex();
         posicionRolUsuario = listaAsignacionRolUsuarios.getSelectedIndex();
+        
         switch(posicionRolUsuario){
             case 0:
-                rolUsuario = "Lider de Equipo";
-                System.out.println(rolUsuario);
+                rolUsuario = Menu.ROL_LIDER_PROYECTO;
                 break;
             case 1:
-                rolUsuario ="Project Manager";
-                System.out.println(rolUsuario);
+                rolUsuario = Menu.ROL_PROJECT_MANAGER;
                 break;
             case 2:
-                rolUsuario = "Desarrolador de Sotfware";
-                System.out.println(rolUsuario);
+                rolUsuario = Menu.ROL_DEVELOPER;
                 break;
             case 3:
-                rolUsuario = "Diseñador UX y UI";
-                System.out.println(rolUsuario);
+                rolUsuario = Menu.ROL_DISENIADOR;
                 break;
         }
 
         if(posicionUsuario > -1) {
             idUsuario = usuarioSeleccionado.get(posicionUsuario).getId_miembro();
             usuario = regenerarUsuarios(idUsuario);
-            System.out.println(usuario.toString());
         }
         if (posicionEquipo > -1 ) {
             idEquipo = equipoSeleccionado.get(posicionEquipo).getId_equipo();
             equipo = regenerarEquipos(idEquipo);
-            System.out.println(equipo.toString());
-            
         }
+        
         LocalDate fecha_Incorporacion = fechaAsignacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         EquipoMiembros usuarioAsignado = new EquipoMiembros(rolUsuario, fecha_Incorporacion, equipo,usuario);
-        Menu.equipoMiembosEscritorio.guardarEquipoMiembros(usuarioAsignado);
+        Menu.equipoMiembosDataLocal.guardarEquipoMiembros(usuarioAsignado);
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     private void listaAsignacionUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaAsignacionUsuariosMouseClicked
@@ -527,18 +518,124 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_listaAsignacionUsuariosMouseClicked
 
     private void listaEquiposMiembrosInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaEquiposMiembrosInfoActionPerformed
-        // TODO add your handling code here:
-        List <Equipo> listaEquipoH = Menu.equipoEscritorio.listarEquiposHabilitados();
+        List <Equipo> listaEquipoH = Menu.equipoDataLocal.listarEquiposHabilitados();
         int posicion = -1;
         posicion = listaEquiposMiembrosInfo.getSelectedIndex();
+        
         for (Equipo equipo1 : listaEquipoH) {
             equipoSeleccionadoTabla.add(equipo1);
         }
         llenarTabla();
     }//GEN-LAST:event_listaEquiposMiembrosInfoActionPerformed
 
-    /* <<-- Metodos Extras -->> */
+                /*|--------------------|*/
+                /*|   Metodos Extras   |*/
+                /*|--------------------|*/
+    
+    // Regenerar Usuario
+    private Miembro regenerarUsuarios (int idUsuario){
+            usuario = usuarioData.buscarMiembro(idUsuario);
+            return usuario;
+        }
 
+    // Regenerar Equipos
+    private Equipo regenerarEquipos(int idEquipo){
+            equipo = equipoData.buscarEquipo(idEquipo);
+            return equipo;
+        }
+
+    // Listar Proyectos Habiltiados
+    private void cargandoProyectoV1() {
+            jcbProyectos.removeAllItems();
+            List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
+
+            for (Proyecto proyectos : arrayProyectos) {
+                jcbProyectos.addItem(proyectos);
+            }
+        }
+
+    // Tabla - Cabecera
+    private void armarCabecera(){
+            ArrayList<Object> titulos=new ArrayList<>();
+            titulos.add("Dni");
+            titulos.add("Apellido");
+            titulos.add("Nombre");
+            titulos.add("Fecha Incorporacion");
+            titulos.add("Rol");
+
+            for (Object titulo : titulos) {
+                modelo.addColumn(titulo);
+            }
+            tablaMostrar.setModel(modelo);
+        }
+
+    // Tabla - Llenar tabla
+    private void llenarTabla(){
+            borrarFilas();
+            int posicionEquipo =-1;
+            posicionEquipo = listaEquiposMiembrosInfo.getSelectedIndex();
+
+            if(posicionEquipo > -1){
+            List <EquipoMiembros> EMSeleccionado = Menu.equipoMiembosDataLocal.listarMiembrosEquiposTabla(equipoSeleccionadoTabla.get(posicionEquipo).getId_equipo());
+
+                for (EquipoMiembros EM : EMSeleccionado) {
+                    modelo.addRow(new Object[]{EM.getMiembro().getDni(),EM.getMiembro().getApellido(),EM.getMiembro().getNombre(),EM.getFecha_incorporacion(),EM.getRol()});
+                }
+
+            }
+
+        }
+  
+    // Tabla - Borrar Filas
+    private void borrarFilas(){
+            int filas=modelo.getRowCount()-1;
+            
+            for(int i=filas;i >=0;i--){
+                modelo.removeRow(i);
+            }
+            
+        }
+        
+    // Tabla - Mostrar Equipos Informacion
+    private void mostrarEquiposInfo(){
+            listaEquiposMiembrosInfo.removeAllItems();
+            List <Equipo> listaEquiposH = Menu.equipoDataLocal.listarEquiposHabilitados();
+            
+            for (Equipo equipo : listaEquiposH) {
+                listaEquiposMiembrosInfo.addItem(equipo);
+            }
+        }
+        
+    // Tabla - Mostrar Asignacion de equipos
+    private void mostrarEquipoAsignacion(){
+            listaAsignacionEquipos.removeAllItems();
+            List <Equipo> listaEquiposH = Menu.equipoDataLocal.listarEquiposHabilitados();
+        
+            for (Equipo equipo : listaEquiposH) {
+                listaAsignacionEquipos.addItem(equipo);
+            }
+        }
+        
+    // Tabla - Mostrar Asignacion de Usuarios
+    private void mostrarUsuariosAsignacion(){
+            listaAsignacionUsuarios.removeAllItems();
+            List <Miembro> listaUsuariosH = Menu.miembroDataLocal.listarHabilitados();
+        
+            for (Miembro miembro : listaUsuariosH) {
+                listaAsignacionUsuarios.addItem(miembro);
+            }
+        }
+
+    // Cargar Equipos Version 2
+    private void cargandoEquiposV2() {
+
+            jcbListaEquipos.removeAllItems();
+            List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
+
+            for (Proyecto proyectos : arrayProyectos) {
+                jcbListaEquipos.addItem(proyectos);
+            }
+        }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ActualizarNombre;
@@ -567,84 +664,5 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField nuevoNombre;
     private final javax.swing.JTable tablaMostrar = new javax.swing.JTable();
     // End of variables declaration//GEN-END:variables
-
-    private void cargandoProyectoV1() {
-        jcbProyectos.removeAllItems();
-        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
-
-        for (Proyecto proyectos : arrayProyectos) {
-            jcbProyectos.addItem(proyectos);
-        }
-    }
-
-    private void cargandoEquiposV2() {
-
-        jcbListaEquipos.removeAllItems();
-        List<Proyecto> arrayProyectos = Menu.proyectoEscritorio.listarProyectosHabilitados();
-
-        for (Proyecto proyectos : arrayProyectos) {
-            jcbListaEquipos.addItem(proyectos);
-        }
-    }
-    
-    private void mostrarUsuariosAsignacion(){
-        listaAsignacionUsuarios.removeAllItems();
-        List <Miembro> listaUsuariosH = Menu.miembroEscritorio.listarHabilitados();
-        for (Miembro miembro : listaUsuariosH) {
-            listaAsignacionUsuarios.addItem(miembro);
-        }
-    }
-    
-    private void mostrarEquipoAsignacion(){
-        listaAsignacionEquipos.removeAllItems();
-        List <Equipo> listaEquiposH = Menu.equipoEscritorio.listarEquiposHabilitados();
-        for (Equipo equipo : listaEquiposH) {
-            listaAsignacionEquipos.addItem(equipo);
-        }
-    }
-    private Miembro regenerarUsuarios (int idUsuario){
-        usuario = usuarioData.buscarMiembro(idUsuario);
-        return usuario;
-    }
-    private Equipo regenerarEquipos(int idEquipo){
-        equipo = equipoData.buscarEquipo(idEquipo);
-        return equipo;
-    }
-    private void mostrarEquiposInfo(){
-        listaEquiposMiembrosInfo.removeAllItems();
-        List <Equipo> listaEquiposH = Menu.equipoEscritorio.listarEquiposHabilitados();
-        for (Equipo equipo : listaEquiposH) {
-            listaEquiposMiembrosInfo.addItem(equipo);
-        }
-    }
-    private void armarCabecera(){
-        ArrayList<Object> titulos=new ArrayList<>();
-        titulos.add("Dni");
-        titulos.add("Apellido");
-        titulos.add("Nombre");
-        titulos.add("Fecha Incorporacion");
-        titulos.add("Rol");
-        
-        for (Object titulo : titulos) {
-            modelo.addColumn(titulo);
-        }
-        tablaMostrar.setModel(modelo);
-    }
-    private void borrarFilas(){
-        int filas=modelo.getRowCount()-1;
-        for(int i=filas;i >=0;i--){
-            modelo.removeRow(i);
-        }
-    }
-    private void llenarTabla(){
-        borrarFilas();
-        int posicionEquipo =-1;
-        posicionEquipo = listaEquiposMiembrosInfo.getSelectedIndex();
-        if(posicionEquipo > -1){
-        List <EquipoMiembros> EMSeleccionado = Menu.equipoMiembosEscritorio.listarMiembrosEquiposTabla(equipoSeleccionadoTabla.get(posicionEquipo).getId_equipo());
-            for (EquipoMiembros EM : EMSeleccionado) {
-                modelo.addRow(new Object[]{EM.getMiembro().getDni(),EM.getMiembro().getApellido(),EM.getMiembro().getNombre(),EM.getFecha_incorporacion(),EM.getRol()});
-            }
-        }
-    }
+   
 }

@@ -28,16 +28,12 @@ public class EquipoMiembrosData {
         con=Conexion.getConexion();
     }
     
-    public Equipo regerarEquipo(int idEquipo){
-        equipo = equipoData.buscarEquipo(idEquipo);
-        return equipo;
-    }
-    public Miembro regenerarMiembro(int idMiembro){
-        miembro = miembroData.buscarMiembro(idMiembro);
-        return miembro;
-    }
     
-    //Create
+    
+                /*|---------------------|*/
+                /*|         CRUD        |*/
+                /*|---------------------|*/
+    
     public void guardarEquipoMiembros(EquipoMiembros equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -79,7 +75,6 @@ public class EquipoMiembrosData {
         }
     }
     
-    //Read
     public EquipoMiembros buscarEquipoMiembros(int idEquipoMiebro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -117,7 +112,6 @@ public class EquipoMiembrosData {
         return equipoMiembros;
     }
     
-    //Update
     public void actualizarEquipoMiembros(EquipoMiembros equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -149,7 +143,6 @@ public class EquipoMiembrosData {
         }
     }
     
-    //Delete
     public void eliminarMiembros(int idEquipoMiembros){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -179,7 +172,12 @@ public class EquipoMiembrosData {
         }
     }
     
-    //Listar Equipos Miembros Habilitados
+    
+    
+                /*|---------------------|*/
+                /*|        Listas       |*/
+                /*|---------------------|*/
+    
     public List <EquipoMiembros> listarEquiposMiembros( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -216,6 +214,7 @@ public class EquipoMiembrosData {
         }
         return listaEM;
     }
+    
     public List<EquipoMiembros> listarMiembrosEquiposTabla(int idEquipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -258,4 +257,21 @@ public class EquipoMiembrosData {
         }
         return listaEM;
     }
+
+
+    
+                /*|---------------------|*/
+                /*|    Metodos extras   |*/
+                /*|---------------------|*/
+
+    public Equipo regerarEquipo(int idEquipo){
+        equipo = equipoData.buscarEquipo(idEquipo);
+        return equipo;
+    }
+    
+    public Miembro regenerarMiembro(int idMiembro){
+        miembro = miembroData.buscarMiembro(idMiembro);
+        return miembro;
+    }
+
 }
