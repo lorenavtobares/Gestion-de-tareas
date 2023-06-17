@@ -2,6 +2,7 @@
 package Vistas;
 
 import Conexion.Conexion;
+import Funciones.*;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.sql.Connection;
@@ -133,7 +134,7 @@ public class Login extends javax.swing.JFrame {
         jPanelDesktopLayout.setHorizontalGroup(
             jPanelDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDesktopLayout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+                .addContainerGap(165, Short.MAX_VALUE)
                 .addGroup(jPanelDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jpPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,7 +156,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jpPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -174,19 +175,7 @@ public class Login extends javax.swing.JFrame {
 
     //validacion de usuario -> Solo letras
     private void jtfUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfUsuarioKeyTyped
-        int key = evt.getKeyChar();
-        boolean numeros = key >= 48 && key <= 57;
-            
-        if (!(numeros))
-        {
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "No se permiten letras.\nNo se permiten caracteres especiales.", "ERROR Login",JOptionPane.WARNING_MESSAGE);
-        }
-        
-        if (jtfUsuario.getText().trim().length() == 15) {
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "Longitud maxima 15 caracteres.", "ERROR Login",JOptionPane.WARNING_MESSAGE);
-        }
+        Funciones.soloNumeros(jtfUsuario, evt, 8);
     }//GEN-LAST:event_jtfUsuarioKeyTyped
 
     //validacion de password -> Solo letras y numeros

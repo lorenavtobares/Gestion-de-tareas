@@ -26,13 +26,13 @@ public class EquipoData {
     public EquipoData() {
         con = Conexion.getConexion();
     }
+
     
-    private Proyecto regenerarProyecto(int idProyecto){
-        proyecto = proyectoData.buscarProyecto(idProyecto);
-        return proyecto;
-    }
+
+                /*|---------------------|*/
+                /*|         CRUD        |*/
+                /*|---------------------|*/
     
-    //Create
     public void GuardarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -71,7 +71,6 @@ public class EquipoData {
         
     }
     
-    //Read
     public Equipo buscarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -115,7 +114,6 @@ public class EquipoData {
         return equipoN;
     }
     
-    //Update
     public void actualizarEquipo(Equipo equipo){
         PreparedStatement stmt = null;
         
@@ -147,7 +145,6 @@ public class EquipoData {
         }   
     }
     
-    //Delete
     public void eliminarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         
@@ -179,7 +176,6 @@ public class EquipoData {
         }
     }
     
-    //Habilitar Equipo Data
     public void habilitarEquipo(int idEquipo){
         PreparedStatement stmt = null;
         
@@ -211,8 +207,13 @@ public class EquipoData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }
+
     
-    //Listar Equipos Habilitados
+    
+                /*|---------------------|*/
+                /*|        Listas       |*/
+                /*|---------------------|*/
+    
     public List <Equipo> listarEquiposHabilitados ( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -252,7 +253,6 @@ public class EquipoData {
         return list_equiposHabilitados;
     }
 
-    //Listar Equipos Deshabilitados
     public List <Equipo> listarEquiposDeshabilitados( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -292,7 +292,6 @@ public class EquipoData {
         return list_equiposNoHabilitados;
     }
     
-    //Listar Todos los equipos
     public List <Equipo> listarTodosEquipos( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -328,5 +327,16 @@ public class EquipoData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
         return list_todosEquipos;
+    }
+    
+
+    
+                /*|---------------------|*/
+                /*|    Metodos extras   |*/
+                /*|---------------------|*/
+    
+    private Proyecto regenerarProyecto(int idProyecto){
+        proyecto = proyectoData.buscarProyecto(idProyecto);
+        return proyecto;
     }
 }

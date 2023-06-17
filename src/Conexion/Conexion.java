@@ -5,6 +5,11 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Conexion {
+    
+                /*|----------------------|*/
+                /*|      Constantes      |*/
+                /*|----------------------|*/
+    
     private static final String DATABASE_URL = "jdbc:mariadb://";
     private static final String DATABASE_HOST = "localhost";
     private static final String DATABASE_PUERTO = ":3306";
@@ -12,6 +17,10 @@ public class Conexion {
     private static final String DATABASE_USUARIO = "root";
     private static final String DATABASE_PASSWORD = "";
     private static Conexion conexion = null;
+    
+                /*|---------------------|*/
+                /*|       Metodos       |*/
+                /*|---------------------|*/
     
     private Conexion() {
         try {

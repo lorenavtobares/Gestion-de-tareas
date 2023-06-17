@@ -9,6 +9,11 @@ public class Proyecto {
     private LocalDate fecha_inicio;
     private boolean estado;
 
+    
+                /*|--------------------|*/
+                /*|    Constructores   |*/
+                /*|--------------------|*/
+    
     public Proyecto(int id_proyecto, String nombre, String descripcion, LocalDate fecha_inicio, boolean estado) {
         this.id_proyecto = id_proyecto;
         this.nombre = nombre;
@@ -40,65 +45,66 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public int getId_proyecto() {
-        return id_proyecto;
-    }
+    
 
-    public void setId_proyecto(int id_proyecto) {
-        this.id_proyecto = id_proyecto;
+                /*|------------------------|*/
+                /*|         Getters        |*/
+                /*|------------------------|*/
+
+    public boolean getEstado() {
+        return estado;
+    }
+    
+    public int getId_proyecto() {
+        return id_proyecto ;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getDescripcion() {
         return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
     public LocalDate getFecha_inicio() {
         return fecha_inicio;
     }
 
-    public void setFecha_inicio(LocalDate fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
+    
+    
+                /*|------------------------|*/
+                /*|         Setters        |*/
+                /*|------------------------|*/
+
+    public void setId_proyecto(int id_proyecto) {
+        this.id_proyecto = id_proyecto;
     }
 
-    public boolean getEstado() {
-        return estado;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setFecha_inicio(LocalDate fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
     }
 
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-/*
-    @Override
-    public String toString() {
-        return  "Proyecto{" + 
-                "\nid_proyecto => " + id_proyecto + 
-                "\nnombre => " + nombre + 
-                "\ndescripcion => " + descripcion + 
-                "\nfecha_inicio => " + fecha_inicio + 
-                "\nestado => " + estado + 
-                "\n}";
-    }
     
-    */
-
+    
+    
+                /*|-------------------------|*/
+                /*|         ToString        |*/
+                /*|-------------------------|*/    
+    
     @Override
     public String toString() {
         return nombre ;
     }
-    
-    
-    
-    
 }

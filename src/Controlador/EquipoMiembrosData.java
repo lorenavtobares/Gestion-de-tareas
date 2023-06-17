@@ -28,16 +28,12 @@ public class EquipoMiembrosData {
         con=Conexion.getConexion();
     }
     
-    public Equipo regerarEquipo(int idEquipo){
-        equipo = equipoData.buscarEquipo(idEquipo);
-        return equipo;
-    }
-    public Miembro regenerarMiembro(int idMiembro){
-        miembro = miembroData.buscarMiembro(idMiembro);
-        return miembro;
-    }
     
-    //Create
+    
+                /*|---------------------|*/
+                /*|         CRUD        |*/
+                /*|---------------------|*/
+    
     public void guardarEquipoMiembros(EquipoMiembros equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -79,8 +75,12 @@ public class EquipoMiembrosData {
         }
     }
     
+<<<<<<< HEAD
     //Read
     public EquipoMiembros buscarEquipoMiembros(int idEquipoMiembro){
+=======
+    public EquipoMiembros buscarEquipoMiembros(int idEquipoMiebro){
+>>>>>>> 91977b74953691383f372ac079272988f0a602f9
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         String query    = "SELECT * "
@@ -122,7 +122,6 @@ public class EquipoMiembrosData {
     
     
     
-    //Update
     public void actualizarEquipoMiembros(EquipoMiembros equipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -154,7 +153,6 @@ public class EquipoMiembrosData {
         }
     }
     
-    //Delete
     public void eliminarMiembros(int idEquipoMiembros){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -184,7 +182,12 @@ public class EquipoMiembrosData {
         }
     }
     
-    //Listar Equipos Miembros Habilitados
+    
+    
+                /*|---------------------|*/
+                /*|        Listas       |*/
+                /*|---------------------|*/
+    
     public List <EquipoMiembros> listarEquiposMiembros( ) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -221,4 +224,64 @@ public class EquipoMiembrosData {
         }
         return listaEM;
     }
+    
+    public List<EquipoMiembros> listarMiembrosEquiposTabla(int idEquipo){
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<EquipoMiembros> listaEM = new ArrayList<EquipoMiembros>();
+        
+        String query        = " SELECT M.dni, M.apellido, M.nombre, EM.fechaIncorporacion, EM.rol, EM.idMiembro, EM.idEquipo " 
+                            + " FROM equipomiembros AS EM " 
+                            + " JOIN miembro AS M " 
+                            + " ON EM.idMiembro = M.idMiembro "
+                            + " JOIN equipo AS E " 
+                            + " ON EM.idEquipo = E.idEquipo " 
+                            + " WHERE EM.idEquipo = ? ";
+        
+        try{
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, idEquipo);
+            resultado = stmt.executeQuery();
+            while (resultado.next()) {                
+                int dni = resultado.getInt("dni");
+                String apellido = resultado.getNString("apellido");
+                LocalDate fechaIncorporacion = resultado.getDate("fechaIncorporacion").toLocalDate();
+                String rol = resultado.getString("rol");
+                miembro = regenerarMiembro(resultado.getInt("idMiembro"));
+                equipo = regerarEquipo(resultado.getInt("idEquipo"));
+                EquipoMiembros miembrosDelEquipo = new EquipoMiembros(rol, fechaIncorporacion, equipo, miembro);
+                listaEM.add(miembrosDelEquipo);
+                
+            }
+        }
+        catch ( SQLException ex ) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() ,"", JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try {
+                resultado.close();
+                stmt.close();
+            } catch ( SQLException ex ) {
+                JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() ,"", JOptionPane.ERROR_MESSAGE );
+            }
+        }
+        return listaEM;
+    }
+
+
+    
+                /*|---------------------|*/
+                /*|    Metodos extras   |*/
+                /*|---------------------|*/
+
+    public Equipo regerarEquipo(int idEquipo){
+        equipo = equipoData.buscarEquipo(idEquipo);
+        return equipo;
+    }
+    
+    public Miembro regenerarMiembro(int idMiembro){
+        miembro = miembroData.buscarMiembro(idMiembro);
+        return miembro;
+    }
+
 }

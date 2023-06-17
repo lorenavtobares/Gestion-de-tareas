@@ -19,7 +19,13 @@ public class ProyectoData {
         con= Conexion.getConexion();
     }
     
-    //Create
+    
+    
+                /*|---------------------|*/
+                /*|         CRUD        |*/
+                /*|---------------------|*/
+    
+    
     public void guardarProyecto(Proyecto proyecto){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -54,7 +60,6 @@ public class ProyectoData {
         }
     }
     
-    //Read
     public Proyecto buscarProyecto(int idProyecto){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -97,7 +102,6 @@ public class ProyectoData {
         return proyectoN;
     }
     
-    //Update
     public void actualizarProyecto(Proyecto proyecto){
         PreparedStatement stmt = null;
                 
@@ -129,7 +133,6 @@ public class ProyectoData {
 
     }
     
-    //Delete
     public void eliminarProyecto(int idProyecto){
         PreparedStatement stmt = null;
 
@@ -159,7 +162,6 @@ public class ProyectoData {
         }
     }
     
-    //Habilitar Proyecto
     public void habilitarProyecto(int idProyecto){
         PreparedStatement stmt = null;
 
@@ -189,7 +191,13 @@ public class ProyectoData {
         }
     }
     
-    //Listar Protectos Habilitados
+    
+    
+                /*|---------------------|*/
+                /*|        Listas       |*/
+                /*|---------------------|*/
+    
+    
     public List listarProyectosHabilitados(){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -228,7 +236,6 @@ public class ProyectoData {
         return listaHabilitados;
     }
     
-    //Listar Protectos Deshabilitados
     public List listarProyectosDeshabilitados(){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -267,7 +274,6 @@ public class ProyectoData {
         return listaDeshabilitados;
     }
     
-    //Listar Todos los proyectos
     public List listarTodosProyectos(){
         PreparedStatement stmt = null;
         ResultSet resultado = null;

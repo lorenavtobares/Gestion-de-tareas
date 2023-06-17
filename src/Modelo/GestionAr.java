@@ -13,7 +13,11 @@ public class GestionAr {
         Login formLogin = new Login();
         formLogin.setVisible(true);
         
-    //VARIABLES
+
+                /*|--------------------|*/
+                /*|      Variables     |*/
+                /*|--------------------|*/
+                
         LocalDate ff = LocalDate.of(2021, 01, 23);
         LocalDate tareaInicio = LocalDate.of(2023, 02, 21);
         LocalDate tareaFin = LocalDate.of(2023, 04, 14);
@@ -35,11 +39,16 @@ public class GestionAr {
         EquipoMiembros varEquipoMiembros = new EquipoMiembros(Rol4, ff, varEquipoData.buscarEquipo(4), varMiembroData.buscarMiembro(7));
         EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
         
-        //Tarea varTarea = new Tarea(3,"Presentacion del proyecto al equipo modificado", tareaInicio, tareaFin, true,  varEquiposMiembrosData.buscarEquipoMiembros(16));
+        //Tarea varTarea = new Tarea("Tarea ingresada de Main", tareaInicio, tareaFin, true,  varEquiposMiembrosData.buscarEquipoMiembros(16));
         //TareaData varTareaData = new TareaData();
         
         //Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
         //ComentariosData varComentariosData = new ComentariosData();
+
+
+                /*|--------------------|*/
+                /*|       Listas       |*/
+                /*|--------------------|*/
         
         java.util.List <Proyecto> listaProyectos = new ArrayList<Proyecto>();
         java.util.List <Equipo> listaEquipos = new ArrayList<Equipo>();
@@ -48,6 +57,10 @@ public class GestionAr {
         java.util.List <Tarea> listaTareas = new ArrayList<Tarea>();
         java.util.List <Comentarios> listaComentarios = new ArrayList<Comentarios>();
         
+        
+                /*|------------------------------|*/
+                /*|    Pruebas de los metodos    |*/
+                /*|------------------------------|*/
         
         
     /* <<-- PROYECTO DATA -->> */ 
@@ -170,7 +183,7 @@ public class GestionAr {
     
     /* <<-- TAREA DATA -->> */ 
         // - Create
-        // varTareaData.guardarTarea(varTarea);
+         //varTareaData.guardarTarea(varTarea);
         
         // - Read 
         // System.out.println(varTareaData.buscarTarea(3).toString());
