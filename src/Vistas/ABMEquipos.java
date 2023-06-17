@@ -31,6 +31,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private static List <Equipo> equipoSeleccionadoTabla = new ArrayList<>();
     
     private DefaultTableModel modelo = new DefaultTableModel();
+    
     public ABMEquipos() {
         initComponents();
         nuevoFecha.setMinSelectableDate(new Date());
@@ -355,10 +356,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCerrarActionPerformed
-
                 /*|-------------------------|*/
                 /*|   Validacion de datos   |*/
                 /*|-------------------------|*/
@@ -373,8 +370,22 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         Funciones.soloLetras(ActualizarNombre, evt, 45);
     }//GEN-LAST:event_ActualizarNombreKeyTyped
     
-    
 
+                /*|-------------------------|*/
+                /*|         Celendario      |*/
+                /*|-------------------------|*/
+    
+    public void formatoCalendario() {
+        actualizarFecha.setDate(new Date());
+        nuevoFecha.getJCalendar().setMaxSelectableDate(new Date());
+    }
+    
+    
+    
+                /*|-------------------------|*/
+                /*|    Eventos Generados    |*/
+                /*|-------------------------|*/
+    
     private void btnNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEquipoActionPerformed
         String nombre = nuevoNombre.getText();
         LocalDate fechaCreacion = nuevoFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -386,11 +397,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         Menu.equipoLocal = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, true);
         Menu.equipoDataLocal.GuardarEquipo(equipoLocal);
     }//GEN-LAST:event_btnNuevoEquipoActionPerformed
-
-    public void formatoCalendario() {
-        actualizarFecha.setDate(new Date());
-        nuevoFecha.getJCalendar().setMaxSelectableDate(new Date());
-    }
 
     //Solapa 2 - Actualizar Datos -> Btn guardar datos
     private void btnActualizarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEquipoActionPerformed
@@ -528,32 +534,15 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         llenarTabla();
     }//GEN-LAST:event_listaEquiposMiembrosInfoActionPerformed
 
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    
                 /*|--------------------|*/
-                /*|   Metodos Extras   |*/
+                /*|        Tabla       |*/
                 /*|--------------------|*/
     
-    // Regenerar Usuario
-    private Miembro regenerarUsuarios (int idUsuario){
-            usuario = usuarioData.buscarMiembro(idUsuario);
-            return usuario;
-        }
-
-    // Regenerar Equipos
-    private Equipo regenerarEquipos(int idEquipo){
-            equipo = equipoData.buscarEquipo(idEquipo);
-            return equipo;
-        }
-
-    // Listar Proyectos Habiltiados
-    private void cargandoProyectoV1() {
-            jcbProyectos.removeAllItems();
-            List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
-
-            for (Proyecto proyectos : arrayProyectos) {
-                jcbProyectos.addItem(proyectos);
-            }
-        }
-
     // Tabla - Cabecera
     private void armarCabecera(){
             ArrayList<Object> titulos=new ArrayList<>();
@@ -595,8 +584,36 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             }
             
         }
-        
-    // Tabla - Mostrar Equipos Informacion
+    
+    
+    
+                /*|--------------------|*/
+                /*|   Metodos Extras   |*/
+                /*|--------------------|*/
+    
+    // Regenerar Usuario
+    private Miembro regenerarUsuarios (int idUsuario){
+            usuario = usuarioData.buscarMiembro(idUsuario);
+            return usuario;
+        }
+
+    // Regenerar Equipos
+    private Equipo regenerarEquipos(int idEquipo){
+            equipo = equipoData.buscarEquipo(idEquipo);
+            return equipo;
+        }
+
+    // Listar Proyectos Habiltiados
+    private void cargandoProyectoV1() {
+            jcbProyectos.removeAllItems();
+            List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
+
+            for (Proyecto proyectos : arrayProyectos) {
+                jcbProyectos.addItem(proyectos);
+            }
+        }
+
+    // Listar - Mostrar Equipos Informacion
     private void mostrarEquiposInfo(){
             listaEquiposMiembrosInfo.removeAllItems();
             List <Equipo> listaEquiposH = Menu.equipoDataLocal.listarEquiposHabilitados();
@@ -606,7 +623,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             }
         }
         
-    // Tabla - Mostrar Asignacion de equipos
+    // Listar - Mostrar Asignacion de equipos
     private void mostrarEquipoAsignacion(){
             listaAsignacionEquipos.removeAllItems();
             List <Equipo> listaEquiposH = Menu.equipoDataLocal.listarEquiposHabilitados();

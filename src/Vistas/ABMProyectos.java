@@ -12,6 +12,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ABMProyectos extends javax.swing.JInternalFrame {
+    
+                /*|---------------------|*/
+                /*|      Variables      |*/
+                /*|---------------------|*/
+    
     private Date fechaSistema = new Date();
     SimpleDateFormat dateFormat = new SimpleDateFormat(Menu.FORMATO_FECHA);
     
@@ -241,7 +246,9 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-                /* <<-- Validacion de datos -->> */
+                /*|-------------------------|*/
+                /*|   Validacion de datos   |*/
+                /*|-------------------------|*/
     
     // Vista 1 - nuevo proyectoLocal -> NOMBRE: validacion de datos
     private void nuevoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoNombreKeyTyped
@@ -258,6 +265,12 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         Funciones.soloNumerosYLetras(updateDescripcion, evt, 300);
     }//GEN-LAST:event_updateDescripcionKeyTyped
 
+    
+    
+                /*|-------------------------|*/
+                /*|    Eventos Generados    |*/
+                /*|-------------------------|*/
+    
     // Vista 1 - nuevo Proyecto -> BTN Crear
     private void btnCrearProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProyectoActionPerformed
         
@@ -294,7 +307,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             }
     
         }catch ( Exception ex) {
-            JOptionPane.showMessageDialog(null, Menu.ERROR_FECHA, Menu.TT_FECHA_ERRONEA,JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Menu.ERROR_FECHA, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
         }
         
     }//GEN-LAST:event_btnCrearProyectoActionPerformed
@@ -368,7 +381,7 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
                 }
                 
         }catch ( Exception ex) {
-            JOptionPane.showMessageDialog(null, Menu.ERROR_FECHA, Menu.TT_FECHA_ERRONEA,JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Menu.ERROR_FECHA, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
         }
                     
     }//GEN-LAST:event_btnUpdateProyectoActionPerformed
@@ -384,7 +397,10 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbDeshabilitadosActionPerformed
 
        
-                /* <<-- Metodos Extreas -->> */
+    
+                /*|--------------------|*/
+                /*|   Metodos Extras   |*/
+                /*|--------------------|*/
     
     //Solapa 2 -> Carga los datos de la lista
     private void cargandoListaProyectos() {

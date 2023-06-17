@@ -2,6 +2,7 @@
 package Vistas;
 
 import Conexion.Conexion;
+import Funciones.*;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.sql.Connection;
@@ -174,19 +175,7 @@ public class Login extends javax.swing.JFrame {
 
     //validacion de usuario -> Solo letras
     private void jtfUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfUsuarioKeyTyped
-        int key = evt.getKeyChar();
-        boolean numeros = key >= 48 && key <= 57;
-            
-        if (!(numeros))
-        {
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "No se permiten letras.\nNo se permiten caracteres especiales.", "ERROR Login",JOptionPane.WARNING_MESSAGE);
-        }
-        
-        if (jtfUsuario.getText().trim().length() == 15) {
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "Longitud maxima 15 caracteres.", "ERROR Login",JOptionPane.WARNING_MESSAGE);
-        }
+        Funciones.soloNumeros(jtfUsuario, evt, 8);
     }//GEN-LAST:event_jtfUsuarioKeyTyped
 
     //validacion de password -> Solo letras y numeros

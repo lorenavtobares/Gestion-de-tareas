@@ -17,7 +17,17 @@ import static java.util.Calendar.DATE;
 import java.util.List;
 
 public class Funciones {
+    
+                /*|-------------------------|*/
+                /*|        Variables        |*/
+                /*|-------------------------|*/
+    
     private static final String FORMATO_FECHA = "dd-MM-yyyy";
+    
+    
+                /*|---------------------------|*/
+                /*|    Validacion de datos    |*/
+                /*|---------------------------|*/
     
     public static void soloLetras(JTextField e, java.awt.event.KeyEvent evt, int longitud){
         int key = evt.getKeyChar();
@@ -103,6 +113,12 @@ public class Funciones {
 
     }
     
+    
+    
+                /*|-------------------------|*/
+                /*|         Fechas          |*/
+                /*|-------------------------|*/
+    
     //Validacion de fecha -> Posterior a la actual
     public static boolean validarFechaPosterior( JDateChooser e ) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA);
@@ -167,4 +183,22 @@ public class Funciones {
         
     }
     
+    
+    
+                /*|-------------------------|*/
+                /*|    Eventos Generados    |*/
+                /*|-------------------------|*/
+    
+    public static String rolUsuario (int i){
+        String rol = "";
+        switch (i){
+                case 1:
+                rol = "admin";
+                break;
+            case 2:
+                rol = "usuario";
+                break;
+        }
+        return rol;
+    }
 }
