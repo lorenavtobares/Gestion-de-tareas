@@ -96,14 +96,22 @@ public class Miembro {
     public void setRolSistema(String rolSistema) {
         this.rolSistema = rolSistema;
     }
-
+/*
     @Override
     public String toString() {
         return  apellido + " " + nombre;
     }
 
     
+*/
 
+    @Override
+    public String toString() {
+        return "Miembro{" + "id_miembro=" + id_miembro + ", dni=" + dni + ", password=" + password + ", apellido=" + apellido + ", nombre=" + nombre + ", estado=" + estado + ", rolSistema=" + rolSistema + '}';
+    }
+    
+    
+    
     
     
 }

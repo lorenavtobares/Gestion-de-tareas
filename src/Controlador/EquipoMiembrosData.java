@@ -80,7 +80,7 @@ public class EquipoMiembrosData {
     }
     
     //Read
-    public EquipoMiembros buscarEquipoMiembros(int idEquipoMiebro){
+    public EquipoMiembros buscarEquipoMiembros(int idEquipoMiembro){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         String query    = "SELECT * "
@@ -89,17 +89,17 @@ public class EquipoMiembrosData {
                 
         try{
             stmt = con.prepareStatement( query );
-            stmt.setInt(1, idEquipoMiebro);
+            stmt.setInt(1, idEquipoMiembro);
             resultado = stmt.executeQuery();
             
             if ( resultado.next() ){
-                int id = idEquipoMiebro;
+                int id = idEquipoMiembro;
                 String rol = resultado.getString("rol");
                 LocalDate fechaIncorporacion = resultado.getDate("fechaIncorporacion").toLocalDate();
                 equipo = regerarEquipo(resultado.getInt("idEquipo"));
                 miembro = regenerarMiembro(resultado.getInt("idMiembro"));
                 
-                equipoMiembros = new EquipoMiembros(idEquipoMiebro, rol, fechaIncorporacion, equipo, miembro);
+                equipoMiembros = new EquipoMiembros(idEquipoMiembro, rol, fechaIncorporacion, equipo, miembro);
             }
         }
         catch(SQLException ex){
@@ -116,6 +116,11 @@ public class EquipoMiembrosData {
         
         return equipoMiembros;
     }
+   
+          
+    
+    
+    
     
     //Update
     public void actualizarEquipoMiembros(EquipoMiembros equipo){

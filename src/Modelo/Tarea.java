@@ -10,6 +10,7 @@ public class Tarea {
     private LocalDate fecha_cierre;
     private boolean estado;
     private EquipoMiembros equipoMiembros;
+    private int idEquipoMiembros; //se agrego
 
     public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, EquipoMiembros equipoMiembros) {
         this.id_tarea = id_tarea;
@@ -36,11 +37,20 @@ public class Tarea {
         this.estado = estado;
     }
 
+    public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, int idEquipoMiembros) {
+        this.nombre = nombre;
+        this.fecha_creacion = fecha_creacion;
+        this.fecha_cierre = fecha_cierre;
+        this.estado = estado;
+        this.idEquipoMiembros = idEquipoMiembros;
+    }
+
     
     
     public Tarea() {
     }
 
+   
     public int getId_tarea() {
         return id_tarea;
     }

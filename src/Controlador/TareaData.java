@@ -31,6 +31,11 @@ public class TareaData {
         return equipoMiembros;
     }
 
+    private Tarea regenerarTarea(int idTarea){
+        tarea = tareaData.buscarTarea(idTarea);
+        return tarea;
+    }
+    
     //Create
      public void guardarTarea(Tarea tarea){
         PreparedStatement stmt = null;
@@ -41,7 +46,7 @@ public class TareaData {
                             + "fechaCreacion, "
                             + "fechaCierre, "
                             + "estado, "
-                            + "idEquipoMiembros "
+                            + "idEquipoMiembros  "
                         + ") "
                         + "VALUES ( ?, ?, ?, 1, ? )";
         try{
@@ -50,6 +55,9 @@ public class TareaData {
             stmt.setDate(2, Date.valueOf(tarea.getFecha_creacion()));
             stmt.setDate(3, Date.valueOf(tarea.getFecha_cierre()));
             stmt.setInt(4, tarea.getEquipoMiembros().getId_equipo_miembros());
+            //equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
+            //int id = equipoMiembros.getId_equipo_miembros();
+           // stmt.setInt(4 ,id );
             
             stmt.executeUpdate();
                 resultado = stmt.getGeneratedKeys();

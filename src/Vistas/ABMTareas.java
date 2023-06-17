@@ -1,9 +1,23 @@
 package Vistas;
 
+import Modelo.Equipo;
+import Modelo.EquipoMiembros;
+import Modelo.Miembro;
+import Modelo.Tarea;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 public class ABMTareas extends javax.swing.JInternalFrame {
+     private Date fechaSistema = new Date();
+    private List<Miembro> array = new ArrayList<>();
 
     public ABMTareas() {
         initComponents();
+        cargandoEquipos();
+        cargandoMiembros();
     }
 
     @SuppressWarnings("unchecked")
@@ -13,11 +27,11 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         contenedorPrincipal = new javax.swing.JTabbedPane();
         altaDeTarea = new javax.swing.JPanel();
         altaTareaNombre = new javax.swing.JTextField();
-        altaTareaMiembro = new javax.swing.JComboBox<>();
-        altaTareaGrupo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         altaTareaDescripcion = new javax.swing.JTextArea();
         btnAltaTareaGuardar = new javax.swing.JButton();
+        jcbMiembros = new javax.swing.JComboBox<>();
+        jcbEquipos = new javax.swing.JComboBox<>();
         bajaDeTarea = new javax.swing.JPanel();
         bajaTareaListaMiembro = new javax.swing.JComboBox<>();
         bajaTareaListraGrupo = new javax.swing.JComboBox<>();
@@ -41,22 +55,6 @@ public class ABMTareas extends javax.swing.JInternalFrame {
             }
         });
 
-        altaTareaMiembro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-        altaTareaMiembro.setBorder(javax.swing.BorderFactory.createTitledBorder("MIEMBRO"));
-        altaTareaMiembro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                altaTareaMiembroActionPerformed(evt);
-            }
-        });
-
-        altaTareaGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-        altaTareaGrupo.setBorder(javax.swing.BorderFactory.createTitledBorder("GRUPO DE TRABAJO"));
-        altaTareaGrupo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                altaTareaGrupoActionPerformed(evt);
-            }
-        });
-
         altaTareaDescripcion.setColumns(20);
         altaTareaDescripcion.setRows(5);
         altaTareaDescripcion.setBorder(javax.swing.BorderFactory.createTitledBorder("DESCRIPCION DE LA TAREA"));
@@ -66,6 +64,12 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         btnAltaTareaGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAltaTareaGuardarActionPerformed(evt);
+            }
+        });
+
+        jcbEquipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbEquiposActionPerformed(evt);
             }
         });
 
@@ -79,9 +83,11 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1)
                     .addComponent(altaTareaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addGroup(altaDeTareaLayout.createSequentialGroup()
-                        .addComponent(altaTareaMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jcbMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(altaTareaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jcbEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13))
                     .addComponent(btnAltaTareaGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(111, 111, 111))
         );
@@ -92,11 +98,11 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                 .addComponent(altaTareaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(altaTareaMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(altaTareaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addComponent(btnAltaTareaGuardar)
                 .addGap(23, 23, 23))
         );
@@ -278,17 +284,60 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private void altaTareaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaTareaNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_altaTareaNombreActionPerformed
-
-    private void altaTareaMiembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaTareaMiembroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_altaTareaMiembroActionPerformed
-
-    private void altaTareaGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaTareaGrupoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_altaTareaGrupoActionPerformed
-
+    // Vista 1 -> Crea una nueva tarea
     private void btnAltaTareaGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaTareaGuardarActionPerformed
-        // TODO add your handling code here:
+        List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarEquiposHabilitados();
+        List<EquipoMiembros> arrayEquipoMiembros = Menu.equipoMiembosEscritorio.listarEquiposMiembros();
+        List<Miembro> arrayMiembros = new ArrayList<>();
+        int posicionEquipoMiembro = -1, idEquipoMiembro, posicionMiembros = -1;
+
+        String nombreTarea = altaTareaNombre.getText();
+        String descripcion = altaTareaDescripcion.getText();
+        posicionEquipoMiembro = jcbEquipos.getSelectedIndex();
+        posicionMiembros = jcbMiembros.getSelectedIndex();
+
+        if (posicionEquipoMiembro != -1) {
+            if (!nombreTarea.isEmpty()) {
+                if (!descripcion.isEmpty()) {
+                    Miembro miembroLocal = new Miembro();
+                    int idMiembro = array.get(posicionMiembros).getId_miembro();
+                    miembroLocal = Menu.miembroEscritorio.buscarMiembro(idMiembro);
+                    arrayMiembros.add(miembroLocal);
+
+                    for (int i = 0; i < arrayEquipoMiembros.size(); i++) {
+                        if (arrayEquipoMiembros.get(i).getMiembro().getId_miembro() == idMiembro) {
+                            
+                           EquipoMiembros equipoMiembrosLocal = new EquipoMiembros();
+                            idEquipoMiembro = arrayEquipoMiembros.get(i).getId_equipo_miembros();
+                           equipoMiembrosLocal = arrayEquipoMiembros.get(i);
+                            LocalDate f = LocalDate.now();
+                            System.out.println("id miembro " + idMiembro);
+                           System.out.println("id array" + arrayEquipoMiembros.get(i).getMiembro().getId_miembro() );
+                          
+                         
+                             Tarea tareaLocal = new Tarea(nombreTarea, f, f, true, equipoMiembrosLocal);
+                           
+                           
+                            List<Tarea> arraytarea= new ArrayList<>();
+                             arraytarea.add(tareaLocal);
+
+                            for (Tarea equipos : arraytarea) {
+                                System.out.println(equipos);
+                            }
+                             
+                           Menu.tareaEscritorio.guardarTarea(tareaLocal);
+                        }
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe ingresar la descripcion de la tarea", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el nombre de la tarea", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+
+
     }//GEN-LAST:event_btnAltaTareaGuardarActionPerformed
 
     private void bajaTareaListaTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaTareaListaTareaActionPerformed
@@ -322,13 +371,50 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private void btnUpdateTareaActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTareaActualizarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUpdateTareaActualizarActionPerformed
+    // Vista 1 -> Carga la lista de miembros segun el equipo que se seleccione
+    private void jcbEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEquiposActionPerformed
+        jcbMiembros.removeAllItems();
+        array.clear();
+        List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarEquiposHabilitados();
+        int posicion = -1;
+        posicion = jcbEquipos.getSelectedIndex();
+        List<EquipoMiembros> arrayMiembros = Menu.equipoMiembosEscritorio.listarEquiposMiembros();
 
+        if (posicion != -1) {
+            for (int i = 0; i < arrayMiembros.size(); i++) {
+
+                if (arrayEquipos.get(posicion).getId_equipo() == arrayMiembros.get(i).getEquipo().getId_equipo()) {
+
+                    Miembro equi = new Miembro();
+                    int id = arrayMiembros.get(i).getMiembro().getId_miembro();
+                    equi = Menu.miembroEscritorio.buscarMiembro(id);
+                    array.add(equi);
+                }
+            }
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un equipo", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+        }
+        for (Miembro equipos : array) {
+            jcbMiembros.addItem(equipos);
+        }
+
+    }//GEN-LAST:event_jcbEquiposActionPerformed
+
+    // Vista 1 -> Carga la lista de  equipos 
+    private void cargandoEquipos() {
+        jcbEquipos.removeAllItems();
+        List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarEquiposHabilitados();
+
+        for (Equipo equipos : arrayEquipos) {
+            jcbEquipos.addItem(equipos);
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel altaDeTarea;
     private javax.swing.JTextArea altaTareaDescripcion;
-    private javax.swing.JComboBox<String> altaTareaGrupo;
-    private javax.swing.JComboBox<String> altaTareaMiembro;
     private javax.swing.JTextField altaTareaNombre;
     private javax.swing.JPanel bajaDeTarea;
     private javax.swing.JTextArea bajaTareaDescripcion;
@@ -344,9 +430,21 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JComboBox<Equipo> jcbEquipos;
+    private javax.swing.JComboBox<Miembro> jcbMiembros;
     private javax.swing.JTextArea updateTareaDescripcionTareas;
     private javax.swing.JComboBox<String> updateTareaListaGrupos;
     private javax.swing.JComboBox<String> updateTareaListaMiembros;
     private javax.swing.JComboBox<String> updateTareaListaTareas;
     // End of variables declaration//GEN-END:variables
+
+    private void cargandoMiembros() {
+        jcbMiembros.removeAllItems();
+        /*
+        List<EquipoMiembros> arrayMiembros = Menu.equipoMiembosEscritorio.listarEquiposMiembros();
+
+        for (EquipoMiembros equipos : arrayMiembros) {
+            jcbMiembros.addItem(equipos);
+        }*/
+    }
 }

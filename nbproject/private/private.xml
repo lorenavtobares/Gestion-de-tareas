@@ -6,11 +6,11 @@
             <file>file:/C:/Laboratorio1/GestionAR_C2Grupo11/src/Vistas/ABMEquipos.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMUsuarios.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Controlador/MiembroData.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/Login.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Modelo/Miembro.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMEquipos.java</file>
+            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Modelo/Tarea.java</file>
+            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMTareas.java</file>
+            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Modelo/EquipoMiembros.java</file>
+            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Controlador/TareaData.java</file>
+            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Controlador/EquipoMiembrosData.java</file>
         </group>
     </open-files>
 </project-private>

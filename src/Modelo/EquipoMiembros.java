@@ -24,6 +24,8 @@ public class EquipoMiembros {
         this.miembro = miembro;
     }
 
+    
+    
     public EquipoMiembros() {
     }
 
@@ -67,6 +69,7 @@ public class EquipoMiembros {
         this.miembro = miembro;
     }
 
+    /*
     @Override
     public String toString() {
         return  "EquipoMiembros{" + 
@@ -77,6 +80,18 @@ public class EquipoMiembros {
                 "\nmiembro=" + miembro + 
                 "\n}";
     }
+*/
+
+    @Override
+    public String toString() {
+        return  "miembro=" + miembro ;
+    }
+
+    
+
+    
+    
+    
 
     
     
