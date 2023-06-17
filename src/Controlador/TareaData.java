@@ -26,11 +26,13 @@ public class TareaData {
         con = Conexion.getConexion();
     }
     
-<<<<<<< HEAD
+
     private EquipoMiembros regenerarEquipoMiembro(int idEquipoMiembros){
         equipoMiembros = equipoMiembrosData.buscarEquipoMiembros(idEquipoMiembros);
         return equipoMiembros;
     }
+    
+  
 
     private Tarea regenerarTarea(int idTarea){
         tarea = tareaData.buscarTarea(idTarea);
@@ -38,8 +40,8 @@ public class TareaData {
     }
     
     //Create
-     public void guardarTarea(Tarea tarea){
-=======
+    
+
     
                 /*|---------------------|*/
                 /*|         CRUD        |*/
@@ -47,7 +49,7 @@ public class TareaData {
     
     
     public void guardarTarea(Tarea tarea){
->>>>>>> 91977b74953691383f372ac079272988f0a602f9
+
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         
@@ -363,8 +365,5 @@ public class TareaData {
                 /*|---------------------|*/
     
     
-    private EquipoMiembros regenerarEquipoMiembro(int idEquipoMiembros){
-        equipoMiembros = equipoMiembrosData.buscarEquipoMiembros(idEquipoMiembros);
-        return equipoMiembros;
-    }
+    
 }

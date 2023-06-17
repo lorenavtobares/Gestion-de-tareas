@@ -42,7 +42,7 @@ public class Tarea {
         this.fecha_cierre = fecha_cierre;
         this.estado = estado;
     }
-<<<<<<< HEAD
+
 
     public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, int idEquipoMiembros) {
         this.nombre = nombre;
@@ -52,23 +52,19 @@ public class Tarea {
         this.idEquipoMiembros = idEquipoMiembros;
     }
 
-    
-=======
->>>>>>> 91977b74953691383f372ac079272988f0a602f9
+
     
     public Tarea() {
     }
 
-<<<<<<< HEAD
-   
-=======
+
     
     
                 /*|------------------------|*/
                 /*|         Getters        |*/
                 /*|------------------------|*/
     
->>>>>>> 91977b74953691383f372ac079272988f0a602f9
+
     public int getId_tarea() {
         return id_tarea;
     }

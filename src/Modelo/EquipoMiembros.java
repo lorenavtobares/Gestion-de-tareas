@@ -87,7 +87,7 @@ public class EquipoMiembros {
         this.miembro = miembro;
     }
 
-<<<<<<< HEAD
+
     /*
 =======
     
@@ -96,7 +96,7 @@ public class EquipoMiembros {
                 /*|         ToString        |*/
                 /*|-------------------------|*/    
     
->>>>>>> 91977b74953691383f372ac079272988f0a602f9
+/*
     @Override
     public String toString() {
         return  "EquipoMiembros{" + 
@@ -107,7 +107,7 @@ public class EquipoMiembros {
                 "\nmiembro=" + miembro + 
                 "\n}";
     }
-<<<<<<< HEAD
+
 */
 
     @Override
@@ -122,7 +122,5 @@ public class EquipoMiembros {
     
 
     
-    
-=======
->>>>>>> 91977b74953691383f372ac079272988f0a602f9
+
 }

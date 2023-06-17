@@ -2,7 +2,7 @@
 package Controlador;
 
 import Conexion.Conexion;
-import Modelo.*;
+import Modelo. *;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -75,12 +75,12 @@ public class EquipoMiembrosData {
         }
     }
     
-<<<<<<< HEAD
+
     //Read
     public EquipoMiembros buscarEquipoMiembros(int idEquipoMiembro){
-=======
-    public EquipoMiembros buscarEquipoMiembros(int idEquipoMiebro){
->>>>>>> 91977b74953691383f372ac079272988f0a602f9
+
+   
+
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         String query    = "SELECT * "

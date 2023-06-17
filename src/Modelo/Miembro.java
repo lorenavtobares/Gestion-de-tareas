@@ -114,24 +114,20 @@ public class Miembro {
     public void setRolSistema(String rolSistema) {
         this.rolSistema = rolSistema;
     }
-<<<<<<< HEAD
-/*
-=======
 
-    
-    
-                /*|-------------------------|*/
+/*
+                         /*|-------------------------|*/
                 /*|         ToString        |*/
                 /*|-------------------------|*/    
     
->>>>>>> 91977b74953691383f372ac079272988f0a602f9
+
     @Override
     public String toString() {
         return  apellido + " " + nombre;
     }
 
     
-*/
+/*
 
     @Override
     public String toString() {
@@ -139,7 +135,7 @@ public class Miembro {
     }
     
     
-    
+   */ 
     
     
 }
