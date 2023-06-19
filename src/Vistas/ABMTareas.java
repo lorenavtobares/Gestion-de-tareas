@@ -6,29 +6,35 @@ import Modelo.EquipoMiembros;
 import Modelo.Miembro;
 import Modelo.Tarea;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ABMTareas extends javax.swing.JInternalFrame {
+
     private Date fechaSistema = new Date();
 
     private List<Miembro> listaMiembro = new ArrayList<>();
     private List<Equipo> listaEquipo = new ArrayList<>();
     private List<EquipoMiembros> listaEquipoMiembros = new ArrayList<>();
-    
+
     private Miembro miembro = new Miembro();
     private Tarea tarea = new Tarea();
     private EquipoMiembros equipoMiembro = new EquipoMiembros();
-    
+
     private TareaData tareaData = new TareaData();
 
     public ABMTareas() {
-        initComponents();        
+        initComponents();
         cargandoEquipos();
         cargandoMiembros();
+        cargandoTareas();
         jcbEquipos.setSelectedIndex(0);
+        actualizandoFecha();
     }
 
     @SuppressWarnings("unchecked")
@@ -43,6 +49,10 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         btnAltaTareaGuardar = new javax.swing.JButton();
         jcbMiembros = new javax.swing.JComboBox<>();
         jcbEquipos = new javax.swing.JComboBox<>();
+        jdcDateInicio = new com.toedter.calendar.JDateChooser();
+        jdcDateCierre = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         bajaDeTarea = new javax.swing.JPanel();
         bajaTareaListaMiembro = new javax.swing.JComboBox<>();
         bajaTareaListraGrupo = new javax.swing.JComboBox<>();
@@ -50,6 +60,9 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         bajaTareaDescripcion = new javax.swing.JTextArea();
         btnBajaTarea = new javax.swing.JButton();
         bajaTareaListaTarea = new javax.swing.JComboBox<>();
+        jcbMiembroV2 = new javax.swing.JComboBox<>();
+        jcbListaTareasHabilitadas = new javax.swing.JComboBox<>();
+        jcbEquiposV2 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnUpdateTareaActualizar = new javax.swing.JButton();
         updateTareaListaTareas = new javax.swing.JComboBox<>();
@@ -87,20 +100,36 @@ public class ABMTareas extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("Fecha de Inicio");
+
+        jLabel2.setText("Fecha de Cierre");
+
         javax.swing.GroupLayout altaDeTareaLayout = new javax.swing.GroupLayout(altaDeTarea);
         altaDeTarea.setLayout(altaDeTareaLayout);
         altaDeTareaLayout.setHorizontalGroup(
             altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, altaDeTareaLayout.createSequentialGroup()
                 .addContainerGap(124, Short.MAX_VALUE)
-                .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(altaDeTareaLayout.createSequentialGroup()
+                            .addComponent(jcbEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jcbMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(altaTareaNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
                     .addGroup(altaDeTareaLayout.createSequentialGroup()
-                        .addComponent(jcbEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jcbMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(altaTareaNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(btnAltaTareaGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(altaDeTareaLayout.createSequentialGroup()
+                                .addGap(223, 223, 223)
+                                .addComponent(jLabel2))
+                            .addGroup(altaDeTareaLayout.createSequentialGroup()
+                                .addGap(191, 191, 191)
+                                .addComponent(jdcDateCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnAltaTareaGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(111, 111, 111))
         );
         altaDeTareaLayout.setVerticalGroup(
@@ -112,9 +141,17 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                 .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jcbEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcbMiembros))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jdcDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdcDateCierre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addComponent(btnAltaTareaGuardar)
                 .addGap(23, 23, 23))
         );
@@ -164,27 +201,51 @@ public class ABMTareas extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bajaDeTareaLayout.createSequentialGroup()
                 .addContainerGap(124, Short.MAX_VALUE)
                 .addGroup(bajaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(bajaTareaListaTarea, 0, 550, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2)
-                    .addGroup(bajaDeTareaLayout.createSequentialGroup()
-                        .addComponent(bajaTareaListaMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(bajaTareaListraGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnBajaTarea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                    .addComponent(btnBajaTarea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bajaDeTareaLayout.createSequentialGroup()
+                        .addGroup(bajaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bajaDeTareaLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(bajaTareaListaMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bajaDeTareaLayout.createSequentialGroup()
+                                .addComponent(bajaTareaListaTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addGroup(bajaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bajaDeTareaLayout.createSequentialGroup()
+                                .addComponent(jcbMiembroV2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(bajaTareaListraGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(jcbEquiposV2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jcbListaTareasHabilitadas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(111, 111, 111))
         );
         bajaDeTareaLayout.setVerticalGroup(
             bajaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bajaDeTareaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(bajaTareaListaTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(bajaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bajaTareaListaMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bajaTareaListraGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(bajaDeTareaLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(bajaTareaListaTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(bajaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bajaTareaListraGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bajaTareaListaMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(bajaDeTareaLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jcbListaTareasHabilitadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(bajaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bajaDeTareaLayout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(jcbMiembroV2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(bajaDeTareaLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jcbEquiposV2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(36, 36, 36)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(btnBajaTarea)
                 .addGap(24, 24, 24))
         );
@@ -289,21 +350,19 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-                /*|---------------------|*/
-                /*|    Regeneradores    |*/
-                /*|---------------------|*/
-    
-    private Miembro regenerarMiembro (int idMiembro){
+    /*|---------------------|*/
+ /*|    Regeneradores    |*/
+ /*|---------------------|*/
+    private Miembro regenerarMiembro(int idMiembro) {
         miembro = Menu.miembroDataLocal.buscarMiembro(idMiembro);
         return miembro;
     }
-    
-    private EquipoMiembros regenerarEquipoMiembro ( int idEquipoMiembro){
+
+    private EquipoMiembros regenerarEquipoMiembro(int idEquipoMiembro) {
         equipoMiembro = Menu.equipoMiembosDataLocal.buscarEquipoMiembros(idEquipoMiembro);
         return equipoMiembro;
     }
-    
+
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
@@ -315,35 +374,43 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private void btnAltaTareaGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaTareaGuardarActionPerformed
         listaEquipo = Menu.equipoDataLocal.listarEquiposHabilitados();
         listaEquipoMiembros = Menu.equipoMiembosDataLocal.listarEquiposMiembros();
-        
+
         int posicionMiembros = -1;
         int posicionEquipoMiembro = -1;
         int idEquipoMiembro = -1;
 
         String nombreTarea = altaTareaNombre.getText();
         String descripcion = altaTareaDescripcion.getText();
+        LocalDate fechaInicio = jdcDateInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaCierre = jdcDateCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         posicionMiembros = jcbMiembros.getSelectedIndex();
         posicionEquipoMiembro = jcbEquipos.getSelectedIndex();
 
         if (posicionEquipoMiembro != -1) {
             if (!nombreTarea.isEmpty()) {
                 if (!descripcion.isEmpty()) {
-                    
+
                     int idMiembro = listaMiembro.get(posicionMiembros).getId_miembro();
                     miembro = regenerarMiembro(idMiembro);
                     listaMiembro.add(miembro);
 
                     for (int i = 1; i < listaEquipoMiembros.size(); i++) {
-                        
+
                         if (listaEquipoMiembros.get(i).getMiembro().getId_miembro() == idMiembro) {
-                            
+
                             idEquipoMiembro = listaEquipoMiembros.get(i).getId_equipo_miembros();
                             equipoMiembro = regenerarEquipoMiembro(idEquipoMiembro);
-                            LocalDate fechaActual = LocalDate.now();
-                            
-                            Tarea tareaLocal = new Tarea(nombreTarea, fechaActual, fechaActual, true, equipoMiembro);  
-                            Menu.tareaDataLocal.guardarTarea(tareaLocal);
-                            limpiar();
+                            // LocalDate fechaActual = LocalDate.now();
+                            if (fechaInicio.isEqual(fechaCierre) || fechaInicio.isBefore(fechaCierre)) {
+
+                                Tarea tareaLocal = new Tarea(nombreTarea, fechaInicio, fechaCierre, true, equipoMiembro);
+                                Menu.tareaDataLocal.guardarTarea(tareaLocal);
+                                limpiar();
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "La fecha de cierre debe ser la misma y despues que la fecha de inicio", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+
+                            }
                         }
                     }
 
@@ -395,10 +462,10 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private void jcbEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEquiposActionPerformed
         jcbMiembros.removeAllItems();
         listaMiembro.clear();
-        
+
         listaEquipo = Menu.equipoDataLocal.listarEquiposHabilitados();
         int posicion = -1;
-        
+
         posicion = jcbEquipos.getSelectedIndex();
         listaEquipoMiembros = Menu.equipoMiembosDataLocal.listarEquiposMiembros();
 
@@ -430,12 +497,16 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         }
 
     }
-    
+
+    //Solapa 1 -> Limpiar campos
     private void limpiar() {
         altaTareaNombre.setText("");
         jcbEquipos.setSelectedIndex(0);
         jcbMiembros.setSelectedIndex(0);
         altaTareaDescripcion.setText("");
+        jdcDateInicio.setDate(new Date());
+        jdcDateCierre.setCalendar(null);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -452,12 +523,19 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnUpdateTareaActualizar;
     private javax.swing.JTabbedPane contenedorPrincipal;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JComboBox<Equipo> jcbEquipos;
+    private javax.swing.JComboBox<Equipo> jcbEquiposV2;
+    private javax.swing.JComboBox<Tarea> jcbListaTareasHabilitadas;
+    private javax.swing.JComboBox<Miembro> jcbMiembroV2;
     private javax.swing.JComboBox<Miembro> jcbMiembros;
+    private com.toedter.calendar.JDateChooser jdcDateCierre;
+    private com.toedter.calendar.JDateChooser jdcDateInicio;
     private javax.swing.JTextArea updateTareaDescripcionTareas;
     private javax.swing.JComboBox<String> updateTareaListaGrupos;
     private javax.swing.JComboBox<String> updateTareaListaMiembros;
@@ -472,5 +550,20 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         for (EquipoMiembros equipos : arrayMiembros) {
             jcbMiembros.addItem(equipos);
         }*/
+    }
+
+    //Solapa 2 -> Carga la lista de tareas habilitadas
+    private void cargandoTareas() {
+        jcbListaTareasHabilitadas.removeAllItems();
+        List<Tarea> arrayTareas = Menu.tareaDataLocal.listarTareasHabilitadas();
+
+        for (Tarea tareas : arrayTareas) {
+            jcbListaTareasHabilitadas.addItem(tareas);
+        }
+    }
+
+    private void actualizandoFecha() {
+        Calendar c2 = new GregorianCalendar();
+        jdcDateInicio.setCalendar(c2);
     }
 }
