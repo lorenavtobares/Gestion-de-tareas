@@ -201,4 +201,10 @@ public class Funciones {
         }
         return rol;
     }
+    
+    public static int posicionRolUsuario ( String rol ){
+        if(rol.equalsIgnoreCase("admin")){ return 1; }
+        else if (rol.equalsIgnoreCase("usuario")) { return 2; }
+        else { return 0; }
+    }
 }

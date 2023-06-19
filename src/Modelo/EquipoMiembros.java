@@ -87,18 +87,15 @@ public class EquipoMiembros {
         this.miembro = miembro;
     }
 
-
-    /*
-=======
     
     
                 /*|-------------------------|*/
                 /*|         ToString        |*/
                 /*|-------------------------|*/    
     
-/*
-    @Override
-    public String toString() {
+
+
+    public String toStringCompleto() {
         return  "EquipoMiembros{" + 
                 "\nid_equipo_miembros=" + id_equipo_miembros + 
                 "\nrol=" + rol + 
@@ -108,7 +105,7 @@ public class EquipoMiembros {
                 "\n}";
     }
 
-*/
+
 
     @Override
     public String toString() {

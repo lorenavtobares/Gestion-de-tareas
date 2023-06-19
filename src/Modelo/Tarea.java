@@ -128,4 +128,19 @@ public class Tarea {
     }
 
     
+    public String toStringCompleto() {
+        return  "Tarea{" + 
+                "\nid_tarea => " + id_tarea + 
+                "\nnombre => " + nombre + 
+                "\nfecha_creacion => " + fecha_creacion + 
+                "\nfecha_cierre => " + fecha_cierre + 
+                "\nestado => " + estado + 
+                "\nequipoMiembros => " + equipoMiembros + 
+                "\nidEquipoMiembros => " + idEquipoMiembros + 
+                "\n}";
+    }
+    
+    
+
+    
 }

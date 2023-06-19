@@ -75,8 +75,6 @@ public class EquipoMiembrosData {
         }
     }
     
-
-    //Read
     public EquipoMiembros buscarEquipoMiembros(int idEquipoMiembro){
 
    
@@ -116,11 +114,6 @@ public class EquipoMiembrosData {
         
         return equipoMiembros;
     }
-   
-          
-    
-    
-    
     
     public void actualizarEquipoMiembros(EquipoMiembros equipo){
         PreparedStatement stmt = null;

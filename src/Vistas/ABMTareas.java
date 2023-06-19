@@ -1,5 +1,6 @@
 package Vistas;
 
+import Controlador.TareaData;
 import Modelo.Equipo;
 import Modelo.EquipoMiembros;
 import Modelo.Miembro;
@@ -11,13 +12,23 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ABMTareas extends javax.swing.JInternalFrame {
-     private Date fechaSistema = new Date();
-    private List<Miembro> array = new ArrayList<>();
+    private Date fechaSistema = new Date();
+
+    private List<Miembro> listaMiembro = new ArrayList<>();
+    private List<Equipo> listaEquipo = new ArrayList<>();
+    private List<EquipoMiembros> listaEquipoMiembros = new ArrayList<>();
+    
+    private Miembro miembro = new Miembro();
+    private Tarea tarea = new Tarea();
+    private EquipoMiembros equipoMiembro = new EquipoMiembros();
+    
+    private TareaData tareaData = new TareaData();
 
     public ABMTareas() {
-        initComponents();
+        initComponents();        
         cargandoEquipos();
         cargandoMiembros();
+        jcbEquipos.setSelectedIndex(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -67,6 +78,9 @@ public class ABMTareas extends javax.swing.JInternalFrame {
             }
         });
 
+        jcbMiembros.setBorder(javax.swing.BorderFactory.createTitledBorder("Mienbros"));
+
+        jcbEquipos.setBorder(javax.swing.BorderFactory.createTitledBorder("Equipos"));
         jcbEquipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbEquiposActionPerformed(evt);
@@ -79,16 +93,14 @@ public class ABMTareas extends javax.swing.JInternalFrame {
             altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, altaDeTareaLayout.createSequentialGroup()
                 .addContainerGap(124, Short.MAX_VALUE)
-                .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(altaTareaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(altaDeTareaLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jcbMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcbEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jcbEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13))
-                    .addComponent(btnAltaTareaGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jcbMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(altaTareaNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                    .addComponent(btnAltaTareaGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(111, 111, 111))
         );
         altaDeTareaLayout.setVerticalGroup(
@@ -96,13 +108,13 @@ public class ABMTareas extends javax.swing.JInternalFrame {
             .addGroup(altaDeTareaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(altaTareaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(altaDeTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jcbMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                    .addComponent(jcbEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbMiembros))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addComponent(btnAltaTareaGuardar)
                 .addGap(23, 23, 23))
         );
@@ -277,6 +289,21 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+                /*|---------------------|*/
+                /*|    Regeneradores    |*/
+                /*|---------------------|*/
+    
+    private Miembro regenerarMiembro (int idMiembro){
+        miembro = Menu.miembroDataLocal.buscarMiembro(idMiembro);
+        return miembro;
+    }
+    
+    private EquipoMiembros regenerarEquipoMiembro ( int idEquipoMiembro){
+        equipoMiembro = Menu.equipoMiembosDataLocal.buscarEquipoMiembros(idEquipoMiembro);
+        return equipoMiembro;
+    }
+    
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
@@ -286,54 +313,47 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_altaTareaNombreActionPerformed
     // Vista 1 -> Crea una nueva tarea
     private void btnAltaTareaGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaTareaGuardarActionPerformed
-        List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarEquiposHabilitados();
-        List<EquipoMiembros> arrayEquipoMiembros = Menu.equipoMiembosEscritorio.listarEquiposMiembros();
-        List<Miembro> arrayMiembros = new ArrayList<>();
-        int posicionEquipoMiembro = -1, idEquipoMiembro, posicionMiembros = -1;
+        listaEquipo = Menu.equipoDataLocal.listarEquiposHabilitados();
+        listaEquipoMiembros = Menu.equipoMiembosDataLocal.listarEquiposMiembros();
+        
+        int posicionMiembros = -1;
+        int posicionEquipoMiembro = -1;
+        int idEquipoMiembro = -1;
 
         String nombreTarea = altaTareaNombre.getText();
         String descripcion = altaTareaDescripcion.getText();
-        posicionEquipoMiembro = jcbEquipos.getSelectedIndex();
         posicionMiembros = jcbMiembros.getSelectedIndex();
+        posicionEquipoMiembro = jcbEquipos.getSelectedIndex();
 
         if (posicionEquipoMiembro != -1) {
             if (!nombreTarea.isEmpty()) {
                 if (!descripcion.isEmpty()) {
-                    Miembro miembroLocal = new Miembro();
-                    int idMiembro = array.get(posicionMiembros).getId_miembro();
-                    miembroLocal = Menu.miembroEscritorio.buscarMiembro(idMiembro);
-                    arrayMiembros.add(miembroLocal);
+                    
+                    int idMiembro = listaMiembro.get(posicionMiembros).getId_miembro();
+                    miembro = regenerarMiembro(idMiembro);
+                    listaMiembro.add(miembro);
 
-                    for (int i = 0; i < arrayEquipoMiembros.size(); i++) {
-                        if (arrayEquipoMiembros.get(i).getMiembro().getId_miembro() == idMiembro) {
+                    for (int i = 1; i < listaEquipoMiembros.size(); i++) {
+                        
+                        if (listaEquipoMiembros.get(i).getMiembro().getId_miembro() == idMiembro) {
                             
-                           EquipoMiembros equipoMiembrosLocal = new EquipoMiembros();
-                            idEquipoMiembro = arrayEquipoMiembros.get(i).getId_equipo_miembros();
-                           equipoMiembrosLocal = arrayEquipoMiembros.get(i);
-                            LocalDate f = LocalDate.now();
-                            System.out.println("id miembro " + idMiembro);
-                           System.out.println("id array" + arrayEquipoMiembros.get(i).getMiembro().getId_miembro() );
-                          
-                         
-                             Tarea tareaLocal = new Tarea(nombreTarea, f, f, true, equipoMiembrosLocal);
-                           
-                           
-                            List<Tarea> arraytarea= new ArrayList<>();
-                             arraytarea.add(tareaLocal);
-
-                            for (Tarea equipos : arraytarea) {
-                                System.out.println(equipos);
-                            }
-                             
-                           Menu.tareaEscritorio.guardarTarea(tareaLocal);
+                            idEquipoMiembro = listaEquipoMiembros.get(i).getId_equipo_miembros();
+                            equipoMiembro = regenerarEquipoMiembro(idEquipoMiembro);
+                            LocalDate fechaActual = LocalDate.now();
+                            
+                            Tarea tareaLocal = new Tarea(nombreTarea, fechaActual, fechaActual, true, equipoMiembro);  
+                            Menu.tareaDataLocal.guardarTarea(tareaLocal);
+                            limpiar();
                         }
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Debe ingresar la descripcion de la tarea", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, Menu.ERROR_DESCRIPCION, Menu.TT_ERROR_VALIDACION, JOptionPane.WARNING_MESSAGE);
+                    altaTareaDescripcion.requestFocus();
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Debe ingresar el nombre de la tarea", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, Menu.ERROR_NOMBRE, Menu.TT_ERROR_VALIDACION, JOptionPane.WARNING_MESSAGE);
+                altaTareaNombre.requestFocus();
             }
         }
 
@@ -374,28 +394,27 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     // Vista 1 -> Carga la lista de miembros segun el equipo que se seleccione
     private void jcbEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEquiposActionPerformed
         jcbMiembros.removeAllItems();
-        array.clear();
-        List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarEquiposHabilitados();
+        listaMiembro.clear();
+        
+        listaEquipo = Menu.equipoDataLocal.listarEquiposHabilitados();
         int posicion = -1;
+        
         posicion = jcbEquipos.getSelectedIndex();
-        List<EquipoMiembros> arrayMiembros = Menu.equipoMiembosEscritorio.listarEquiposMiembros();
+        listaEquipoMiembros = Menu.equipoMiembosDataLocal.listarEquiposMiembros();
 
         if (posicion != -1) {
-            for (int i = 0; i < arrayMiembros.size(); i++) {
+            for (int i = 0; i < listaEquipoMiembros.size(); i++) {
 
-                if (arrayEquipos.get(posicion).getId_equipo() == arrayMiembros.get(i).getEquipo().getId_equipo()) {
-
-                    Miembro equi = new Miembro();
-                    int id = arrayMiembros.get(i).getMiembro().getId_miembro();
-                    equi = Menu.miembroEscritorio.buscarMiembro(id);
-                    array.add(equi);
+                if (listaEquipo.get(posicion).getId_equipo() == listaEquipoMiembros.get(i).getEquipo().getId_equipo()) {
+                    int id = listaEquipoMiembros.get(i).getMiembro().getId_miembro();
+                    miembro = Menu.miembroDataLocal.buscarMiembro(id);
+                    listaMiembro.add(miembro);
                 }
             }
         } else {
-
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un equipo", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Menu.ERROR_EQUIPO_SELECT, Menu.TT_ERROR_VALIDACION, JOptionPane.WARNING_MESSAGE);
         }
-        for (Miembro equipos : array) {
+        for (Miembro equipos : listaMiembro) {
             jcbMiembros.addItem(equipos);
         }
 
@@ -404,12 +423,19 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     // Vista 1 -> Carga la lista de  equipos 
     private void cargandoEquipos() {
         jcbEquipos.removeAllItems();
-        List<Equipo> arrayEquipos = Menu.equipoEscritorio.listarEquiposHabilitados();
+        List<Equipo> arrayEquipos = Menu.equipoDataLocal.listarEquiposHabilitados();
 
         for (Equipo equipos : arrayEquipos) {
             jcbEquipos.addItem(equipos);
         }
 
+    }
+    
+    private void limpiar() {
+        altaTareaNombre.setText("");
+        jcbEquipos.setSelectedIndex(0);
+        jcbMiembros.setSelectedIndex(0);
+        altaTareaDescripcion.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -25,24 +25,27 @@ public class Menu extends javax.swing.JFrame {
     public static final String TT_ERROR = "Error";
     public static final String TT_ERROR_VALIDACION = "Error de validacion";
     
-    public static final String ERROR_FECHA = "Debe selecciona una fecha valida \nFormato correcto: dd/MM/yyyy\n";
-    public static final String ERROR_DESCRIPCION = "Debe ingresar una descripcion.";
-    public static final String ERROR_NOMBRE = "Debe ingresar un nombre.";
     public static final String ERROR_APELLIDO = "Debe ingresar un apellido.";
+    public static final String ERROR_DESCRIPCION = "Debe ingresar una descripcion.";
     public static final String ERROR_DNI = "Debe ingresar un dni.";
-    public static final String ERROR_PASSWORD = "Debe ingresar una contraseña.";
-    public static final String ERROR_ROL = "Debe seleccionar un rol de usuario.";
-    public static final String ERROR_GUARDAR_R = "No se pudo guardar el registro.";
-    public static final String ERROR_PROYECTOS = "No se encuentran proyectos.";
     public static final String ERROR_EQUIPOS = "No se encuentran equipos.";
+    public static final String ERROR_EQUIPO_SELECT = "Debe seleccionar un Equipo.";
+    public static final String ERROR_FECHA = "Debe selecciona una fecha valida \nFormato correcto: dd/MM/yyyy\n";
+    public static final String ERROR_GUARDAR_R = "No se pudo guardar el registro.";
+    public static final String ERROR_NOMBRE = "Debe ingresar un nombre.";
+    public static final String ERROR_PASSWORD = "Debe ingresar una contraseña.";
+    public static final String ERROR_PROYECTOS = "No se encuentran proyectos.";
+    public static final String ERROR_ROL = "Debe seleccionar un rol de usuario.";
+    public static final String ERROR_USUARIOS = "No se encuentran usuarios.";
     
-    public static final String ROL_LIDER_PROYECTO = "Lider de Equipo";
-    public static final String ROL_PROJECT_MANAGER = "Project Manager";
+    public static final String ROL_ADMINISTRADOR = "usuario";
+    public static final String ROL_DEFAULT = "-- Seleccione una opcion --";
     public static final String ROL_DEVELOPER = "Desarrolador de Sotfware";
     public static final String ROL_DISENIADOR = "Diseñador UX y UI";
-    public static final String ROL_DEFAULT = "-- Seleccione una opcion --";
+    public static final String ROL_LIDER_PROYECTO = "Lider de Equipo";
+    public static final String ROL_PROJECT_MANAGER = "Project Manager";
     public static final String ROL_USUARIO = "admin";
-    public static final String ROL_ADMINISTRADOR = "usuario";
+    
     
     
     
@@ -65,6 +68,8 @@ public class Menu extends javax.swing.JFrame {
     public static Miembro miembroLocal = new Miembro();
     public static Proyecto proyectoLocal = new Proyecto();
     public static Tarea tareaLocal = new Tarea();
+    
+            
     
                 /*|----------------------|*/
                 /*|         Menu         |*/
