@@ -52,7 +52,7 @@ public class Login extends javax.swing.JFrame {
         labelIconoUsuario = new javax.swing.JLabel();
         jpPassword = new javax.swing.JPanel();
         labelIconoPassword = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordLogin = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         logo = new javax.swing.JLabel();
 
@@ -62,11 +62,6 @@ public class Login extends javax.swing.JFrame {
 
         jtfUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jtfUsuario.setBorder(null);
-        jtfUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfUsuarioActionPerformed(evt);
-            }
-        });
         jtfUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfUsuarioKeyTyped(evt);
@@ -92,16 +87,11 @@ public class Login extends javax.swing.JFrame {
 
         labelIconoPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/key.png"))); // NOI18N
 
-        jPasswordField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPasswordField1.setBorder(null);
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
-            }
-        });
-        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        passwordLogin.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        passwordLogin.setBorder(null);
+        passwordLogin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPasswordField1KeyTyped(evt);
+                passwordLoginKeyTyped(evt);
             }
         });
 
@@ -112,12 +102,12 @@ public class Login extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPasswordLayout.createSequentialGroup()
                 .addComponent(labelIconoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(passwordLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jpPasswordLayout.setVerticalGroup(
             jpPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(labelIconoPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-            .addComponent(jPasswordField1)
+            .addComponent(passwordLogin)
         );
 
         btnLogin.setText("Iniciar Sesion");
@@ -173,34 +163,18 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //validacion de usuario -> Solo letras
     private void jtfUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfUsuarioKeyTyped
         Funciones.soloNumeros(jtfUsuario, evt, 8);
     }//GEN-LAST:event_jtfUsuarioKeyTyped
 
-    //validacion de password -> Solo letras y numeros
-    private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
-        int key = evt.getKeyChar();
-
-        boolean mayusculas = key >= 65 && key <= 90;
-        boolean minusculas = key >= 97 && key <= 122;
-        boolean numeros = key >= 48 && key <= 57;
-            
-        if (!(minusculas || mayusculas || numeros))
-        {
-            evt.consume();
-        }
-        
-        if (jPasswordField1.getText().trim().length() == 15) {
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "Longitud maxima 15 caracteres.", "ERROR Login",JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jPasswordField1KeyTyped
+    private void passwordLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordLoginKeyTyped
+        Funciones.soloNumerosYLetras(passwordLogin, evt, 15);
+    }//GEN-LAST:event_passwordLoginKeyTyped
     
     //Bonton Login
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String user = jtfUsuario.getText();
-        String pass = jPasswordField1.getText();
+        String pass = passwordLogin.getText();
         
         String query    = "SELECT dni, password, rolSistema " 
                         + "FROM miembro " 
@@ -213,7 +187,6 @@ public class Login extends javax.swing.JFrame {
             ResultSet resultado = stmt.executeQuery();
             
             if( resultado.next() ){
-                //Si Existe el usuario
                 String usuarioValidado = resultado.getString("dni");
                 String passValidado = resultado.getString("password");
                 String rolValidado = resultado.getString("rolSistema");
@@ -228,30 +201,20 @@ public class Login extends javax.swing.JFrame {
                     menu.setVisible(true);                   
 
                 }else{
-                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta","ERROR de autenticacion",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, Menu.ERROR_PASSWORD_LOGIN, Menu.TT_ERROR_AUTENTICACION, JOptionPane.WARNING_MESSAGE);
                 }
                 
             }else{
-                //El usuario no existe
-                JOptionPane.showMessageDialog(null, "Usuario incorrecto","ERROR de autenticacion",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, Menu.ERROR_USUARIO_LOGIN, Menu.TT_ERROR_AUTENTICACION,JOptionPane.ERROR_MESSAGE);
             }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex);
+            JOptionPane.showMessageDialog(null, Menu.ERROR + ex);
         }
         
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void jtfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfUsuarioActionPerformed
-
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
-
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -283,12 +246,12 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JPanel jPanelDesktop;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPanel jpPassword;
     private javax.swing.JPanel jpUsuario;
     private javax.swing.JTextField jtfUsuario;
     private javax.swing.JLabel labelIconoPassword;
     private javax.swing.JLabel labelIconoUsuario;
     private javax.swing.JLabel logo;
+    private javax.swing.JPasswordField passwordLogin;
     // End of variables declaration//GEN-END:variables
 }

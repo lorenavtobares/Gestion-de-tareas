@@ -24,7 +24,9 @@ public class Menu extends javax.swing.JFrame {
     
     public static final String TT_ERROR = "Error";
     public static final String TT_ERROR_VALIDACION = "Error de validacion";
+    public static final String TT_ERROR_AUTENTICACION = "Error de Autenticacion";
     
+    public static final String ERROR = "Error: ";
     public static final String ERROR_APELLIDO = "Debe ingresar un apellido.";
     public static final String ERROR_DESCRIPCION = "Debe ingresar una descripcion.";
     public static final String ERROR_DNI = "Debe ingresar un dni.";
@@ -34,9 +36,11 @@ public class Menu extends javax.swing.JFrame {
     public static final String ERROR_GUARDAR_R = "No se pudo guardar el registro.";
     public static final String ERROR_NOMBRE = "Debe ingresar un nombre.";
     public static final String ERROR_PASSWORD = "Debe ingresar una contraseña.";
+    public static final String ERROR_PASSWORD_LOGIN = "Contraseña incorrecta";
     public static final String ERROR_PROYECTOS = "No se encuentran proyectos.";
     public static final String ERROR_ROL = "Debe seleccionar un rol de usuario.";
     public static final String ERROR_USUARIOS = "No se encuentran usuarios.";
+    public static final String ERROR_USUARIO_LOGIN = "Usuario incorrecto";
     
     public static final String ROL_ADMINISTRADOR = "usuario";
     public static final String ROL_DEFAULT = "-- Seleccione una opcion --";
@@ -54,6 +58,9 @@ public class Menu extends javax.swing.JFrame {
                 /*|---------------------|*/
     
     private static Login formularioLogin = new Login();
+    
+    private String usuarioValidado = formularioLogin.usuarioSesion;
+    private String rolValidado = formularioLogin.rolSesion;;
     
     public static ComentariosData comentarioDataLocal = new ComentariosData();
     public static EquipoData equipoDataLocal = new EquipoData();
@@ -94,8 +101,8 @@ public class Menu extends javax.swing.JFrame {
     private final String nameItemsABMEquipo     = "ABM Equipo";
     private final String nameItemsABMTareas     = "ABM Tareas";
     private final String nameItemsSalir         = "Cerrar Sesion";
-    private final String nameItemsSalirPefil    = "Perfil: ";
-    private final String nameItemsSalirUsuario  = "Usuario: ";
+    private final String nameItemsSalirPefil    = "Perfil: " + rolValidado;
+    private final String nameItemsSalirUsuario  = "Usuario: " + usuarioValidado;
     
     private final String iconoAdmin     = "/Iconos/admin.png";
     private final String iconoProyecto  = "/Iconos/proyecto.png";

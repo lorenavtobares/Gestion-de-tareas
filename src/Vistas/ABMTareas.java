@@ -73,11 +73,6 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         btnCerrar = new javax.swing.JButton();
 
         altaTareaNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE"));
-        altaTareaNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                altaTareaNombreActionPerformed(evt);
-            }
-        });
 
         altaTareaDescripcion.setColumns(20);
         altaTareaDescripcion.setRows(5);
@@ -350,9 +345,10 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /*|---------------------|*/
- /*|    Regeneradores    |*/
- /*|---------------------|*/
+                /*|---------------------|*/
+                /*|    Regeneradores    |*/
+                /*|---------------------|*/
+    
     private Miembro regenerarMiembro(int idMiembro) {
         miembro = Menu.miembroDataLocal.buscarMiembro(idMiembro);
         return miembro;
@@ -366,10 +362,6 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
-
-    private void altaTareaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaTareaNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_altaTareaNombreActionPerformed
     // Vista 1 -> Crea una nueva tarea
     private void btnAltaTareaGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaTareaGuardarActionPerformed
         listaEquipo = Menu.equipoDataLocal.listarEquiposHabilitados();
