@@ -145,10 +145,10 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jcbListaEquipos" alignment="0" min="-2" pref="540" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="actualizarFecha" alignment="0" pref="550" max="32767" attributes="0"/>
                               <Component id="ActualizarNombre" alignment="0" pref="550" max="32767" attributes="0"/>
                               <Component id="btnActualizarEquipo" alignment="0" max="32767" attributes="0"/>
                               <Component id="jPanel1" max="32767" attributes="0"/>
+                              <Component id="actualizarFecha" alignment="1" pref="550" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="132" max="32767" attributes="0"/>
@@ -162,7 +162,7 @@
                       <Component id="jcbListaEquipos" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ActualizarNombre" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="actualizarFecha" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -185,15 +185,6 @@
               <Events>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ActualizarNombreKeyTyped"/>
               </Events>
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="actualizarFecha">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="FECHA DE CREACION"/>
-                  </Border>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnActualizarEquipo">
               <Properties>
@@ -242,11 +233,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Habilitado"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbHabilitadoActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="jcbDeshabilitados">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Deshabilitado"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbDeshabilitadosActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -267,6 +264,15 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Proyecto&gt;"/>
               </AuxValues>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="actualizarFecha">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder title="FECHA DE CREACION"/>
+                  </Border>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

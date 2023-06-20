@@ -1,5 +1,6 @@
 package Funciones;
 
+import Vistas.Menu;
 import static com.sun.javafx.tk.Toolkit.getToolkit;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -205,6 +206,7 @@ public class Funciones {
     }
     
     public static void inicializarCalendario(JDateChooser e){
+        e.setDateFormatString(Menu.FORMATO_FECHA); // Definiendo Formato jDateChooser
         e.setDate(convertirLocalDateADate(hoy));
         e.setMinSelectableDate(convertirLocalDateADate(hoy));
     }
