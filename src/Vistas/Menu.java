@@ -203,22 +203,22 @@ public class Menu extends javax.swing.JFrame {
             MG_GestionesTareas.addActionListener((java.awt.event.ActionEvent evt) -> {
                 Escritorio.removeAll();
                 Escritorio.repaint();
-                ABMTareas abmTareas = new ABMTareas();
-                centrarJinternalFrame(abmTareas);
-                abmTareas.setVisible(true);
-                Escritorio.add(abmTareas);
-                Escritorio.moveToFront(abmTareas);
+                ABMGestionesTareas abmGTareas = new ABMGestionesTareas();
+                centrarJinternalFrame(abmGTareas);
+                abmGTareas.setVisible(true);
+                Escritorio.add(abmGTareas);
+                Escritorio.moveToFront(abmGTareas);
             });
             
             MG_GestionesEquipos = new JMenuItem(nameItemsGestionesEquipos);
             MG_GestionesEquipos.addActionListener((java.awt.event.ActionEvent evt) -> {
                 Escritorio.removeAll();
                 Escritorio.repaint();
-                ABMTareas abmTareas = new ABMTareas();
-                centrarJinternalFrame(abmTareas);
-                abmTareas.setVisible(true);
-                Escritorio.add(abmTareas);
-                Escritorio.moveToFront(abmTareas);
+                ABMGestionesEquipos abmGEquipos = new ABMGestionesEquipos();
+                centrarJinternalFrame(abmGEquipos);
+                abmGEquipos.setVisible(true);
+                Escritorio.add(abmGEquipos);
+                Escritorio.moveToFront(abmGEquipos);
             });
                 
         //Menu Salir
