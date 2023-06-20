@@ -127,7 +127,8 @@ CREATE TABLE IF NOT EXISTS `ProyectoFinalGestionAR_C2Gp11`.`Tarea` (
   `nombre` VARCHAR(45) NOT NULL,
   `fechaCreacion` DATE NOT NULL,
   `fechaCierre` DATE NOT NULL,
-  `estado` TINYINT NOT NULL,
+  `estado` INT(11) NOT NULL,
+  `descripcion` VARCHAR(300) NOT NULL,
   `idEquipoMiembros` INT NOT NULL,
   PRIMARY KEY (`idTarea`),
   INDEX `idEquipoMiembros_idx` (`idEquipoMiembros` ASC),
@@ -138,23 +139,23 @@ CREATE TABLE IF NOT EXISTS `ProyectoFinalGestionAR_C2Gp11`.`Tarea` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO `tarea` (`idTarea`, `nombre`, `fechaCreacion`, `fechaCierre`, `estado`, `idEquipoMiembros`) VALUES
-(1, 'Presentacion del proyecto al equipo', '2023-01-23', '2023-04-23', 1, 1),
-(2, 'Presentacion del proyecto al equipo', '2023-01-23', '2023-04-23', 1, 5),
-(3, 'Presentacion del proyecto al equipo', '2023-01-23', '2023-04-23', 1, 9),
-(4, 'Presentacion del proyecto al equipo', '2023-01-23', '2023-04-23', 1, 14),
-(5, 'Designar tareas a los integrantes del equipo', '2023-01-24', '2023-04-23', 1, 2),
-(6, 'Designar tareas a los integrantes del equipo', '2023-01-24', '2023-04-23', 1, 6),
-(7, 'Designar tareas a los integrantes del equipo', '2023-01-24', '2023-04-23', 1, 11),
-(8, 'Designar tareas a los integrantes del equipo', '2023-01-24', '2023-04-23', 1, 15),
-(9, 'Diseñar maqueta del proyecto', '2023-01-30', '2023-04-23', 1, 3),
-(10, 'Diseñar maqueta del proyecto', '2023-01-30', '2023-04-23', 1, 7),
-(11, 'Diseñar maqueta del proyecto', '2023-01-30', '2023-04-23', 1, 12),
-(12, 'Diseñar maqueta del proyecto', '2023-01-30', '2023-04-23', 1, 16),
-(13, 'Programar', '2023-01-30', '2023-04-23', 1, 4),
-(14, 'Programar', '2023-01-30', '2023-04-23', 1, 8),
-(15, 'Programar', '2023-01-30', '2023-04-23', 1, 13),
-(16, 'Programar', '2023-01-30', '2023-04-23', 1, 17);
+INSERT INTO `tarea` (`idTarea`, `nombre`, `fechaCreacion`, `fechaCierre`, `estado`, `descripcion`, `idEquipoMiembros`) VALUES
+(1, 'Presentacion del proyecto al equipo', '2023-01-23', '2023-04-23', 1, 'Descripcion 1', 1),
+(2, 'Presentacion del proyecto al equipo', '2023-01-23', '2023-04-23', 1, 'Descripcion 2', 5),
+(3, 'Presentacion del proyecto al equipo', '2023-01-23', '2023-04-23', 1, 'Descripcion 3', 9),
+(4, 'Presentacion del proyecto al equipo', '2023-01-23', '2023-04-23', 1, 'Descripcion 4', 14),
+(5, 'Designar tareas a los integrantes del equipo', '2023-01-24', '2023-04-23', 1, 'Descripcion 5', 2),
+(6, 'Designar tareas a los integrantes del equipo', '2023-01-24', '2023-04-23', 1, 'Descripcion 6', 6),
+(7, 'Designar tareas a los integrantes del equipo', '2023-01-24', '2023-04-23', 1, 'Descripcion 7', 11),
+(8, 'Designar tareas a los integrantes del equipo', '2023-01-24', '2023-04-23', 1, 'Descripcion 8', 15),
+(9, 'Diseñar maqueta del proyecto', '2023-01-30', '2023-04-23', 1, 'Descripcion 9', 3),
+(10, 'Diseñar maqueta del proyecto', '2023-01-30', '2023-04-23', 1, 'Descripcion 10', 7),
+(11, 'Diseñar maqueta del proyecto', '2023-01-30', '2023-04-23', 1, 'Descripcion 11', 12),
+(12, 'Diseñar maqueta del proyecto', '2023-01-30', '2023-04-23', 1, 'Descripcion 12', 16),
+(13, 'Programar', '2023-01-30', '2023-04-23', 1, 'Descripcion 13', 4),
+(14, 'Programar', '2023-01-30', '2023-04-23', 1, 'Descripcion 14', 8),
+(15, 'Programar', '2023-01-30', '2023-04-23', 1, 'Descripcion 15', 13),
+(16, 'Programar', '2023-01-30', '2023-04-23', 1, 'Descripcion 16', 17);
 
 
 -- -----------------------------------------------------
