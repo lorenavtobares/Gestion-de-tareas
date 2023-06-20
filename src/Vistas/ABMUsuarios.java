@@ -459,9 +459,6 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                 String rolName = listaUsuariosAll.get(posicion).getRolSistema();
                 int rol = Funciones.posicionRolUsuario(rolName);
                 
-                System.out.println("Rol name -> " + rolName);
-                System.out.println("Ron int -> " + rol);
-                
                 updateDni.setText(listaUsuariosAll.get(posicion).getDni() + " ");
                 updateApeliido.setText(listaUsuariosAll.get(posicion).getApellido());
                 updateNombre.setText(listaUsuariosAll.get(posicion).getNombre());

@@ -42,13 +42,13 @@ public class Menu extends javax.swing.JFrame {
     public static final String ERROR_USUARIOS = "No se encuentran usuarios.";
     public static final String ERROR_USUARIO_LOGIN = "Usuario incorrecto";
     
-    public static final String ROL_ADMINISTRADOR = "usuario";
+    public static final String ROL_ADMINISTRADOR = "admin";
     public static final String ROL_DEFAULT = "-- Seleccione una opcion --";
     public static final String ROL_DEVELOPER = "Desarrolador de Sotfware";
     public static final String ROL_DISENIADOR = "Diseñador UX y UI";
     public static final String ROL_LIDER_PROYECTO = "Lider de Equipo";
     public static final String ROL_PROJECT_MANAGER = "Project Manager";
-    public static final String ROL_USUARIO = "admin";
+    public static final String ROL_USUARIO = "usuario";
     
     
     

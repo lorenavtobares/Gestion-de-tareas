@@ -24,6 +24,7 @@ public class Funciones {
                 /*|-------------------------|*/
     
     private static final String FORMATO_FECHA = "dd-MM-yyyy";
+    private static LocalDate hoy = LocalDate.now();
     
     
                 /*|---------------------------|*/
@@ -203,6 +204,11 @@ public class Funciones {
         
     }
     
+    public static void inicializarCalendario(JDateChooser e){
+        e.setDate(convertirLocalDateADate(hoy));
+        e.setMinSelectableDate(convertirLocalDateADate(hoy));
+    }
+    
     
     
                 /*|-------------------------|*/
@@ -212,7 +218,7 @@ public class Funciones {
     public static String rolUsuario (int i){
         String rol = "";
         switch (i){
-                case 1:
+            case 1:
                 rol = "admin";
                 break;
             case 2:
