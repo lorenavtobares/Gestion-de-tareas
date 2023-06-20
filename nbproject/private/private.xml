@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="Facultad">
-            <file>file:/C:/Laboratorio1/GestionAR_C2Grupo11/src/Vistas/ABMEquipos.java</file>
-        </group>
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Modelo/Tarea.java</file>
-            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMTareas.java</file>
             <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Modelo/EquipoMiembros.java</file>
-            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Controlador/TareaData.java</file>
+            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMTareas.java</file>
+            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMEquipos.java</file>
+            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Modelo/Equipo.java</file>
+            <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Modelo/Tarea.java</file>
             <file>file:/C:/Users/loren/OneDrive/Documentos/GitHub/Universidad-GestionAR_C2Grupo11/src/Controlador/EquipoMiembrosData.java</file>
-=======
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMUsuarios.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Controlador/EquipoMiembrosData.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Controlador/MiembroData.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/Login.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMProyectos.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Modelo/Miembro.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMEquipos.java</file>
-            <file>file:/C:/Users/Lenovo/Desktop/marcos/Universidad/GitHub/Universidad-GestionAR_C2Grupo11/src/Vistas/ABMTareas.java</file>
->>>>>>> 91977b74953691383f372ac079272988f0a602f9
         </group>
     </open-files>
 </project-private>
