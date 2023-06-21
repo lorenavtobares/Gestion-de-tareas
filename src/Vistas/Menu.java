@@ -76,6 +76,9 @@ public class Menu extends javax.swing.JFrame {
     public static Proyecto proyectoLocal = new Proyecto();
     public static Tarea tareaLocal = new Tarea();
     
+    public static GestionesInternasComentarios GIC = new GestionesInternasComentarios();
+    public static GestionesInternasHistorialComentarios GIHC = new GestionesInternasHistorialComentarios();
+    public static String tareaSeleccionada = "";
             
     
                 /*|----------------------|*/
@@ -350,6 +353,6 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane Escritorio;
+    public static javax.swing.JDesktopPane Escritorio;
     // End of variables declaration//GEN-END:variables
 }

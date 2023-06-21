@@ -39,8 +39,8 @@ public class GestionAr {
         EquipoMiembros varEquipoMiembros = new EquipoMiembros(Rol4, ff, varEquipoData.buscarEquipo(4), varMiembroData.buscarMiembro(7));
         EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
         
-       // Tarea varTarea = new Tarea("Tarea ingresada de Main", tareaInicio, tareaFin, 1, "descripcion",  varEquiposMiembrosData.buscarEquipoMiembros(16));
-       // TareaData varTareaData = new TareaData();
+        Tarea varTarea = new Tarea("Tarea ingresada de Main", tareaInicio, tareaFin, 1, "descripcion",  varEquiposMiembrosData.buscarEquipoMiembros(16));
+        TareaData varTareaData = new TareaData();
         
         //Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
         //ComentariosData varComentariosData = new ComentariosData();
@@ -188,7 +188,7 @@ public class GestionAr {
         
         
         // - Read 
-        // System.out.println(varTareaData.buscarTarea(3).toString());
+         System.out.println(varTareaData.buscarTarea(3).toStringCompleto());
         
         // - Update
         // varEquiposMiembrosData.actualizarEquipoMiembros(varEquipoMiembros);
