@@ -182,7 +182,7 @@ public class TareaData {
         PreparedStatement stmt = null;
         
         String query    = "UPDATE tarea "
-                        + "SET estado = false "
+                        + "SET estado = 0 "
                         + "WHERE idTarea = ? ";
         try{
             stmt = con.prepareStatement( query );
@@ -211,7 +211,7 @@ public class TareaData {
         PreparedStatement stmt = null;
         
         String query    = "UPDATE tarea "
-                        + "SET estado = true "
+                        + "SET estado = 1 "
                         + "WHERE idTarea = ? ";
         try{
             stmt = con.prepareStatement( query );
