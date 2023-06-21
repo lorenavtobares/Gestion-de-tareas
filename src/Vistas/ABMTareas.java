@@ -20,6 +20,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
     private List<Miembro> listaMiembro = new ArrayList<>();
     private List<Equipo> listaEquipo = new ArrayList<>();
+    private List<Tarea> listaTareas = new ArrayList<>();
     private List<EquipoMiembros> listaEquipoMiembros = new ArrayList<>();
 
     private Miembro miembro = new Miembro();
@@ -35,6 +36,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         cargandoTareas();
         jcbEquipos.setSelectedIndex(0);
         actualizandoFecha();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -174,6 +176,12 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Fecha de cierre");
 
+        jcbListaTareasHabilitadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbListaTareasHabilitadasActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("Tarea");
 
         jLabel6.setText("Miembros");
@@ -198,7 +206,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                             .addComponent(jLabel4)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jdcDateCierre_V2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
+                                .addGap(47, 47, 47)
                                 .addComponent(jcbDeshabilitar))))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
@@ -236,13 +244,13 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jdcDateCierre_V2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jdcDateCierre_V2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jcbDeshabilitar)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jdcDateInicio_V2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jdcDateInicio_V2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addComponent(btnUpdateTareaActualizar)
                 .addGap(24, 24, 24))
@@ -278,10 +286,9 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-                /*|---------------------|*/
-                /*|    Regeneradores    |*/
-                /*|---------------------|*/
-    
+    /*|---------------------|*/
+ /*|    Regeneradores    |*/
+ /*|---------------------|*/
     private Miembro regenerarMiembro(int idMiembro) {
         miembro = Menu.miembroDataLocal.buscarMiembro(idMiembro);
         return miembro;
@@ -310,7 +317,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         LocalDate fechaCierre = jdcDateCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         posicionMiembros = jcbMiembros.getSelectedIndex();
         posicionEquipoMiembro = jcbEquipos.getSelectedIndex();
-
+        int estado = 1;
         if (posicionEquipoMiembro != -1) {
             if (!nombreTarea.isEmpty()) {
                 if (!descripcion.isEmpty()) {
@@ -327,8 +334,8 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                             equipoMiembro = regenerarEquipoMiembro(idEquipoMiembro);
                             // LocalDate fechaActual = LocalDate.now();
                             if (fechaInicio.isEqual(fechaCierre) || fechaInicio.isBefore(fechaCierre)) {
-
-                                Tarea tareaLocal = new Tarea(nombreTarea, fechaInicio, fechaCierre, true, equipoMiembro);
+                               
+                                Tarea tareaLocal = new Tarea(nombreTarea, fechaInicio, fechaCierre, estado ,descripcion, equipoMiembro);
                                 Menu.tareaDataLocal.guardarTarea(tareaLocal);
                                 limpiar();
                                 break;
@@ -387,6 +394,63 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private void jcbDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDeshabilitarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbDeshabilitarActionPerformed
+
+    //Solapa 2 -> carga el equipo y los miembros segun la tarea seleccionada
+    private void jcbListaTareasHabilitadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaTareasHabilitadasActionPerformed
+        limpiarVista2();
+
+        int posicionTarea = -1, idEquipoMiembro = -1, idTarea = -1;
+        posicionTarea = jcbListaTareasHabilitadas.getSelectedIndex();
+        listaTareas = Menu.tareaDataLocal.listarTareasHabilitadas();
+        listaEquipoMiembros = Menu.equipoMiembosDataLocal.listarEquiposMiembros();
+        if (posicionTarea != -1) {
+            idTarea = listaTareas.get(posicionTarea).getId_tarea();
+         //   tarea = Menu.tareaDataLocal.buscarTarea(idTarea);
+/*
+            tarea.getEquipoMiembros().getMiembro();
+            for (int i = 0; i < listaEquipoMiembros.size(); i++) {
+
+                if (listaTareas.get(posicionTarea).getEquipoMiembros().getId_equipo_miembros() == listaEquipoMiembros.get(i).getId_equipo_miembros()) {
+                    int id = listaEquipoMiembros.get(i).getMiembro().getId_miembro();
+                    miembro = Menu.miembroDataLocal.buscarMiembro(id);
+                    listaMiembro.add(miembro);
+                }
+            }
+            for (Miembro equipos : listaMiembro) {
+                jcbMiembros_V2.addItem(equipos);
+                System.out.println(equipos);
+            }
+*/
+            /*
+            for (int i = 0; i < listaTareas.size(); i++) {
+                if (listaTareas.get(posicionTarea).getEquipoMiembros().getId_equipo_miembros()
+                        == equipoMiembro.getId_equipo_miembros()) {
+
+                    idEquipoMiembro = listaTareas.get(i).getEquipoMiembros().getId_equipo_miembros();
+                    equipoMiembro = regenerarEquipoMiembro(idEquipoMiembro);
+                    listaEquipoMiembros.add(equipoMiembro);
+
+                    
+
+                }
+
+            }*/
+        }
+
+
+    }//GEN-LAST:event_jcbListaTareasHabilitadasActionPerformed
+
+    private void limpiarVista2() {
+        jcbEquipos_V2.removeAllItems();
+        jcbMiembros_V2.removeAllItems();
+        updateTareaDescripcionTareas.setText("");
+        jdcDateInicio_V2.setCalendar(null);
+        jdcDateCierre_V2.setCalendar(null);
+        jcbDeshabilitar.setSelected(false);
+        listaEquipo.clear();
+        listaEquipoMiembros.clear();
+        listaMiembro.clear();
+    }
 
     // Vista 1 -> Carga la lista de  equipos 
     private void cargandoEquipos() {
