@@ -8,8 +8,9 @@ public class Tarea {
     private String nombre; 
     private LocalDate fecha_creacion;
     private LocalDate fecha_cierre;
-    private boolean estado;
+    private int estado;
     private EquipoMiembros equipoMiembros;
+    private String descripcion;
     private int idEquipoMiembros; //se agrego
 
     
@@ -18,43 +19,61 @@ public class Tarea {
                 /*|    Constructores   |*/
                 /*|--------------------|*/
     
-    public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, EquipoMiembros equipoMiembros) {
+  
+
+    public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, int estado,  EquipoMiembros equipoMiembros, String descripcion, int idEquipoMiembros) {
         this.id_tarea = id_tarea;
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
         this.fecha_cierre = fecha_cierre;
         this.estado = estado;
         this.equipoMiembros = equipoMiembros;
+        this.descripcion = descripcion;
+        this.idEquipoMiembros = idEquipoMiembros;
     }
 
-    public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado ,EquipoMiembros equipoMiembros) {
+    public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, int estado,String descripcion, EquipoMiembros equipoMiembros) {
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
         this.fecha_cierre = fecha_cierre;
         this.estado = estado;
+        this.descripcion = descripcion;
         this.equipoMiembros = equipoMiembros;
     }
 
-    public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado) {
+    public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, int estado,String descripcion) {
         this.id_tarea = id_tarea;
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
         this.fecha_cierre = fecha_cierre;
         this.estado = estado;
+        this.descripcion = descripcion;
     }
 
 
-    public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, boolean estado, int idEquipoMiembros) {
+    public Tarea(String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, int estado,String descripcion, int idEquipoMiembros) {
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
         this.fecha_cierre = fecha_cierre;
         this.estado = estado;
         this.idEquipoMiembros = idEquipoMiembros;
-    }
+        this.descripcion = descripcion;
+       }
 
 
     
     public Tarea() {
+    }
+
+    public Tarea(int id, String nombre, LocalDate fechaCreacion, LocalDate fechaCierre, int estado, String descripcion, EquipoMiembros equipoMiembros) {
+        this.id_tarea = id_tarea;
+        this.nombre = nombre;
+        this.fecha_creacion = fecha_creacion;
+        this.fecha_cierre = fecha_cierre;
+        this.estado = estado;
+        this.equipoMiembros = equipoMiembros;
+        this.descripcion = descripcion;
+      
     }
 
 
@@ -81,8 +100,12 @@ public class Tarea {
         return fecha_cierre;
     }
 
-    public boolean getEstado() {
+    public int getEstado() {
         return estado;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public EquipoMiembros getEquipoMiembros() {
@@ -109,8 +132,12 @@ public class Tarea {
         this.fecha_cierre = fecha_cierre;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public void setEquipoMiembros(EquipoMiembros equipoMiembros) {
@@ -136,6 +163,7 @@ public class Tarea {
                 "\nfecha_cierre => " + fecha_cierre + 
                 "\nestado => " + estado + 
                 "\nequipoMiembros => " + equipoMiembros + 
+                "\ndescripcion => " + descripcion + 
                 "\nidEquipoMiembros => " + idEquipoMiembros + 
                 "\n}";
     }

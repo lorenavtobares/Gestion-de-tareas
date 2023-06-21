@@ -58,18 +58,18 @@ public class TareaData {
                             + "fechaCreacion, "
                             + "fechaCierre, "
                             + "estado, "
+                            + "descripcion, "
                             + "idEquipoMiembros  "
                         + ") "
-                        + "VALUES ( ?, ?, ?, 1, ? )";
+                        + "VALUES ( ?, ?, ?, ?, ?, ? )";
         try{
             stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
             stmt.setString(1, tarea.getNombre());
             stmt.setDate(2, Date.valueOf(tarea.getFecha_creacion()));
             stmt.setDate(3, Date.valueOf(tarea.getFecha_cierre()));
-            stmt.setInt(4, tarea.getEquipoMiembros().getId_equipo_miembros());
-            //equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
-            //int id = equipoMiembros.getId_equipo_miembros();
-           // stmt.setInt(4 ,id );
+            stmt.setInt(4, tarea.getEstado());
+            stmt.setString(5, tarea.getDescripcion());
+            stmt.setInt(6, tarea.getEquipoMiembros().getId_equipo_miembros());
             
             stmt.executeUpdate();
                 resultado = stmt.getGeneratedKeys();
@@ -112,10 +112,11 @@ public class TareaData {
                 String nombre = resultado.getString("nombre");
                 LocalDate fechaCreacion = resultado.getDate("fechaCreacion").toLocalDate();
                 LocalDate fechaCierre = resultado.getDate("fechaCierre").toLocalDate();
-                boolean estado = resultado.getBoolean("estado");
+                int estado = resultado.getInt("estado");
+                String descripcion = resultado.getString("descripcion");
                 equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
-                tarea = new Tarea(id, nombre, fechaCreacion, fechaCierre, estado, equipoMiembros);
+                tarea = new Tarea(id, nombre, fechaCreacion, fechaCierre, estado,descripcion, equipoMiembros);
             }
             else{
                 JOptionPane.showMessageDialog(null, "No se encontro la tarea solicitada.", "ERROR",JOptionPane.ERROR_MESSAGE);
@@ -140,7 +141,7 @@ public class TareaData {
         PreparedStatement stmt = null;
         
         String query    = "UPDATE tarea "
-                        + "SET nombre = ?, fechaCreacion = ?, fechaCierre = ?, estado = ?, idEquipoMiembros = ? " 
+                        + "SET nombre = ?, fechaCreacion = ?, fechaCierre = ?, estado = ?, descripcion = ?, idEquipoMiembros = ? " 
                         + "WHERE idTarea = ?";
                             
         
@@ -149,9 +150,10 @@ public class TareaData {
             stmt.setString(1, tarea.getNombre());
             stmt.setDate(2, Date.valueOf(tarea.getFecha_creacion()));
             stmt.setDate(3, Date.valueOf(tarea.getFecha_cierre()));
-            stmt.setBoolean(4, tarea.getEstado());
-            stmt.setInt(5, tarea.getEquipoMiembros().getId_equipo_miembros());
-            stmt.setInt(6, tarea.getId_tarea());
+            stmt.setInt(4, tarea.getEstado());
+            stmt.setString(5, tarea.getDescripcion());
+            stmt.setInt(6, tarea.getEquipoMiembros().getId_equipo_miembros());
+            stmt.setInt(7, tarea.getId_tarea());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);
@@ -255,10 +257,11 @@ public class TareaData {
                 String nombreLocal = resultado.getString("nombre"); 
                 LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
                 LocalDate cierreLocal = resultado.getDate("fechaCierre").toLocalDate();
-                boolean estadoLocal = resultado.getBoolean("estado");
+                int estadoLocal = resultado.getInt("estado");
+                String descripcionLocal = resultado.getString("descripcion");
                 equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
-                Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
+                Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal,descripcionLocal, equipoMiembros);
                 
                 listaTareasHabilitadas.add(tareaN);
                
@@ -297,10 +300,11 @@ public class TareaData {
                 String nombreLocal = resultado.getString("nombre"); 
                 LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
                 LocalDate cierreLocal = resultado.getDate("fechaCierre").toLocalDate();
-                boolean estadoLocal = resultado.getBoolean("estado");
+                int estadoLocal = resultado.getInt("estado");
+                String descripcionLocal = resultado.getString("descripcion");
                 equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
-                Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
+                Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal,descripcionLocal, equipoMiembros);
                 
                 listaTareasDeshabilitadas.add(tareaN);
                
@@ -338,10 +342,11 @@ public class TareaData {
                 String nombreLocal = resultado.getString("nombre"); 
                 LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
                 LocalDate cierreLocal = resultado.getDate("fechaCierre").toLocalDate();
-                boolean estadoLocal = resultado.getBoolean("estado");
+                int estadoLocal = resultado.getInt("estado");
+                String descripcionLocal = resultado.getString("descripcion");
                 equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
-                Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
+                Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal,descripcionLocal, equipoMiembros);
                 
                 listaTareasTodas.add(tareaN);
                
