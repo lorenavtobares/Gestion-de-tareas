@@ -112,7 +112,7 @@ public class TareaData {
                 String nombre = resultado.getString("nombre");
                 LocalDate fechaCreacion = resultado.getDate("fechaCreacion").toLocalDate();
                 LocalDate fechaCierre = resultado.getDate("fechaCierre").toLocalDate();
-                boolean estado = resultado.getBoolean("estado");
+                int estado = resultado.getInt("estado");
                 equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
                 tarea = new Tarea(id, nombre, fechaCreacion, fechaCierre, estado, equipoMiembros);
@@ -149,7 +149,7 @@ public class TareaData {
             stmt.setString(1, tarea.getNombre());
             stmt.setDate(2, Date.valueOf(tarea.getFecha_creacion()));
             stmt.setDate(3, Date.valueOf(tarea.getFecha_cierre()));
-            stmt.setBoolean(4, tarea.getEstado());
+            stmt.setInt(4, tarea.getEstado());
             stmt.setInt(5, tarea.getEquipoMiembros().getId_equipo_miembros());
             stmt.setInt(6, tarea.getId_tarea());
             
@@ -255,7 +255,7 @@ public class TareaData {
                 String nombreLocal = resultado.getString("nombre"); 
                 LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
                 LocalDate cierreLocal = resultado.getDate("fechaCierre").toLocalDate();
-                boolean estadoLocal = resultado.getBoolean("estado");
+                int estadoLocal = resultado.getInt("estado");
                 equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
                 Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
@@ -297,7 +297,7 @@ public class TareaData {
                 String nombreLocal = resultado.getString("nombre"); 
                 LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
                 LocalDate cierreLocal = resultado.getDate("fechaCierre").toLocalDate();
-                boolean estadoLocal = resultado.getBoolean("estado");
+                int estadoLocal = resultado.getInt("estado");
                 equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
                 Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
@@ -338,7 +338,7 @@ public class TareaData {
                 String nombreLocal = resultado.getString("nombre"); 
                 LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
                 LocalDate cierreLocal = resultado.getDate("fechaCierre").toLocalDate();
-                boolean estadoLocal = resultado.getBoolean("estado");
+                int estadoLocal = resultado.getInt("estado");
                 equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
                 
                 Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal, equipoMiembros);
@@ -358,6 +358,51 @@ public class TareaData {
         }
         return listaTareasTodas;
     }
+    
+    public List <Tarea> listarTareasAll(int estado, int idProyecto){
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Tarea> listaTareasAll = new ArrayList<Tarea>();
+        
+        String query        = " SELECT t.* " 
+                            + " FROM tarea AS t " 
+                            + " JOIN equipomiembros AS em " 
+                            + " ON t.idEquipoMiembros = em.idEquipoMiembros " 
+                            + " JOIN equipo AS e " 
+                            + " ON em.idEquipo = e.idEquipo " 
+                            + " JOIN proyecto AS p " 
+                            + " ON e.idProyecto = p.idProyecto " 
+                            + " WHERE t.estado = ? AND p.idProyecto = ? ";
+        
+        try{
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, estado);
+            stmt.setInt(2, idProyecto);
+            resultado = stmt.executeQuery();
+            while (resultado.next()){
+                int idtarea = resultado.getInt("idTarea");
+                String nombre = resultado.getString("nombre");
+                LocalDate fechaCreacion = resultado.getDate("fechaCreacion").toLocalDate();
+                LocalDate fechaCierre = resultado.getDate("fechaCierre").toLocalDate();
+                int estadolocal = resultado.getInt("estado");
+                Tarea tarea = new Tarea(idtarea, nombre, fechaCreacion, fechaCierre, estadolocal);
+                listaTareasAll.add(tarea);
+            }
+        }
+        catch ( SQLException ex ) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() ,"", JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try {
+                resultado.close();
+                stmt.close();
+            } catch ( SQLException ex ) {
+                JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() ,"", JOptionPane.ERROR_MESSAGE );
+            }
+        }
+        return listaTareasAll;
+    }
+    
     
     
                 /*|---------------------|*/

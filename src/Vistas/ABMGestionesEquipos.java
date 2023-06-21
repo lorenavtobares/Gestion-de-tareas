@@ -37,7 +37,7 @@ public class ABMGestionesEquipos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        contenedorPrincipal = new javax.swing.JTabbedPane();
         asignarPersonaaEquipo = new javax.swing.JPanel();
         listaAsignacionUsuarios = new javax.swing.JComboBox<>();
         listaAsignacionEquipos = new javax.swing.JComboBox<>();
@@ -47,6 +47,7 @@ public class ABMGestionesEquipos extends javax.swing.JInternalFrame {
         mostrarInformacionDeEquipo = new javax.swing.JPanel();
         listaEquiposMiembrosInfo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
+        btnCerra = new javax.swing.JButton();
 
         listaAsignacionUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuarios"));
         listaAsignacionUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -112,7 +113,7 @@ public class ABMGestionesEquipos extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15))
         );
 
-        jTabbedPane1.addTab("Asignar Persona a Equipo", asignarPersonaaEquipo);
+        contenedorPrincipal.addTab("Asignar Persona a Equipo", asignarPersonaaEquipo);
 
         listaEquiposMiembrosInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(" Equipos"));
         listaEquiposMiembrosInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -163,22 +164,35 @@ public class ABMGestionesEquipos extends javax.swing.JInternalFrame {
                 .addComponent(listaEquiposMiembrosInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Mostrar Informacion de Equipo", mostrarInformacionDeEquipo);
+        contenedorPrincipal.addTab("Mostrar Informacion de Equipo", mostrarInformacionDeEquipo);
+
+        btnCerra.setText("jButton1");
+        btnCerra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(contenedorPrincipal)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCerra)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
+                .addComponent(btnCerra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(contenedorPrincipal))
         );
 
         pack();
@@ -263,6 +277,11 @@ public class ABMGestionesEquipos extends javax.swing.JInternalFrame {
         }
         llenarTabla();
     }//GEN-LAST:event_listaEquiposMiembrosInfoActionPerformed
+
+    private void btnCerraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerraActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCerraActionPerformed
 
     
                 /*|--------------------|*/
@@ -360,9 +379,10 @@ public class ABMGestionesEquipos extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel asignarPersonaaEquipo;
     private javax.swing.JButton btnAsignar;
+    private javax.swing.JButton btnCerra;
+    private javax.swing.JTabbedPane contenedorPrincipal;
     private com.toedter.calendar.JDateChooser fechaAsignacion;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JComboBox<Equipo> listaAsignacionEquipos;
     private javax.swing.JComboBox<String> listaAsignacionRolUsuarios;
     private javax.swing.JComboBox<Miembro> listaAsignacionUsuarios;
