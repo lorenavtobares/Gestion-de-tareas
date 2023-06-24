@@ -17,7 +17,7 @@ public class GestionAr {
                 /*|--------------------|*/
                 /*|      Variables     |*/
                 /*|--------------------|*/
-                
+/*                
         LocalDate ff = LocalDate.of(2021, 01, 23);
         LocalDate tareaInicio = LocalDate.of(2023, 02, 21);
         LocalDate tareaFin = LocalDate.of(2023, 04, 14);
@@ -42,14 +42,14 @@ public class GestionAr {
         Tarea varTarea = new Tarea("Tarea ingresada de Main", tareaInicio, tareaFin, 1, "descripcion",  varEquiposMiembrosData.buscarEquipoMiembros(16));
         TareaData varTareaData = new TareaData();
         
-        //Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
-        //ComentariosData varComentariosData = new ComentariosData();
-
+        Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
+        ComentariosData varComentariosData = new ComentariosData();
+*/
 
                 /*|--------------------|*/
                 /*|       Listas       |*/
                 /*|--------------------|*/
-        
+/*
         java.util.List <Proyecto> listaProyectos = new ArrayList<Proyecto>();
         java.util.List <Equipo> listaEquipos = new ArrayList<Equipo>();
         java.util.List <Miembro> listaMiembros = new ArrayList<Miembro>();
@@ -57,7 +57,7 @@ public class GestionAr {
         java.util.List <Tarea> listaTareas = new ArrayList<Tarea>();
         java.util.List <Comentarios> listaComentarios = new ArrayList<Comentarios>();
         
-        
+*/      
                 /*|------------------------------|*/
                 /*|    Pruebas de los metodos    |*/
                 /*|------------------------------|*/
@@ -188,7 +188,7 @@ public class GestionAr {
         
         
         // - Read 
-         System.out.println(varTareaData.buscarTarea(3).toStringCompleto());
+        // System.out.println(varTareaData.buscarTarea(3).toStringCompleto());
         
         // - Update
         // varEquiposMiembrosData.actualizarEquipoMiembros(varEquipoMiembros);
@@ -239,4 +239,6 @@ public class GestionAr {
         // }
         
     }
+    
+
 }

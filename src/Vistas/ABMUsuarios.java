@@ -356,11 +356,10 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                             Miembro usuario = new Miembro(dniParceado, password, apellido, nombre, true, rolSistema);
                             Menu.miembroDataLocal.guardarMiembro(usuario);
                             limpiar();
-                            
+                                                       
                         }else{
                             JOptionPane.showMessageDialog(null, Menu.ERROR_ROL, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
                         }
-                        
             
                     }else{
                         JOptionPane.showMessageDialog(null, Menu.ERROR_PASSWORD, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
@@ -385,44 +384,46 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         String nombre = updateNombre.getText();
         boolean estado;
         
-        List <Miembro> listaUsuariosAll = Menu.miembroDataLocal.listarTodosMiembros();
-        int posicionUsuario = -1;
-        posicionUsuario = listaUpdateUsuarios.getSelectedIndex();
-        
         try{
+            List <Miembro> listaUsuariosAll = Menu.miembroDataLocal.listarTodosMiembros();
+            int posicionUsuario = -1;
+            posicionUsuario = listaUpdateUsuarios.getSelectedIndex();
+            int posicion = listaUpdateRolUsuarios.getSelectedIndex();
         
             if ( !dni.isEmpty() ) {
-                int dniParceado = Integer.parseInt(dni);
+                int dniParceado = Integer.parseInt(dni.trim());
                 if( !apellido.isEmpty() ) {
                     if( !nombre.isEmpty() ) {
                         if( !password.isEmpty() ) {
+                            if( posicion > 0 ) {
 
-                            int posicionRol = -1;
-                            posicionRol = listaUpdateRolUsuarios.getSelectedIndex();
-                            String rolSistema = Funciones.rolUsuario(posicionRol);
+                                String rolSistema = Funciones.rolUsuario( posicion );                
 
-                                if (posicionRol != 0){
+                                    if (posicionUsuario > -1) {
 
-                                    if(jcbHabilitado.isSelected()){
-                                        estado = true;
-                                        jcbHabilitado.setSelected(true);
-                                        jcbDeshabilitados.setSelected(false);
+                                        if(jcbHabilitado.isSelected()){
+                                            estado = true;
+                                            jcbHabilitado.setSelected(true);
+                                            jcbDeshabilitados.setSelected(false);
+                                        }
+                                        else{
+                                            estado = false;
+                                            jcbHabilitado.setSelected(false);
+                                            jcbDeshabilitados.setSelected(true);
+                                        }
+
+                                        if( posicionUsuario > -1 ){
+                                            int IdUsuario = listaUsuariosAll.get(posicionUsuario).getId_miembro();
+                                            Miembro usuarioActualizado = new Miembro(IdUsuario,dniParceado, password, apellido, nombre, estado, rolSistema);
+                                            Menu.miembroDataLocal.actualizarMiembro(usuarioActualizado);
+                                        }
+                                    }else{
+                                        JOptionPane.showMessageDialog(null, Menu.ERROR_ROL, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
                                     }
-                                    else{
-                                        estado = false;
-                                        jcbHabilitado.setSelected(false);
-                                        jcbDeshabilitados.setSelected(true);
-                                    }
 
-                                    if( posicionUsuario > -1 ){
-                                        int IdUsuario = listaUsuariosAll.get(posicionUsuario).getId_miembro();
-                                        Miembro usuarioActualizado = new Miembro(IdUsuario,dniParceado, password, apellido, nombre, estado, rolSistema);
-                                        Menu.miembroDataLocal.actualizarMiembro(usuarioActualizado);
-                                    }
-                                }else{
-                                    JOptionPane.showMessageDialog(null, Menu.ERROR_ROL, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
-                                }
-
+                            }else{
+                                JOptionPane.showMessageDialog(null, Menu.ERROR_ROL, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+                                updatePassword.requestFocus(); }
                         }else{
                             JOptionPane.showMessageDialog(null, Menu.ERROR_PASSWORD, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
                             updatePassword.requestFocus(); }
@@ -449,7 +450,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
     // Vista 2 - Up de usuario -> CB: Lista de usuarios
     private void listaUpdateUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaUpdateUsuariosActionPerformed
         
-        try {
+         try {
             List <Miembro> listaUsuariosAll = Menu.miembroDataLocal.listarTodosMiembros();
             int posicion = -1;
             posicion = listaUpdateUsuarios.getSelectedIndex();
@@ -462,7 +463,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                 updateDni.setText(listaUsuariosAll.get(posicion).getDni() + " ");
                 updateApeliido.setText(listaUsuariosAll.get(posicion).getApellido());
                 updateNombre.setText(listaUsuariosAll.get(posicion).getNombre());
-                updatePassword.setText(listaUsuariosAll.get(posicion).getPassword());
+                updatePassword.setText(listaUsuariosAll.get(posicion).getPassword());                
                 listaUpdateRolUsuarios.setSelectedIndex(rol);
 
                 estado = listaUsuariosAll.get(posicion).getEstado();
@@ -479,7 +480,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, Menu.ERROR_USUARIOS, Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE); 
             } 
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE); 
+            //JOptionPane.showMessageDialog(null, ex.getMessage(), Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE); 
         }
     }//GEN-LAST:event_listaUpdateUsuariosActionPerformed
 

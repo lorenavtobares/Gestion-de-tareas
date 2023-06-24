@@ -221,18 +221,18 @@ public class Funciones {
         String rol = "";
         switch (i){
             case 1:
-                rol = "admin";
+                rol = Menu.ROL_ADMINISTRADOR;
                 break;
             case 2:
-                rol = "usuario";
+                rol = Menu.ROL_USUARIO;
                 break;
         }
         return rol;
     }
     
     public static int posicionRolUsuario ( String rol ){
-        if(rol.equalsIgnoreCase("admin")){ return 1; }
-        else if (rol.equalsIgnoreCase("usuario")) { return 2; }
+        if(rol.equalsIgnoreCase(Menu.ROL_ADMINISTRADOR)){ return 1; }
+        else if (rol.equalsIgnoreCase(Menu.ROL_USUARIO)) { return 2; }
         else { return 0; }
     }
 }
