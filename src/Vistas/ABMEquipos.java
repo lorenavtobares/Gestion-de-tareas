@@ -321,7 +321,8 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         posicion = jcbListaEquipos.getSelectedIndex();
         boolean estado;
         
-        if (posicion > -1) {
+        try{
+            if (posicion > -1) {
             
             LocalDate f = arrayEquipos.get(posicion).getFecha_cracion();
             ActualizarNombre.setText(arrayEquipos.get(posicion).getNombre());
@@ -337,9 +338,14 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 jcbDeshabilitados.setSelected(true);
             }
 
-        } else if (posicion == -1) {
-            JOptionPane.showMessageDialog(null, Menu.ERROR_EQUIPOS, Menu.TT_ERROR, JOptionPane.WARNING_MESSAGE);
+            } else if (posicion == -1) {
+                JOptionPane.showMessageDialog(null, Menu.ERROR_EQUIPOS, Menu.TT_ERROR, JOptionPane.WARNING_MESSAGE);
+            }
+        }catch (Exception ex){
+        
         }
+        
+        
 
 
     }//GEN-LAST:event_jcbListaEquiposActionPerformed

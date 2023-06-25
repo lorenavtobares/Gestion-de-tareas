@@ -2,6 +2,7 @@ package Vistas;
 
 import Funciones.Funciones;
 import Modelo.Miembro;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -55,6 +56,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
+        btnNuevoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mas.png"))); // NOI18N
         btnNuevoUsuario.setText("Crear Usuario");
         btnNuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +133,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
+        btnUpdateUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/recargar.png"))); // NOI18N
         btnUpdateUsuario.setText("Actualizar Informacion");
         btnUpdateUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,37 +345,43 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
         String apellido = nuevoApellido.getText();
         String nombre = nuevoNombre.getText();
         
-        if ( !dni.isEmpty() ) {
-            int dniParceado = Integer.parseInt(dni);
-            if( !apellido.isEmpty() ) {
-                if( !nombre.isEmpty() ) {
-                    if( !password.isEmpty() ) {
-                        int posicion = -1;
-                        posicion = nuevoListaRolUsuario.getSelectedIndex();
+        try{
         
-                        if ( posicion != 0 ){
+            if ( !dni.isEmpty() ) {
+                int dniParceado = Integer.parseInt(dni);
+                if( !apellido.isEmpty() ) {
+                    if( !nombre.isEmpty() ) {
+                        if( !password.isEmpty() ) {
+                            int posicion = -1;
+                            posicion = nuevoListaRolUsuario.getSelectedIndex();
 
-                            String rolSistema = Funciones.rolUsuario(posicion);                        
-                            Miembro usuario = new Miembro(dniParceado, password, apellido, nombre, true, rolSistema);
-                            Menu.miembroDataLocal.guardarMiembro(usuario);
-                            limpiar();
-                                                       
+                            if ( posicion != 0 ){
+
+                                String rolSistema = Funciones.rolUsuario(posicion);                        
+                                Miembro usuario = new Miembro(dniParceado, password, apellido, nombre, true, rolSistema);
+                                Menu.miembroDataLocal.guardarMiembro(usuario);
+                                limpiar();
+                                cargarListaUsuarios();
+
+                            }else{
+                                JOptionPane.showMessageDialog(null, Menu.ERROR_ROL, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+                            }
+
                         }else{
-                            JOptionPane.showMessageDialog(null, Menu.ERROR_ROL, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
-                        }
-            
+                            JOptionPane.showMessageDialog(null, Menu.ERROR_PASSWORD, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+                            nuevoPassword.requestFocus(); }
                     }else{
-                        JOptionPane.showMessageDialog(null, Menu.ERROR_PASSWORD, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
-                        nuevoPassword.requestFocus(); }
+                        JOptionPane.showMessageDialog(null, Menu.ERROR_NOMBRE, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+                        nuevoNombre.requestFocus(); }
                 }else{
-                    JOptionPane.showMessageDialog(null, Menu.ERROR_NOMBRE, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
-                    nuevoNombre.requestFocus(); }
+                    JOptionPane.showMessageDialog(null, Menu.ERROR_APELLIDO, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+                    nuevoApellido.requestFocus(); }
             }else{
-                JOptionPane.showMessageDialog(null, Menu.ERROR_APELLIDO, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
-                nuevoApellido.requestFocus(); }
-        }else{
-            JOptionPane.showMessageDialog(null, Menu.ERROR_DNI, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
-            nuevoDni.requestFocus(); } 
+                JOptionPane.showMessageDialog(null, Menu.ERROR_DNI, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+                nuevoDni.requestFocus(); } 
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, Menu.ERROR_DNI_DUPLICADO, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+        }
         
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
 
@@ -477,7 +486,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                 }
 
             }else if (posicion == -1){
-                JOptionPane.showMessageDialog(null, Menu.ERROR_USUARIOS, Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE); 
+                //JOptionPane.showMessageDialog(null, Menu.ERROR_USUARIOS, Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE); 
             } 
         }catch(Exception ex){
             //JOptionPane.showMessageDialog(null, ex.getMessage(), Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE); 

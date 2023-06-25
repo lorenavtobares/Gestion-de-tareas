@@ -38,7 +38,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         cargandoEquipos();
         //cargandoMiembros();
         // cargandoTareas();
-        jcbEquipos.setSelectedIndex(0);
+        //jcbEquipos.setSelectedIndex(0);
         actualizandoFecha();
         cargandoEquiposV2();
 

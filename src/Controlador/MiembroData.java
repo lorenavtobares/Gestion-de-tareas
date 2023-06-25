@@ -49,7 +49,7 @@ public class MiembroData {
             JOptionPane.showMessageDialog(null, " Miembro guardado con exito ", "" ,JOptionPane.INFORMATION_MESSAGE );
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+            System.out.println("Error -> " + ex.getMessage());
         }
         finally {
             try { 
