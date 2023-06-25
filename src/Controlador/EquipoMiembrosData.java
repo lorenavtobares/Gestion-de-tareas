@@ -1,8 +1,7 @@
-
 package Controlador;
 
 import Conexion.Conexion;
-import Modelo. *;
+import Modelo.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-
 public class EquipoMiembrosData {
+
     private final Connection con;
     private static Miembro miembro = new Miembro();
     private static MiembroData miembroData = new MiembroData();
@@ -23,55 +22,50 @@ public class EquipoMiembrosData {
     private static EquipoData equipoData = new EquipoData();
     private static EquipoMiembros equipoMiembros = new EquipoMiembros();
     private static EquipoMiembrosData equipoMiembrosData = new EquipoMiembrosData();
-            
+
     public EquipoMiembrosData() {
-        con=Conexion.getConexion();
+        con = Conexion.getConexion();
     }
-    
-    
-    
-                /*|---------------------|*/
-                /*|         CRUD        |*/
-                /*|---------------------|*/
-    
-    public void guardarEquipoMiembros(EquipoMiembros equipo){
+
+    /*|---------------------|*/
+ /*|         CRUD        |*/
+ /*|---------------------|*/
+    public void guardarEquipoMiembros(EquipoMiembros equipo) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        
-        String query    = "INSERT INTO equipomiembros ( "
-                            + "rol, "
-                            + "fechaIncorporacion, "
-                            + "idEquipo, "
-                            + "idMiembro "
-                        + ") "
-                        + "VALUES (?, ?, ?, ?)";
-                        
-        try{
-            stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
+
+        String query = "INSERT INTO equipomiembros ( "
+                + "rol, "
+                + "fechaIncorporacion, "
+                + "idEquipo, "
+                + "idMiembro "
+                + ") "
+                + "VALUES (?, ?, ?, ?)";
+
+        try {
+            stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, equipo.getRol());
             stmt.setDate(2, Date.valueOf(equipo.getFecha_incorporacion()));
             stmt.setInt(3, equipo.getEquipo().getId_equipo());
             stmt.setInt(4, equipo.getMiembro().getId_miembro());
-            
+
             stmt.executeUpdate();
             resultado = stmt.getGeneratedKeys();
-            
-            if( resultado.next()){
+
+            if (resultado.next()) {
                 equipo.setId_equipo_miembros(resultado.getInt(1));
             }
-            
-            JOptionPane.showMessageDialog(null, " Registro guardado con exito ", "" ,JOptionPane.INFORMATION_MESSAGE );
-        }
-        catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
-        }
-        finally {
-            try { 
-                resultado.close(); 
-                stmt.close(); 
+
+            JOptionPane.showMessageDialog(null, " Registro guardado con exito ", "", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                resultado.close();
+                stmt.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "ERROR : " + ex.getMessage(), " ", JOptionPane.ERROR_MESSAGE);
             }
-            catch ( SQLException ex )
-            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }
     
@@ -114,128 +108,160 @@ public class EquipoMiembrosData {
         
         return equipoMiembros;
     }
-    
-    public void actualizarEquipoMiembros(EquipoMiembros equipo){
+
+    public EquipoMiembros buscarEquipoAndMiembros(int idMiembro , int idEquipo) {
+
         PreparedStatement stmt = null;
         ResultSet resultado = null;
+        String query = "SELECT  em.*  "
+                + "FROM EquipoMiembros AS em  "
+                + "JOIN equipo AS e "
+                + "ON em.idEquipo = e.idEquipo "
+                + "JOIN miembro as m "
+                + " ON  em.idMiembro = m.idMiembro "
+                + "WHERE m.idMiembro = ? AND e.idEquipo = ? ";
         
-        String query    = "UPDATE EquipoMiembros "
-                        + "SET rol = ?, fechaIncorporacion = ?, idEquipo = ?, idMiembro = ? "
-                        + "WHERE idEquipoMiembros = ?";
-        
-        try{
-            stmt = con.prepareStatement( query );
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, idMiembro);
+            stmt.setInt(2, idEquipo);
+            resultado = stmt.executeQuery();
+
+            if (resultado.next()) {
+                int id = resultado.getInt("idEquipoMiembros");
+                String rol = resultado.getString("rol");
+                LocalDate fechaIncorporacion = resultado.getDate("fechaIncorporacion").toLocalDate();
+                equipo = regerarEquipo(resultado.getInt("idEquipo"));
+                miembro = regenerarMiembro(resultado.getInt("idMiembro"));
+
+                equipoMiembros = new EquipoMiembros( id, rol,  fechaIncorporacion, equipo, miembro);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                resultado.close();
+                stmt.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "ERROR : " + ex.getMessage(), " ", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return equipoMiembros;
+    }
+
+    public void actualizarEquipoMiembros(EquipoMiembros equipo) {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+
+        String query = "UPDATE EquipoMiembros "
+                + "SET rol = ?, fechaIncorporacion = ?, idEquipo = ?, idMiembro = ? "
+                + "WHERE idEquipoMiembros = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
             stmt.setString(1, equipo.getRol());
             stmt.setDate(2, Date.valueOf(equipo.getFecha_incorporacion()));
             stmt.setInt(3, equipo.getEquipo().getId_equipo());
             stmt.setInt(4, equipo.getMiembro().getId_miembro());
             stmt.setInt(5, equipo.getId_equipo_miembros());
-            
+
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);
-        }
-        catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
-        }
-        finally {
-            try { 
-                stmt.close(); 
+            JOptionPane.showMessageDialog(null, "Registro actualizado", " ", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "ERROR : " + ex.getMessage(), " ", JOptionPane.ERROR_MESSAGE);
             }
-            catch ( SQLException ex )
-            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
     }
-    
-    public void eliminarMiembros(int idEquipoMiembros){
+
+    public void eliminarMiembros(int idEquipoMiembros) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        
-        String query    = "DELETE FROM EquipoMiembros "
-                        + "WHERE idEquipoMiembros = ?";
-        
-        try{
-            stmt = con.prepareStatement( query );
+
+        String query = "DELETE FROM EquipoMiembros "
+                + "WHERE idEquipoMiembros = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
             stmt.setInt(1, idEquipoMiembros);
-            
-            if(stmt.executeUpdate() > 0){
-                JOptionPane.showMessageDialog( null, "Registro eliminado"  + " " + JOptionPane.INFORMATION_MESSAGE );
-            }else{
-                JOptionPane.showMessageDialog( null, "ID ingresado incorrecto"  + " " + JOptionPane.ERROR_MESSAGE );
-             }
-        }
-        catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
-        }
-        finally {
-            try { 
-                stmt.close(); 
+
+            if (stmt.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado" + " " + JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "ID ingresado incorrecto" + " " + JOptionPane.ERROR_MESSAGE);
             }
-            catch ( SQLException ex )
-            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "ERROR : " + ex.getMessage(), " ", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
-    
-    
-    
-                /*|---------------------|*/
-                /*|        Listas       |*/
-                /*|---------------------|*/
-    
-    public List <EquipoMiembros> listarEquiposMiembros( ) {
+
+    /*|---------------------|*/
+ /*|        Listas       |*/
+ /*|---------------------|*/
+    public List<EquipoMiembros> listarEquiposMiembros() {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-        List<EquipoMiembros> listaEM = new ArrayList<EquipoMiembros>(); 
-        
-        String query    = "SELECT * "
-                        + "FROM EquipoMiembros ";
-        
-        try{
-            stmt = con.prepareStatement( query );
+        List<EquipoMiembros> listaEM = new ArrayList<EquipoMiembros>();
+
+        String query = "SELECT * "
+                + "FROM EquipoMiembros ";
+
+        try {
+            stmt = con.prepareStatement(query);
             resultado = stmt.executeQuery();
-            
-            while ( resultado.next() ) 
-            {
+
+            while (resultado.next()) {
                 int idLocal = resultado.getInt("idEquipoMiembros");
                 String rol = resultado.getString("rol");
                 LocalDate fechaIncorporacion = resultado.getDate("fechaIncorporacion").toLocalDate();
                 equipo = regerarEquipo(resultado.getInt("idEquipo"));
                 miembro = regenerarMiembro(resultado.getInt("idMiembro"));
-                
+
                 EquipoMiembros equipoN = new EquipoMiembros(rol, fechaIncorporacion, equipo, miembro);
-                
+
                 listaEM.add(equipoN);
-            }   
-        }
-        catch ( SQLException ex ) 
-        {
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
-        }
-        finally {
-            try { stmt.close(); }
-            catch ( SQLException ex )
-            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "ERROR : " + ex.getMessage(), " ", JOptionPane.ERROR_MESSAGE);
+            }
         }
         return listaEM;
     }
-    
-    public List<EquipoMiembros> listarMiembrosEquiposTabla(int idEquipo){
+
+    public List<EquipoMiembros> listarMiembrosEquiposTabla(int idEquipo) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         List<EquipoMiembros> listaEM = new ArrayList<EquipoMiembros>();
-        
-        String query        = " SELECT M.dni, M.apellido, M.nombre, EM.fechaIncorporacion, EM.rol, EM.idMiembro, EM.idEquipo " 
-                            + " FROM equipomiembros AS EM " 
-                            + " JOIN miembro AS M " 
-                            + " ON EM.idMiembro = M.idMiembro "
-                            + " JOIN equipo AS E " 
-                            + " ON EM.idEquipo = E.idEquipo " 
-                            + " WHERE EM.idEquipo = ? ";
-        
-        try{
+
+        String query = " SELECT M.dni, M.apellido, M.nombre, EM.fechaIncorporacion, EM.rol, EM.idMiembro, EM.idEquipo "
+                + " FROM equipomiembros AS EM "
+                + " JOIN miembro AS M "
+                + " ON EM.idMiembro = M.idMiembro "
+                + " JOIN equipo AS E "
+                + " ON EM.idEquipo = E.idEquipo "
+                + " WHERE EM.idEquipo = ? ";
+
+        try {
             stmt = con.prepareStatement(query);
             stmt.setInt(1, idEquipo);
             resultado = stmt.executeQuery();
-            while (resultado.next()) {                
+            while (resultado.next()) {
                 int dni = resultado.getInt("dni");
                 String apellido = resultado.getNString("apellido");
                 LocalDate fechaIncorporacion = resultado.getDate("fechaIncorporacion").toLocalDate();
@@ -244,35 +270,30 @@ public class EquipoMiembrosData {
                 equipo = regerarEquipo(resultado.getInt("idEquipo"));
                 EquipoMiembros miembrosDelEquipo = new EquipoMiembros(rol, fechaIncorporacion, equipo, miembro);
                 listaEM.add(miembrosDelEquipo);
-                
+
             }
-        }
-        catch ( SQLException ex ) {
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() ,"", JOptionPane.ERROR_MESSAGE );
-        }
-        finally {
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+        } finally {
             try {
                 resultado.close();
                 stmt.close();
-            } catch ( SQLException ex ) {
-                JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() ,"", JOptionPane.ERROR_MESSAGE );
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
             }
         }
         return listaEM;
     }
 
-
-    
-                /*|---------------------|*/
-                /*|    Metodos extras   |*/
-                /*|---------------------|*/
-
-    public Equipo regerarEquipo(int idEquipo){
+    /*|---------------------|*/
+ /*|    Metodos extras   |*/
+ /*|---------------------|*/
+    public Equipo regerarEquipo(int idEquipo) {
         equipo = equipoData.buscarEquipo(idEquipo);
         return equipo;
     }
-    
-    public Miembro regenerarMiembro(int idMiembro){
+
+    public Miembro regenerarMiembro(int idMiembro) {
         miembro = miembroData.buscarMiembro(idMiembro);
         return miembro;
     }

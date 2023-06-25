@@ -28,7 +28,7 @@ public class TareaData {
     
 
     private EquipoMiembros regenerarEquipoMiembro(int idEquipoMiembros){
-        equipoMiembros = equipoMiembrosData.buscarEquipoMiembros(idEquipoMiembros);
+        equipoMiembros = equipoMiembrosData.buscarEquipoMiembros(idEquipoMiembros );
         return equipoMiembros;
     }
     

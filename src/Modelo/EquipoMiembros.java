@@ -35,6 +35,12 @@ public class EquipoMiembros {
     public EquipoMiembros() {
     }
 
+    public EquipoMiembros(LocalDate fechaIncorporacion, Equipo equipo, Miembro miembro) {
+        this.fecha_incorporacion = fecha_incorporacion;
+        this.equipo = equipo;
+        this.miembro = miembro;
+    }
+
     
     
                 /*|------------------------|*/
@@ -106,12 +112,24 @@ public class EquipoMiembros {
     }
 
 
-
+/*
     @Override
     public String toString() {
         return  "miembro=" + miembro ;
     }
 
+    */
+
+    @Override
+    public String toString() {
+        return "EquipoMiembros{" +  "\nid_equipo_miembros=" + id_equipo_miembros + 
+                "\nrol=" + rol + 
+                "\nfecha_incorporacion=" + fecha_incorporacion + 
+                "\nequipo=" + equipo + 
+                "\nmiembro=" + miembro + 
+                "\n}";
+    }
+    
     
 
     

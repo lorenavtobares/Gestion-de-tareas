@@ -126,7 +126,7 @@ public class Miembro {
         return  apellido + " " + nombre;
     }
 
-
+/*
     public String toStringCompleto() {
         return  "Miembro{" + 
                 "\nid_miembro => " + id_miembro + 
@@ -140,6 +140,19 @@ public class Miembro {
     }
     
 
+    @Override
+    public String toString() {
+        return "Miembro{" + "\nid_miembro => " + id_miembro + 
+                "\ndni => " + dni + 
+                "\npassword => " + password + 
+                "\napellido => " + apellido + 
+                "\nnombre => " + nombre + 
+                "\nestado => " + estado + 
+                "\nrolSistema => " + rolSistema + 
+                "\n}";
+    }
+*/
+    
     
     
 }

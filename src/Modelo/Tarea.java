@@ -154,7 +154,7 @@ public class Tarea {
         return nombre;
     }
 
-    
+    /*
     public String toStringCompleto() {
         return  "Tarea{" + 
                 "\nid_tarea => " + id_tarea + 
@@ -168,7 +168,19 @@ public class Tarea {
                 "\n}";
     }
     
-    
 
+    @Override
+    public String toString() {
+        return "Tarea{" + "\nid_tarea => " + id_tarea + 
+                "\nnombre => " + nombre + 
+                "\nfecha_creacion => " + fecha_creacion + 
+                "\nfecha_cierre => " + fecha_cierre + 
+                "\nestado => " + estado + 
+                "\nequipoMiembros => " + equipoMiembros + 
+                "\ndescripcion => " + descripcion + 
+                "\nidEquipoMiembros => " + idEquipoMiembros + 
+                "\n}";
+    
+    }*/
     
 }

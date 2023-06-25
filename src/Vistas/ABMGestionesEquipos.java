@@ -169,7 +169,7 @@ public class ABMGestionesEquipos extends javax.swing.JInternalFrame {
 
         contenedorPrincipal.addTab("Mostrar Informacion de Equipo", mostrarInformacionDeEquipo);
 
-        btnCerra.setText("jButton1");
+        btnCerra.setText("Cerrar");
         btnCerra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerraActionPerformed(evt);
