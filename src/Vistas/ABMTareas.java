@@ -6,6 +6,7 @@ import Modelo.Equipo;
 import Modelo.EquipoMiembros;
 import Modelo.Miembro;
 import Modelo.Tarea;
+import static java.lang.ProcessBuilder.Redirect.to;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
+import static jdk.nashorn.internal.objects.NativeJava.to;
 import jdk.nashorn.internal.parser.DateParser;
 
 public class ABMTareas extends javax.swing.JInternalFrame {
@@ -36,12 +38,10 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     public ABMTareas() {
         initComponents();
         cargandoEquipos();
-        //cargandoMiembros();
-        // cargandoTareas();
-        //jcbEquipos.setSelectedIndex(0);
         actualizandoFecha();
         cargandoEquiposV2();
-
+       Funciones.inicializarCalendario(jdcDateInicio_V2);
+        Funciones.inicializarCalendario(jdcDateCierre_V2);
     }
 
     @SuppressWarnings("unchecked")
@@ -300,13 +300,14 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /*|---------------------|*/
- /*|    Regeneradores    |*/
- /*|---------------------|*/
+    /*|    Regeneradores    |*/
+    /*|---------------------|*/
     private Miembro regenerarMiembro(int idMiembro) {
         miembro = Menu.miembroDataLocal.buscarMiembro(idMiembro);
         return miembro;
     }
-/*
+
+    /*
     private EquipoMiembros regenerarEquipoMiembro(int idEquipoMiembro) {
         equipoMiembro = Menu.equipoMiembosDataLocal.buscarEquipoMiembros(idEquipoMiembro);
         return equipoMiembro;
@@ -345,7 +346,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                 if (!descripcion.isEmpty()) {
 
                     int idMiembro = listaMiembro.get(posicionMiembros).getId_miembro();
-                     System.out.println("id miembro " + idMiembro);
+                    System.out.println("id miembro " + idMiembro);
                     miembro = regenerarMiembro(idMiembro);
                     listaMiembro.add(miembro);
 
@@ -355,19 +356,18 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
                             idMiembros = listaEquipoMiembros.get(i).getMiembro().getId_miembro();
                             idEquipo = listaEquipo.get(posicionEquipoMiembro).getId_equipo();
-                              System.out.println(" ---------------------");
-                         //   System.out.println(" if " + listaEquipoMiembros.get(i).getMiembro().getId_miembro());
+                            System.out.println(" ---------------------");
+                            //   System.out.println(" if " + listaEquipoMiembros.get(i).getMiembro().getId_miembro());
                             System.out.println("id  miembro " + idMiembros);
-                          //  System.out.println("id miembro " + idMiembro);
-                            
-                               System.out.println("Equipo id " + idEquipo);
-                            
+                            //  System.out.println("id miembro " + idMiembro);
+
+                            System.out.println("Equipo id " + idEquipo);
+
                             System.out.println(" ---------------------");
                             equipoMiembro = Menu.equipoMiembosDataLocal.buscarEquipoAndMiembros(idMiembros, idEquipo);
 
                             System.out.println(equipoMiembro);
-                            
-                            
+
                             //  System.out.println(equipoMiembro);
                             // LocalDate fechaActual = LocalDate.now();
                             if (fechaInicio.isEqual(fechaCierre) || fechaInicio.isBefore(fechaCierre)) {
@@ -397,6 +397,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnAltaTareaGuardarActionPerformed
 
+    // Solapa 2 -> boton actualizar tarea
     private void btnUpdateTareaActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTareaActualizarActionPerformed
         int miembro = -1;
         miembro = jcbMiembros_V2.getSelectedIndex();
@@ -460,11 +461,12 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private void jcbDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDeshabilitarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbDeshabilitarActionPerformed
+
 //Solapa 2 -> carga la lista de miembros segun el equipo
     private void jcbEquipos_V2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEquipos_V2ActionPerformed
         jcbMiembros_V2.removeAllItems();
         listaMiembro.clear();
-        listaTareas.clear();
+        //listaTareas.clear();
         listaEquipo = Menu.equipoDataLocal.listarEquiposHabilitados();
         int posicion = -1;
 
@@ -476,8 +478,10 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
                 if (listaEquipo.get(posicion).getId_equipo() == listaEquipoMiembros.get(i).getEquipo().getId_equipo()) {
                     int id = listaEquipoMiembros.get(i).getMiembro().getId_miembro();
+
                     miembro = Menu.miembroDataLocal.buscarMiembro(id);
                     listaMiembro.add(miembro);
+
                 }
             }
         } else {
@@ -490,18 +494,73 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
 //Solapa 2 -> carga la lista de tareas segun el miembro    
     private void jcbMiembros_V2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMiembros_V2ActionPerformed
-        int miembro = -1;
-        miembro = jcbMiembros_V2.getSelectedIndex();
         jcbListaTareasHabilitadas.removeAllItems();
 
-        //System.out.println(listaTareas);
-        if (miembro != -1) {
-            for (int p = 0; p < listaTareas.size(); p++) {
+        List<Tarea> tareasLista = Menu.tareaDataLocal.listarTareasHabilitadas();
+        
+        int miembro = jcbMiembros_V2.getSelectedIndex();
+        
+        int idTarea =-1 , tareaSeleccionada =-1;
+        // System.out.println("size " + idTarea);
+        //jcbListaTareasHabilitadas.addItem(listaTareas.get(miembro).getNombre());
+       // System.out.println("tamaño lista tarea " + tareasLista.size());
+        try {
 
+          
+            
+            for (int i = 0; i < tareasLista.size(); i++) {
+              //  System.out.println("id " + tareasLista.get(i).getId_tarea());
+            //    System.out.println("lista tarea " + tareasLista.get(i).getEquipoMiembros().getMiembro().getId_miembro());
+            //    System.out.println(" lista miembro " + listaMiembro.get(miembro).getId_miembro());
+                
+                if (tareasLista.get(i).getEquipoMiembros().getMiembro().getId_miembro()
+                        == listaMiembro.get(miembro).getId_miembro()) {
+             //   System.out.println("lista tarea " + tareasLista.get(i).getEquipoMiembros().getMiembro().getId_miembro());
+           //   System.out.println(" lista miembro " + listaMiembro.get(miembro).getId_miembro());     
+                    
+                    idTarea = tareasLista.get(i).getId_tarea();
+                   // System.out.println("idtarea " + idTarea);
+                    tarea = Menu.tareaDataLocal.buscarTarea(idTarea);
+                    listaTareas.add(tarea);
+                 ///   System.out.println("nombre tarea " + tarea.getNombre());
+                    jcbListaTareasHabilitadas.addItem(tarea.getNombre());
+                    tareaSeleccionada = jcbListaTareasHabilitadas.getSelectedIndex();
+                    
+                    updateTareaDescripcionTareas.setText(tarea.getDescripcion());
+                    //System.out.println("entro");
+                    jdcDateInicio_V2.setDateFormatString(tarea.getFecha_creacion()+ "");
+                    jdcDateCierre_V2.setDateFormatString(tarea.getFecha_cierre()+ ""); 
+                    
+                }else{
+                    continue;
+                }
+              
+            }
+            
+
+          //  System.out.println("indice333333 " + miembro);
+           //System.out.println("listaMiembro " + listaMiembro);
+         //   System.out.println("miembro seleccionado " + listaMiembro.get(miembro));
+        } catch (Exception e) {
+            System.out.println("no entro");
+        }
+        
+        /*for (Tarea tareas : listaTareas) {
+                       //  jcbListaTareasHabilitadas.addItem(tareas);
+                        System.out.println(tareas);
+                    
+                    }*/
+        
+        
+        //System.out.println(listaTareas);
+        /*
+            for (int p = 0; p < listaTareas.size(); p++) {
+                System.out.println("if " + listaTareas.get(p).getEquipoMiembros().getMiembro().getId_miembro());
+                System.out.println("lista " + listaMiembro.get(miembro).getId_miembro() );
                 if (listaTareas.get(p).getEquipoMiembros().getMiembro().getId_miembro()
                         == listaMiembro.get(miembro).getId_miembro()) {
-
-                    jcbListaTareasHabilitadas.addItem(listaTareas.get(p).getNombre());
+                    System.out.println(listaTareas.get(p).getNombre());
+                   // jcbListaTareasHabilitadas.addItem(listaTareas.get(p).getNombre());
                     jdcDateInicio_V2.setDateFormatString(listaTareas.get(p).getFecha_creacion() + "");
                     jdcDateCierre_V2.setDateFormatString(listaTareas.get(p).getFecha_cierre() + "");
 
@@ -514,9 +573,9 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                     //System.out.println(listaTareas.get(p).getNombre());
                     updateTareaDescripcionTareas.setText(listaTareas.get(p).getDescripcion());
 
-                }
+                
             }
-        }
+        }*/
 
 
     }//GEN-LAST:event_jcbMiembros_V2ActionPerformed
@@ -552,6 +611,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         for (Equipo equipos : arrayEquipos) {
             jcbEquipos_V2.addItem(equipos);
         }
+        
 
     }
 
@@ -602,9 +662,12 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jdcDateInicio_V2;
     private javax.swing.JTextArea updateTareaDescripcionTareas;
     // End of variables declaration//GEN-END:variables
-
+ 
+//Solapa 1 -> Actuliza la fecha
     private void actualizandoFecha() {
         Calendar c2 = new GregorianCalendar();
         jdcDateInicio.setCalendar(c2);
     }
+
+    
 }

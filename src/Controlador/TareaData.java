@@ -251,14 +251,13 @@ public class TareaData {
         String query    = "SELECT * "
                         + "FROM tarea "
                         + "WHERE estado = 1 "
-                        + "ORDER BY nombre";
+                        + "ORDER BY nombre ";
         
         try{
             stmt = con.prepareStatement( query );
             resultado = stmt.executeQuery();
             
-            while ( resultado.next() ) 
-            {
+            while (resultado.next()){
                  
                 int idTareaLocal = resultado.getInt("idTarea");
                 String nombreLocal = resultado.getString("nombre"); 
@@ -269,12 +268,13 @@ public class TareaData {
                 String descripcionLocal = resultado.getString("descripcion");
 
                 equipoMiembros = regenerarEquipoMiembro(resultado.getInt("idEquipoMiembros"));
-                
+//                int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, int estado,  EquipoMiembros equipoMiembros, String descripcion, int idEquipoMiembros
                 Tarea tareaN = new Tarea (idTareaLocal, nombreLocal, creacionLocal, cierreLocal, estadoLocal,descripcionLocal, equipoMiembros);
                 
                 listaTareasHabilitadas.add(tareaN);
                
-            }   
+            }
+            
         }
         catch ( SQLException ex ) 
         {
@@ -285,6 +285,14 @@ public class TareaData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
+        /*
+            for(Tarea tareas : listaTareasHabilitadas){
+            
+                System.out.println(tareas);
+            }*/
+        
+        
+        
         return listaTareasHabilitadas;
     }
 
@@ -330,6 +338,13 @@ public class TareaData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
+        /*
+       
+         for(Tarea tareas : listaTareasDeshabilitadas){
+            
+                System.out.println(tareas);
+            }*/
+        
         return listaTareasDeshabilitadas;
     }
     
@@ -374,6 +389,8 @@ public class TareaData {
             catch ( SQLException ex )
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
+        
+        
         return listaTareasTodas;
     }
     

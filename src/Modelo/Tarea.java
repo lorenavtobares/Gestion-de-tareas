@@ -65,7 +65,7 @@ public class Tarea {
     public Tarea() {
     }
 
-    public Tarea(int id, String nombre, LocalDate fechaCreacion, LocalDate fechaCierre, int estado, String descripcion, EquipoMiembros equipoMiembros) {
+    public Tarea(int id_tarea, String nombre, LocalDate fecha_creacion, LocalDate fecha_cierre, int estado, String descripcion, EquipoMiembros equipoMiembros) {
         this.id_tarea = id_tarea;
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
@@ -148,13 +148,13 @@ public class Tarea {
                 /*|-------------------------|*/
                 /*|         ToString        |*/
                 /*|-------------------------|*/    
-    
+    /*
     @Override
     public String toString() {
         return nombre;
     }
 
-    /*
+     //@Override
     public String toStringCompleto() {
         return  "Tarea{" + 
                 "\nid_tarea => " + id_tarea + 
@@ -166,7 +166,7 @@ public class Tarea {
                 "\ndescripcion => " + descripcion + 
                 "\nidEquipoMiembros => " + idEquipoMiembros + 
                 "\n}";
-    }
+    }*/
     
 
     @Override
@@ -181,6 +181,6 @@ public class Tarea {
                 "\nidEquipoMiembros => " + idEquipoMiembros + 
                 "\n}";
     
-    }*/
+    }
     
 }

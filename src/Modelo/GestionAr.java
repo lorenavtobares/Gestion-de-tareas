@@ -17,7 +17,15 @@ public class GestionAr {
                 /*|--------------------|*/
                 /*|      Variables     |*/
                 /*|--------------------|*/
+
 /*                
+=======
+<<<<<<< HEAD
+           
+=======
+/*                
+>>>>>>> 560b6e6e76d9feb5493a856bc39270be41b4664f
+>>>>>>> Stashed changes
         LocalDate ff = LocalDate.of(2021, 01, 23);
         LocalDate tareaInicio = LocalDate.of(2023, 02, 21);
         LocalDate tareaFin = LocalDate.of(2023, 04, 14);
@@ -39,12 +47,14 @@ public class GestionAr {
         EquipoMiembros varEquipoMiembros = new EquipoMiembros(Rol4, ff, varEquipoData.buscarEquipo(4), varMiembroData.buscarMiembro(7));
         EquipoMiembrosData varEquiposMiembrosData = new EquipoMiembrosData();
         
-        Tarea varTarea = new Tarea("Tarea ingresada de Main", tareaInicio, tareaFin, 1, "descripcion",  varEquiposMiembrosData.buscarEquipoMiembros(16));
+        Tarea varTarea = new Tarea("Tarea ingresada de Main", tareaInicio, tareaFin, 1, "descripcion",  varEquiposMiembrosData.buscarEquipoAndMiembros(9 ,1));
         TareaData varTareaData = new TareaData();
         
         Comentarios varComentarios = new Comentarios(comentario1 ,ff ,varTareaData.buscarTarea(3));
         ComentariosData varComentariosData = new ComentariosData();
+<<<<<<< Updated upstream
 */
+
 
                 /*|--------------------|*/
                 /*|       Listas       |*/
@@ -171,7 +181,7 @@ public class GestionAr {
         
         // - Read 
         //System.out.println(varEquiposMiembrosData.buscarEquipoMiembros(3).toStringCompleto());
-        
+       //  System.out.println(varEquiposMiembrosData.buscarEquipoAndMiembros(8,3).toStringCompleto());
         // - Update
         // varEquiposMiembrosData.actualizarEquipoMiembros(varEquipoMiembros);
 
@@ -188,8 +198,13 @@ public class GestionAr {
         
         
         // - Read 
+
         // System.out.println(varTareaData.buscarTarea(3).toStringCompleto());
-        
+
+      //   System.out.println(varTareaData.buscarTarea(3).toStringCompleto());
+
+        // System.out.println(varTareaData.buscarTarea(3).toStringCompleto());
+
         // - Update
         // varEquiposMiembrosData.actualizarEquipoMiembros(varEquipoMiembros);
         // varTareaData.actualizarTarea(varTarea);
