@@ -39,13 +39,13 @@ public class EquipoData {
 
         String query        = "INSERT INTO equipo "
                             + "(idProyecto, nombre, fechaCreacion, estado) "
-                            + "VALUES ( ?, ?, ?, 1 ) ";
+                            + "VALUES ( null , ?, ?, 1 ) ";
 
         try{
             stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
-            stmt.setInt(1, equipo.getProyecto().getId_proyecto());
-            stmt.setString(2, equipo.getNombre());
-            stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
+            //stmt.setInt(1, equipo.getProyecto().getId_proyecto());
+            stmt.setString(1, equipo.getNombre());
+            stmt.setDate(2, Date.valueOf(equipo.getFecha_cracion()));
             
             stmt.executeUpdate();
             resultado = stmt.getGeneratedKeys();
@@ -118,16 +118,16 @@ public class EquipoData {
         PreparedStatement stmt = null;
         
         String query    = "UPDATE equipo "      
-                        + "SET idProyecto = ?, nombre = ?,  fechaCreacion = ? , estado = ? "
+                        + "SET nombre = ?, fechaCreacion = ? , estado = ? "
                         + "WHERE idEquipo = ? ";
         
         try{
             stmt = con.prepareStatement( query );
-            stmt.setInt(1, equipo.getProyecto().getId_proyecto());
-            stmt.setString(2, equipo.getNombre());
-            stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
-            stmt.setBoolean(4, equipo.getEstado());
-            stmt.setInt(5, equipo.getId_equipo());
+            //stmt.setInt(1, equipo.getProyecto().getId_proyecto());
+            stmt.setString(1, equipo.getNombre());
+            stmt.setDate(2, Date.valueOf(equipo.getFecha_cracion()));
+            stmt.setBoolean(3, equipo.getEstado());
+            stmt.setInt(4, equipo.getId_equipo());
            
             
             stmt.executeUpdate();
@@ -308,23 +308,28 @@ public class EquipoData {
             while ( resultado.next() ) 
             {
                 int idLocal = resultado.getInt("idEquipo");
-                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                //proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
                 String nombreLocal = resultado.getString("nombre");
                 LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
                 boolean estadoLocal = resultado.getBoolean("estado");
                 
-                Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
+                //Equipo equipoN = new Equipo (idLocal, proyecto, nombreLocal, creacionLocal, estadoLocal);
+                Equipo equipoN = new Equipo (idLocal, nombreLocal, creacionLocal, estadoLocal);
                 list_todosEquipos.add(equipoN);
             }   
         }
         catch ( SQLException ex ) 
         {
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+            System.out.println("Metodo: Listar todos los equipos \nError: " + ex.getMessage());
+            //JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
         }
         finally {
             try { stmt.close(); }
             catch ( SQLException ex )
-            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+            { 
+                //JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); 
+                System.out.println("Metodo: Listar todos los equipos \nError: " + ex.getMessage());
+            }
         }
         return list_todosEquipos;
     }

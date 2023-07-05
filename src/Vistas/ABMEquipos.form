@@ -29,9 +29,10 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="btnCerrar" pref="32" max="32767" attributes="0"/>
+              <Component id="btnCerrar" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="contenedorPrincipal" min="-2" pref="379" max="-2" attributes="0"/>
+              <Component id="contenedorPrincipal" min="-2" pref="400" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -59,7 +60,6 @@
                           <Component id="nuevoFecha" pref="550" max="32767" attributes="0"/>
                           <Component id="nuevoNombre" pref="550" max="32767" attributes="0"/>
                           <Component id="btnNuevoEquipo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jcbProyectos" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="132" max="32767" attributes="0"/>
                   </Group>
@@ -68,15 +68,13 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Component id="jcbProyectos" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="nuevoNombre" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="nuevoFecha" min="-2" pref="60" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <EmptySpace pref="126" max="32767" attributes="0"/>
                       <Component id="btnNuevoEquipo" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -105,26 +103,14 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnNuevoEquipo">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Iconos/mas.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Crear Equipo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoEquipoActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="jcbProyectos">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
-                </Property>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="PROYECTO"/>
-                  </Border>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Proyecto&gt;"/>
-              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -159,16 +145,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jcbListaEquipos" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jcbListaEquipos" pref="59" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="ActualizarNombre" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="actualizarFecha" min="-2" pref="60" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnActualizarEquipo" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -188,6 +174,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnActualizarEquipo">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Iconos/recargar.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Actualizar Informacion"/>
               </Properties>
               <Events>
@@ -254,7 +243,7 @@
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="PROYECTOS"/>
+                    <TitledBorder title="Lista de Equipos"/>
                   </Border>
                 </Property>
               </Properties>
@@ -262,7 +251,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbListaEquiposActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Proyecto&gt;"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Equipo&gt;"/>
               </AuxValues>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="actualizarFecha">

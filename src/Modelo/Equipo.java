@@ -29,6 +29,14 @@ public class Equipo {
         this.nombre = nombre;
         this.fecha_cracion = fecha_cracion;
     }
+    
+    //Se agrega para crear un equipo, sin un proyecto vinculado
+    public Equipo(int id_equipo, String nombre, LocalDate fecha_cracion, boolean estado) {
+        this.id_equipo = id_equipo;
+        this.nombre = nombre;
+        this.fecha_cracion = fecha_cracion;
+        this.estado = estado;
+    }
 
     public Equipo(Proyecto proyecto, String nombre, LocalDate fecha_cracion, boolean estado) {
         this.proyecto = proyecto;

@@ -235,4 +235,29 @@ public class Funciones {
         else if (rol.equalsIgnoreCase(Menu.ROL_USUARIO)) { return 2; }
         else { return 0; }
     }
+
+    public static String rolUsuarioEquipo ( int i ){
+        String n = "";
+        
+        switch(i){
+            case 0:
+            n = Menu.ROL_LIDER_PROYECTO;
+            break;
+            
+            case 1:
+            n = Menu.ROL_PROJECT_MANAGER;
+            break;
+            
+            case 2:
+            n = Menu.ROL_DEVELOPER;
+            break;
+            
+            case 3:
+            n = Menu.ROL_DISENIADOR;
+            break;
+        }
+        
+        return n;
+    }
+
 }

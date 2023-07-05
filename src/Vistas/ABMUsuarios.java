@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 public class ABMUsuarios extends javax.swing.JInternalFrame {
     
     public ABMUsuarios() {
+        super("ABM USuarios");
         initComponents();
         cargarListaUsuarios();
         itemsRolUsuarios();
@@ -425,6 +426,7 @@ public class ABMUsuarios extends javax.swing.JInternalFrame {
                                             int IdUsuario = listaUsuariosAll.get(posicionUsuario).getId_miembro();
                                             Miembro usuarioActualizado = new Miembro(IdUsuario,dniParceado, password, apellido, nombre, estado, rolSistema);
                                             Menu.miembroDataLocal.actualizarMiembro(usuarioActualizado);
+                                            cargarListaUsuarios();
                                         }
                                     }else{
                                         JOptionPane.showMessageDialog(null, Menu.ERROR_ROL, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);

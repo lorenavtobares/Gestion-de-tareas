@@ -2,6 +2,7 @@ package Controlador;
 
 import Conexion.Conexion;
 import Modelo.*;
+import Vistas.Menu;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -18,18 +19,22 @@ public class EquipoMiembrosData {
     private final Connection con;
     private static Miembro miembro = new Miembro();
     private static MiembroData miembroData = new MiembroData();
+    
     private static Equipo equipo = new Equipo();
     private static EquipoData equipoData = new EquipoData();
     private static EquipoMiembros equipoMiembros = new EquipoMiembros();
     private static EquipoMiembrosData equipoMiembrosData = new EquipoMiembrosData();
 
+    private static Proyecto proyecto = new Proyecto();
+    
     public EquipoMiembrosData() {
         con = Conexion.getConexion();
     }
 
-    /*|---------------------|*/
- /*|         CRUD        |*/
- /*|---------------------|*/
+            /*|---------------------|*/
+            /*|         CRUD        |*/
+            /*|---------------------|*/
+    
     public void guardarEquipoMiembros(EquipoMiembros equipo) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -206,16 +211,19 @@ public class EquipoMiembrosData {
         }
     }
 
-    /*|---------------------|*/
- /*|        Listas       |*/
- /*|---------------------|*/
+    
+    
+            /*|---------------------|*/
+            /*|        Listas       |*/
+            /*|---------------------|*/
+    
     public List<EquipoMiembros> listarEquiposMiembros() {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         List<EquipoMiembros> listaEM = new ArrayList<EquipoMiembros>();
 
-        String query = "SELECT * "
-                + "FROM EquipoMiembros ";
+        String query    = "SELECT * "
+                        + "FROM EquipoMiembros ";
 
         try {
             stmt = con.prepareStatement(query);
@@ -244,22 +252,22 @@ public class EquipoMiembrosData {
         return listaEM;
     }
 
-    public List<EquipoMiembros> listarMiembrosEquiposTabla(int idEquipo) {
+    public List<EquipoMiembros> listarMiembrosEquiposTabla(int idProyecto) {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         List<EquipoMiembros> listaEM = new ArrayList<EquipoMiembros>();
 
-        String query = " SELECT M.dni, M.apellido, M.nombre, EM.fechaIncorporacion, EM.rol, EM.idMiembro, EM.idEquipo "
-                + " FROM equipomiembros AS EM "
-                + " JOIN miembro AS M "
-                + " ON EM.idMiembro = M.idMiembro "
-                + " JOIN equipo AS E "
-                + " ON EM.idEquipo = E.idEquipo "
-                + " WHERE EM.idEquipo = ? ";
+        String query    = "SELECT M.dni, M.apellido, M.nombre, EM.fechaIncorporacion, EM.rol, EM.idMiembro, EM.idEquipo "
+                        + "FROM equipomiembros AS EM "
+                        + "JOIN miembro AS M "
+                        + "ON EM.idMiembro = M.idMiembro "
+                        + "JOIN equipo AS E "
+                        + "ON EM.idEquipo = E.idEquipo "
+                        + "WHERE E.idProyecto = ? ";
 
         try {
             stmt = con.prepareStatement(query);
-            stmt.setInt(1, idEquipo);
+            stmt.setInt(1, idProyecto);
             resultado = stmt.executeQuery();
             while (resultado.next()) {
                 int dni = resultado.getInt("dni");
@@ -284,10 +292,52 @@ public class EquipoMiembrosData {
         }
         return listaEM;
     }
+    
+    public List<Equipo> listarEquiposHabilitados (){
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        List<Equipo> listaEquipos = new ArrayList<Equipo>();
 
-    /*|---------------------|*/
- /*|    Metodos extras   |*/
- /*|---------------------|*/
+        String query    = "SELECT E.idEquipo, E.idProyecto, E.nombre, E.fechaCreacion, E.estado "
+                        + "FROM equipomiembros AS EM "
+                        + "JOIN equipo AS E "
+                        + "ON EM.idEquipo = E.idEquipo "
+                        + "WHERE E.estado = 1 ";
+
+        try {
+            stmt = con.prepareStatement(query);
+            resultado = stmt.executeQuery();
+            
+            while (resultado.next()) {
+                int idEquipo = resultado.getInt("idEquipo");
+                proyecto = regenerarProyecto(resultado.getInt("idProyecto"));
+                String equipoNombre = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                
+                Equipo miembrosDelEquipo = new Equipo (idEquipo, proyecto, equipoNombre, creacionLocal,estadoLocal);
+                listaEquipos.add(miembrosDelEquipo);
+
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                resultado.close();
+                stmt.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        return listaEquipos;
+    }
+
+    
+    
+            /*|---------------------|*/
+            /*|    Metodos extras   |*/
+            /*|---------------------|*/
+    
     public Equipo regerarEquipo(int idEquipo) {
         equipo = equipoData.buscarEquipo(idEquipo);
         return equipo;
@@ -296,6 +346,11 @@ public class EquipoMiembrosData {
     public Miembro regenerarMiembro(int idMiembro) {
         miembro = miembroData.buscarMiembro(idMiembro);
         return miembro;
+    }
+    
+    private Proyecto regenerarProyecto(int idProyecto){
+        proyecto =  Menu.proyectoDataLocal.buscarProyecto(idProyecto);
+        return proyecto;
     }
 
 }

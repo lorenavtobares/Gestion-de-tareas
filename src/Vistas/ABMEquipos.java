@@ -26,15 +26,17 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private static Equipo equipo = new  Equipo();
     private static EquipoData equipoData = new EquipoData();
     
+    private List<Equipo> arrayEquipos = new ArrayList<>();
+    
     private Date hoy = new Date();
     
     
     
     public ABMEquipos() {
+        super("ABM Equipos");
         initComponents();
         Funciones.inicializarCalendario(nuevoFecha);
         Funciones.inicializarCalendario(actualizarFecha);
-        cargandoProyectoV1();
         cargandoEquiposV2();
     }
 
@@ -47,7 +49,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         nuevoNombre = new javax.swing.JTextField();
         nuevoFecha = new com.toedter.calendar.JDateChooser();
         btnNuevoEquipo = new javax.swing.JButton();
-        jcbProyectos = new javax.swing.JComboBox<>();
         actualizacionDeEquipos = new javax.swing.JPanel();
         ActualizarNombre = new javax.swing.JTextField();
         btnActualizarEquipo = new javax.swing.JButton();
@@ -67,14 +68,13 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
 
         nuevoFecha.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE CREACION"));
 
+        btnNuevoEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mas.png"))); // NOI18N
         btnNuevoEquipo.setText("Crear Equipo");
         btnNuevoEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoEquipoActionPerformed(evt);
             }
         });
-
-        jcbProyectos.setBorder(javax.swing.BorderFactory.createTitledBorder("PROYECTO"));
 
         javax.swing.GroupLayout nuevoDeEquiposLayout = new javax.swing.GroupLayout(nuevoDeEquipos);
         nuevoDeEquipos.setLayout(nuevoDeEquiposLayout);
@@ -85,22 +85,19 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 .addGroup(nuevoDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(nuevoFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addComponent(nuevoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcbProyectos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         nuevoDeEquiposLayout.setVerticalGroup(
             nuevoDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nuevoDeEquiposLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jcbProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(23, 23, 23)
                 .addComponent(nuevoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(nuevoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addComponent(btnNuevoEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(38, 38, 38))
         );
 
         contenedorPrincipal.addTab("Nuevo Equipo", nuevoDeEquipos);
@@ -112,6 +109,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             }
         });
 
+        btnActualizarEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/recargar.png"))); // NOI18N
         btnActualizarEquipo.setText("Actualizar Informacion");
         btnActualizarEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +154,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jcbListaEquipos.setBorder(javax.swing.BorderFactory.createTitledBorder("PROYECTOS"));
+        jcbListaEquipos.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Equipos"));
         jcbListaEquipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbListaEquiposActionPerformed(evt);
@@ -184,16 +182,16 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             actualizacionDeEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(actualizacionDeEquiposLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jcbListaEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbListaEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ActualizarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(actualizarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnActualizarEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         contenedorPrincipal.addTab("Actualizacion de Equipos", actualizacionDeEquipos);
@@ -218,9 +216,10 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contenedorPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(contenedorPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -251,15 +250,15 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
         try {
             String nombre = nuevoNombre.getText();
             LocalDate fechaCreacion = nuevoFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
-            int posicion = -1;
-            posicion = jcbProyectos.getSelectedIndex();
             
             if (!nombre.isEmpty() ) {
-                
-                    Menu.equipoLocal = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, true);
+                try{
+                    Menu.equipoLocal = new Equipo(null, nombre, fechaCreacion, true);
                     Menu.equipoDataLocal.GuardarEquipo(equipoLocal);
                     limpiarNuevo();
+                }catch (Exception e){
+                    System.out.println("Error If -> " + e.getMessage());
+                }
             }else{
                 JOptionPane.showMessageDialog(null, Menu.ERROR_NOMBRE, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
                 nuevoNombre.requestFocus();
@@ -276,7 +275,6 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     //Solapa 2 - Actualizar Datos -> Btn guardar datos
     private void btnActualizarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEquipoActionPerformed
         try {
-            
             boolean estadoFecha = Funciones.verificarFecha(actualizarFecha);
             String nombre = ActualizarNombre.getText();
             int posicion = -1;
@@ -285,20 +283,16 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             if (estadoFecha  == true){
                 if (!nombre.isEmpty()) {
                     
+                    int idLocal = arrayEquipos.get(posicion).getId_equipo();
                     LocalDate fechaCreacion = actualizarFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     boolean estado;
-                    List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
-                    Proyecto proyectoLocal = new Proyecto();
                     
+                    if (jcbHabilitado.isSelected()) { estado = true; } 
+                    else { estado = false; }
 
-                    if (jcbHabilitado.isSelected()) {
-                        estado = true;
-                    } else {
-                        estado = false;
-                    }
-
-                    Menu.equipoLocal = new Equipo(arrayProyectos.get(posicion).getId_proyecto(), arrayProyectos.get(posicion), nombre, fechaCreacion, estado);
+                    Menu.equipoLocal = new Equipo(idLocal , null, nombre, fechaCreacion, estado);
                     Menu.equipoDataLocal.actualizarEquipo(equipoLocal);
+                    cargandoEquiposV2();
 
                 }else{
                     JOptionPane.showMessageDialog(null, Menu.ERROR_NOMBRE, Menu.TT_ERROR, JOptionPane.WARNING_MESSAGE);
@@ -309,6 +303,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             }
         }catch ( Exception ex) {
             JOptionPane.showMessageDialog(null, Menu.ERROR_FECHA, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+            System.out.println("Fecha \nError: " + ex.getMessage());
             nuevoFecha.requestFocus();
         }   
 
@@ -316,37 +311,32 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
 
     //Solapa 2 - Actualizar Datos -> Cargar Datos del furmulario Items ComboBox
     private void jcbListaEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaEquiposActionPerformed
-        List<Equipo> arrayEquipos = Menu.equipoDataLocal.listarTodosEquipos();
         int posicion = -1;
         posicion = jcbListaEquipos.getSelectedIndex();
         boolean estado;
         
         try{
-            if (posicion > -1) {
+            if ( posicion > -1 ) {
             
-            LocalDate f = arrayEquipos.get(posicion).getFecha_cracion();
-            ActualizarNombre.setText(arrayEquipos.get(posicion).getNombre());
-            actualizarFecha.setDate(Funciones.convertirLocalDateADate(f));
-            //actualizarFecha.setDateFormatString(arrayEquipos.get(posicion).getFecha_cracion() + "");
-            estado = arrayEquipos.get(posicion).getEstado();
+                LocalDate f = arrayEquipos.get(posicion).getFecha_cracion();
+                ActualizarNombre.setText(arrayEquipos.get(posicion).getNombre());
+                actualizarFecha.setDate(Funciones.convertirLocalDateADate(f));
+                estado = arrayEquipos.get(posicion).getEstado();
             
-            if (estado) {
-                jcbHabilitado.setSelected(true);
-                jcbDeshabilitados.setSelected(false);
-            } else {
-                jcbHabilitado.setSelected(false);
-                jcbDeshabilitados.setSelected(true);
-            }
+                if (estado) {
+                    jcbHabilitado.setSelected(true);
+                    jcbDeshabilitados.setSelected(false);
+                } else {
+                    jcbHabilitado.setSelected(false);
+                    jcbDeshabilitados.setSelected(true);
+                }
 
-            } else if (posicion == -1) {
-                JOptionPane.showMessageDialog(null, Menu.ERROR_EQUIPOS, Menu.TT_ERROR, JOptionPane.WARNING_MESSAGE);
             }
+            
         }catch (Exception ex){
-        
+            System.out.println("Solapa 2 - Listar equipos\nError: -> " + ex.getMessage());
         }
         
-        
-
 
     }//GEN-LAST:event_jcbListaEquiposActionPerformed
 
@@ -375,36 +365,26 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     
     // Regenerar Usuario
     private Miembro regenerarUsuarios (int idUsuario){
-            usuario = usuarioData.buscarMiembro(idUsuario);
-            return usuario;
-        }
+        usuario = usuarioData.buscarMiembro(idUsuario);
+        return usuario;
+    }
 
     // Regenerar Equipos
     private Equipo regenerarEquipos(int idEquipo){
-            equipo = equipoData.buscarEquipo(idEquipo);
-            return equipo;
-        }
+        equipo = equipoData.buscarEquipo(idEquipo);
+        return equipo;
+    }
 
-    // Listar Proyectos Habiltiados
-    private void cargandoProyectoV1() {
-            jcbProyectos.removeAllItems();
-            List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
-
-            for (Proyecto proyectos : arrayProyectos) {
-                jcbProyectos.addItem(proyectos);
-            }
-        }
 
     // Cargar Equipos Version 2
     private void cargandoEquiposV2() {
+        jcbListaEquipos.removeAllItems();
+        arrayEquipos = Menu.equipoDataLocal.listarTodosEquipos();
 
-            jcbListaEquipos.removeAllItems();
-            List<Proyecto> arrayProyectos = Menu.proyectoDataLocal.listarProyectosHabilitados();
-
-            for (Proyecto proyectos : arrayProyectos) {
-                jcbListaEquipos.addItem(proyectos);
-            }
+        for (Equipo e : arrayEquipos) {
+            jcbListaEquipos.addItem(e);
         }
+    }
     
     private void limpiarNuevo() {
         nuevoNombre.setText("");
@@ -422,8 +402,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JCheckBox jcbDeshabilitados;
     private javax.swing.JCheckBox jcbHabilitado;
-    private javax.swing.JComboBox<Proyecto> jcbListaEquipos;
-    private javax.swing.JComboBox<Proyecto> jcbProyectos;
+    private javax.swing.JComboBox<Equipo> jcbListaEquipos;
     private javax.swing.JPanel nuevoDeEquipos;
     private com.toedter.calendar.JDateChooser nuevoFecha;
     private javax.swing.JTextField nuevoNombre;

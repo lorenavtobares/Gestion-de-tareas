@@ -61,7 +61,7 @@ public class MiembroData {
         }
 
 
-    }//create
+    } //Create
     
     public Miembro buscarMiembro(int idMiembro){
         PreparedStatement stmt = null;
@@ -203,9 +203,10 @@ public class MiembroData {
         ResultSet resultado = null;
         List<Miembro> listaHabilitados = new ArrayList<Miembro>();
         
-        String query        =" SELECT * "
-                            +" FROM miembro "
-                            +" WHERE estado = 1 ";
+        String query        = "SELECT * "
+                            + "FROM miembro "
+                            + "WHERE estado = 1 "
+                            + "ORDER BY apellido";
         try{
             stmt = con.prepareStatement( query );
             resultado = stmt.executeQuery();
@@ -239,9 +240,10 @@ public class MiembroData {
         ResultSet resultado = null;
         List<Miembro> listaNoHabilitados = new ArrayList<Miembro>();
         
-        String query        =" SELECT * "
-                            +" FROM miembro "
-                            +" WHERE estado = 0 ";
+        String query        = "SELECT * "
+                            + "FROM miembro "
+                            + "WHERE estado = 0 "
+                            + "ORDER BY apellido";
         try{
             stmt = con.prepareStatement( query );
             resultado = stmt.executeQuery();
@@ -275,8 +277,9 @@ public class MiembroData {
         ResultSet resultado = null;
         List<Miembro> listaTodos = new ArrayList<Miembro>();
         
-        String query        =" SELECT * "
-                            +" FROM miembro ";
+        String query        = "SELECT * "
+                            + "FROM miembro "
+                            + "ORDER BY apellido";
         try{
             stmt = con.prepareStatement( query );
             resultado = stmt.executeQuery();
