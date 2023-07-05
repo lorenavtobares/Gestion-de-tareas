@@ -339,7 +339,7 @@ public class EquipoMiembrosData {
             /*|---------------------|*/
     
     public Equipo regerarEquipo(int idEquipo) {
-        equipo = equipoData.buscarEquipo(idEquipo);
+        equipo = equipoData.buscarEquipoCompleto(idEquipo);
         return equipo;
     }
 

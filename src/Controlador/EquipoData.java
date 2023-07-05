@@ -70,8 +70,48 @@ public class EquipoData {
         }
         
     }
+        
+    public Equipo buscarEquipoSinProyecto (int idEquipo){
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        Equipo equipoN = null;
+        
+        String query        = "SELECT * "
+                            + "FROM equipo "
+                            + "WHERE idEquipo = ?";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            stmt.setInt(1, idEquipo);
+            resultado= stmt.executeQuery();
+            
+            if(resultado.next() ){
+                int idLocal = idEquipo;
+                String nombreLocal = resultado.getString("nombre");
+                LocalDate creacionLocal = resultado.getDate("fechaCreacion").toLocalDate();
+                boolean estadoLocal = resultado.getBoolean("estado");
+                
+                equipoN = new Equipo(idLocal, nombreLocal, creacionLocal, estadoLocal);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No se encontro el equipo solicitado.", "ERROR",JOptionPane.ERROR_MESSAGE);
+            }
+        } 
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try { 
+                resultado.close(); 
+                stmt.close(); 
+            }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }
+        return equipoN;
+    }
     
-    public Equipo buscarEquipo(int idEquipo){
+    public Equipo buscarEquipoCompleto(int idEquipo){
         PreparedStatement stmt = null;
         ResultSet resultado = null;
         Equipo equipoN = null;
@@ -112,6 +152,37 @@ public class EquipoData {
             { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
         }
         return equipoN;
+    }
+    
+    public void asignarProyecto (Equipo equipo ,Proyecto proyecto){
+        PreparedStatement stmt = null;
+        
+        String query    = "UPDATE equipo "      
+                        + "SET idProyecto = ?, nombre = ?, fechaCreacion = ? , estado = ? "
+                        + "WHERE idEquipo = ? ";
+        
+        try{
+            stmt = con.prepareStatement( query );
+            stmt.setInt(1, proyecto.getId_proyecto());
+            stmt.setString(2, equipo.getNombre());
+            stmt.setDate(3, Date.valueOf(equipo.getFecha_cracion()));
+            stmt.setBoolean(4, equipo.getEstado());
+            stmt.setInt(5, equipo.getId_equipo());
+           
+            
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Registro actualizado"," ",JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
+        }
+        finally {
+            try {
+                stmt.close(); 
+            }
+            catch ( SQLException ex )
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+        }   
     }
     
     public void actualizarEquipo(Equipo equipo){

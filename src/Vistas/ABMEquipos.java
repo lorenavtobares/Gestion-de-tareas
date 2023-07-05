@@ -371,7 +371,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
 
     // Regenerar Equipos
     private Equipo regenerarEquipos(int idEquipo){
-        equipo = equipoData.buscarEquipo(idEquipo);
+        equipo = equipoData.buscarEquipoCompleto(idEquipo);
         return equipo;
     }
 
