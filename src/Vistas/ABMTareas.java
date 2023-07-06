@@ -23,6 +23,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
     private Date fechaSistema = new Date();
     private int idTarea;
+    private int idMiembroV2 = -1;
     private List<Miembro> listaMiembro = new ArrayList<>();
     private List<Equipo> listaEquipo = new ArrayList<>();
     private List<Tarea> listaTareas = new ArrayList<>();
@@ -40,7 +41,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         cargandoEquipos();
         actualizandoFecha();
         cargandoEquiposV2();
-       Funciones.inicializarCalendario(jdcDateInicio_V2);
+        Funciones.inicializarCalendario(jdcDateInicio_V2);
         Funciones.inicializarCalendario(jdcDateCierre_V2);
     }
 
@@ -168,11 +169,6 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(updateTareaDescripcionTareas);
 
         jcbDeshabilitar.setText("Deshabilitar");
-        jcbDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbDeshabilitarActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Fecha de Inicio");
 
@@ -313,12 +309,6 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         return miembro;
     }
 
-    /*
-    private EquipoMiembros regenerarEquipoMiembro(int idEquipoMiembro) {
-        equipoMiembro = Menu.equipoMiembosDataLocal.buscarEquipoMiembros(idEquipoMiembro);
-        return equipoMiembro;
-    }*/
-
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
@@ -331,15 +321,8 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         int posicionEquipoMiembro = -1;
         int idMiembros = -1;
         int idEquipo = -1;
-        /*
-            int i=1;
-            System.out.println("Mostrando lista de miembros");
-            for( Miembro miem : listaMiembro){
-            System.out.println(" i" + miem);
-            i++;
-        }
-        System.out.println("----------------------------");
-         */
+
+        
         String nombreTarea = altaTareaNombre.getText();
         String descripcion = altaTareaDescripcion.getText();
         LocalDate fechaInicio = jdcDateInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -352,7 +335,6 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                 if (!descripcion.isEmpty()) {
 
                     int idMiembro = listaMiembro.get(posicionMiembros).getId_miembro();
-                   // System.out.println("id miembro " + idMiembro);
                     miembro = regenerarMiembro(idMiembro);
                     listaMiembro.add(miembro);
 
@@ -363,26 +345,14 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
                             idMiembros = listaEquipoMiembros.get(i).getMiembro().getId_miembro();
                             idEquipo = listaEquipo.get(posicionEquipoMiembro).getId_equipo();
-                            System.out.println(" ---------------------");
-                            //   System.out.println(" if " + listaEquipoMiembros.get(i).getMiembro().getId_miembro());
-                            System.out.println("id  miembro " + idMiembros);
-                            //  System.out.println("id miembro " + idMiembro);
-
-                            System.out.println("Equipo id " + idEquipo);
-
-                           // System.out.println(" ---------------------");
+                            
                             equipoMiembro = Menu.equipoMiembosDataLocal.buscarEquipoAndMiembros(idMiembros, idEquipo);
 
-                            System.out.println(equipoMiembro);
-
-                            //  System.out.println(equipoMiembro);
-                            // LocalDate fechaActual = LocalDate.now();
                             if (fechaInicio.isEqual(fechaCierre) || fechaInicio.isBefore(fechaCierre)) {
 
                                 Tarea tareaLocal = new Tarea(nombreTarea, fechaInicio, fechaCierre, estado, descripcion, equipoMiembro);
-
                                 Menu.tareaDataLocal.guardarTarea(tareaLocal);
-                                System.out.println("tarea guy");
+                             
                                 limpiar();
                                 break;
                             } else {
@@ -411,31 +381,30 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         miembro = jcbMiembros_V2.getSelectedIndex();
 
         if (jcbDeshabilitar.isSelected()) {
-
             Menu.tareaDataLocal.eliminarTarea(idTarea);
-
-        }
-
-        /* listaTareas = Menu.tareaDataLocal.listarTodasTareas();
-        //System.out.println(listaTareas);
-        if (miembro != -1) {
-            for (int p = 0; p < listaTareas.size(); p++) {
-
-                if (listaTareas.get(p).getEquipoMiembros().getMiembro().getId_miembro()
-                        == listaMiembro.get(miembro).getId_miembro()) {
-
-                    if (jcbDeshabilitar.isSelected()) {
-                        
-                        System.out.println(jcbDeshabilitar.isSelected());
-                        int idTarea = listaTareas.get(p).getId_tarea();
-                        System.out.println(idTarea);
-                        Menu.tareaDataLocal.eliminarTarea(idTarea);
-                        
-                    }
+            cargarYLimpiar();
+            
+        } else{ 
+            String descripcion = updateTareaDescripcionTareas.getText();
+            LocalDate fechaInicio = jdcDateInicio_V2.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaCierre = jdcDateCierre_V2.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            if( !descripcion.isEmpty()){
+                if (fechaInicio.isEqual(fechaCierre) || fechaInicio.isBefore(fechaCierre)) {
+                     Tarea tareas = Menu.tareaDataLocal.buscarTarea(idTarea);
+                     tareas.setDescripcion(descripcion);
+                     tareas.setFecha_creacion(fechaInicio);
+                     tareas.setFecha_cierre(fechaCierre);
+                     Menu.tareaDataLocal.actualizarTarea(tareas); 
+                    
+                }else {
+                    JOptionPane.showMessageDialog(null, "La fecha de cierre debe ser la misma y despues que la fecha de inicio", "ERROR Validacion", JOptionPane.WARNING_MESSAGE); 
                 }
-
-            }*/
-
+                
+            } else{
+                 JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
+            }   
+        }
     }//GEN-LAST:event_btnUpdateTareaActualizarActionPerformed
     // Vista 1 -> Carga la lista de miembros segun el equipo que se seleccione
     private void jcbEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEquiposActionPerformed
@@ -466,15 +435,11 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jcbEquiposActionPerformed
 
-    private void jcbDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDeshabilitarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbDeshabilitarActionPerformed
-
 //Solapa 2 -> carga la lista de miembros segun el equipo
     private void jcbEquipos_V2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEquipos_V2ActionPerformed
         jcbMiembros_V2.removeAllItems();
         listaMiembro.clear();
-        //listaTareas.clear();
+        
         listaEquipo = Menu.equipoDataLocal.listarEquiposHabilitados();
         int posicion = -1;
 
@@ -486,10 +451,8 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
                 if (listaEquipo.get(posicion).getId_equipo() == listaEquipoMiembros.get(i).getEquipo().getId_equipo()) {
                     int id = listaEquipoMiembros.get(i).getMiembro().getId_miembro();
-
                     miembro = Menu.miembroDataLocal.buscarMiembro(id);
                     listaMiembro.add(miembro);
-
                 }
             }
         } else {
@@ -509,80 +472,26 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         int miembro = jcbMiembros_V2.getSelectedIndex();
         
         int idTarea =-1;
-        // System.out.println("size " + idTarea);
-        //jcbListaTareasHabilitadas.addItem(listaTareas.get(miembro).getNombre());
-       // System.out.println("tamaño lista tarea " + tareasLista.size());
-        try {
 
-          
-            
+        try {
             for (int i = 0; i < tareasLista.size(); i++) {
-              //  System.out.println("id " + tareasLista.get(i).getId_tarea());
-            //    System.out.println("lista tarea " + tareasLista.get(i).getEquipoMiembros().getMiembro().getId_miembro());
-            //    System.out.println(" lista miembro " + listaMiembro.get(miembro).getId_miembro());
                 
                 if (tareasLista.get(i).getEquipoMiembros().getMiembro().getId_miembro()
-                        == listaMiembro.get(miembro).getId_miembro()) {
-             //   System.out.println("lista tarea " + tareasLista.get(i).getEquipoMiembros().getMiembro().getId_miembro());
-           //   System.out.println(" lista miembro " + listaMiembro.get(miembro).getId_miembro());     
-                    
+                        == listaMiembro.get(miembro).getId_miembro()) {   
+                    idMiembroV2 =  listaMiembro.get(miembro).getId_miembro();
                     idTarea = tareasLista.get(i).getId_tarea();
-                   // System.out.println("idtarea " + idTarea);
                     tarea = Menu.tareaDataLocal.buscarTarea(idTarea);
                     listaTareas.add(tarea);
-                    
-                    
-                 ///   System.out.println("nombre tarea " + tarea.getNombre());
                     jcbListaTareasHabilitadas.addItem(tarea.getNombre());
-                    
-                   
                     
                 }else{
                     continue;
-                }
-              
+                }        
             }
-               
-
-          //  System.out.println("indice333333 " + miembro);
-           //System.out.println("listaMiembro " + listaMiembro);
-         //   System.out.println("miembro seleccionado " + listaMiembro.get(miembro));
+      
         } catch (Exception e) {
             System.out.println("no entro");
         }
-        
-        /*for (Tarea tareas : listaTareas) {
-                         jcbListaTareasHabilitadas.addItem(tareas);
-                        System.out.println(tareas);
-                    
-                    }*/
-        
-        
-        //System.out.println(listaTareas);
-        /*
-            for (int p = 0; p < listaTareas.size(); p++) {
-                System.out.println("if " + listaTareas.get(p).getEquipoMiembros().getMiembro().getId_miembro());
-                System.out.println("lista " + listaMiembro.get(miembro).getId_miembro() );
-                if (listaTareas.get(p).getEquipoMiembros().getMiembro().getId_miembro()
-                        == listaMiembro.get(miembro).getId_miembro()) {
-                    System.out.println(listaTareas.get(p).getNombre());
-                   // jcbListaTareasHabilitadas.addItem(listaTareas.get(p).getNombre());
-                    jdcDateInicio_V2.setDateFormatString(listaTareas.get(p).getFecha_creacion() + "");
-                    jdcDateCierre_V2.setDateFormatString(listaTareas.get(p).getFecha_cierre() + "");
-
-                    //System.out.println(listaTareas.get(p).getFecha_cierre());
-                    //System.out.println(listaTareas.get(p).getFecha_creacion());
-                    listaTareas.get(p).setEstado(0);
-
-                    idTarea = listaTareas.get(p).getId_tarea();
-                    //System.out.println(idTarea);
-                    //System.out.println(listaTareas.get(p).getNombre());
-                    updateTareaDescripcionTareas.setText(listaTareas.get(p).getDescripcion());
-
-                
-            }
-        }*/
-
 
     }//GEN-LAST:event_jcbMiembros_V2ActionPerformed
 
@@ -591,22 +500,14 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         int tareaSeleccionada = -1;
         tareaSeleccionada = jcbListaTareasHabilitadas.getSelectedIndex();
         if(tareaSeleccionada!= -1) {
-                    idTarea = listaTareas.get(tareaSeleccionada).getId_tarea();
-                    System.out.println("tamaño " + listaTareas.size());
-                    System.out.println("posicion " + tareaSeleccionada);
-                    System.out.println("Tarea ->" + listaTareas.get(tareaSeleccionada).getId_tarea());
-                     
-                    //System.out.println("entro");
-                    updateTareaDescripcionTareas.setText(listaTareas.get(tareaSeleccionada).getDescripcion());
-                    jdcDateInicio_V2.setDateFormatString(listaTareas.get(tareaSeleccionada).getFecha_creacion()+ "");
-                    jdcDateCierre_V2.setDateFormatString(listaTareas.get(tareaSeleccionada).getFecha_cierre()+ "");
-                    
+            idTarea = listaTareas.get(tareaSeleccionada).getId_tarea();
+            updateTareaDescripcionTareas.setText(listaTareas.get(tareaSeleccionada).getDescripcion());
+            jdcDateInicio_V2.setDateFormatString(listaTareas.get(tareaSeleccionada).getFecha_creacion()+ "");
+            jdcDateCierre_V2.setDateFormatString(listaTareas.get(tareaSeleccionada).getFecha_cierre()+ "");
             
         }else {
              JOptionPane.showMessageDialog(null, "Debe seleccionar una tarea");
-        }
-             
-                    
+        }                    
                     
     }//GEN-LAST:event_jcbListaTareasHabilitadasActionPerformed
 
@@ -660,6 +561,10 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         jdcDateInicio_V2.setDate(new Date());
         jdcDateCierre_V2.setDate(new Date());
     }
+    
+    public void cargarYLimpiar (){
+        cargandoEquiposV2();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -698,6 +603,5 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         Calendar c2 = new GregorianCalendar();
         jdcDateInicio.setCalendar(c2);
     }
-
     
 }
