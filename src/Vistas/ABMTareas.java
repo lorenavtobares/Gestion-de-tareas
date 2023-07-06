@@ -178,6 +178,12 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Fecha de cierre");
 
+        jcbListaTareasHabilitadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbListaTareasHabilitadasActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("Tarea");
 
         jcbEquipos_V2.addActionListener(new java.awt.event.ActionListener() {
@@ -346,11 +352,12 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                 if (!descripcion.isEmpty()) {
 
                     int idMiembro = listaMiembro.get(posicionMiembros).getId_miembro();
-                    System.out.println("id miembro " + idMiembro);
+                   // System.out.println("id miembro " + idMiembro);
                     miembro = regenerarMiembro(idMiembro);
                     listaMiembro.add(miembro);
 
-                    for (int i = 1; i < listaEquipoMiembros.size(); i++) {
+                    System.out.println(listaEquipoMiembros.size());
+                    for (int i = 0; i < listaEquipoMiembros.size(); i++) {
 
                         if (listaEquipoMiembros.get(i).getMiembro().getId_miembro() == idMiembro) {
 
@@ -363,7 +370,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
                             System.out.println("Equipo id " + idEquipo);
 
-                            System.out.println(" ---------------------");
+                           // System.out.println(" ---------------------");
                             equipoMiembro = Menu.equipoMiembosDataLocal.buscarEquipoAndMiembros(idMiembros, idEquipo);
 
                             System.out.println(equipoMiembro);
@@ -375,6 +382,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                                 Tarea tareaLocal = new Tarea(nombreTarea, fechaInicio, fechaCierre, estado, descripcion, equipoMiembro);
 
                                 Menu.tareaDataLocal.guardarTarea(tareaLocal);
+                                System.out.println("tarea guy");
                                 limpiar();
                                 break;
                             } else {
@@ -495,12 +503,12 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 //Solapa 2 -> carga la lista de tareas segun el miembro    
     private void jcbMiembros_V2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMiembros_V2ActionPerformed
         jcbListaTareasHabilitadas.removeAllItems();
-
+        listaTareas.clear();
         List<Tarea> tareasLista = Menu.tareaDataLocal.listarTareasHabilitadas();
         
         int miembro = jcbMiembros_V2.getSelectedIndex();
         
-        int idTarea =-1 , tareaSeleccionada =-1;
+        int idTarea =-1;
         // System.out.println("size " + idTarea);
         //jcbListaTareasHabilitadas.addItem(listaTareas.get(miembro).getNombre());
        // System.out.println("tamaño lista tarea " + tareasLista.size());
@@ -522,21 +530,19 @@ public class ABMTareas extends javax.swing.JInternalFrame {
                    // System.out.println("idtarea " + idTarea);
                     tarea = Menu.tareaDataLocal.buscarTarea(idTarea);
                     listaTareas.add(tarea);
+                    
+                    
                  ///   System.out.println("nombre tarea " + tarea.getNombre());
                     jcbListaTareasHabilitadas.addItem(tarea.getNombre());
-                    tareaSeleccionada = jcbListaTareasHabilitadas.getSelectedIndex();
                     
-                    updateTareaDescripcionTareas.setText(tarea.getDescripcion());
-                    //System.out.println("entro");
-                    jdcDateInicio_V2.setDateFormatString(tarea.getFecha_creacion()+ "");
-                    jdcDateCierre_V2.setDateFormatString(tarea.getFecha_cierre()+ ""); 
+                   
                     
                 }else{
                     continue;
                 }
               
             }
-            
+               
 
           //  System.out.println("indice333333 " + miembro);
            //System.out.println("listaMiembro " + listaMiembro);
@@ -546,7 +552,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         }
         
         /*for (Tarea tareas : listaTareas) {
-                       //  jcbListaTareasHabilitadas.addItem(tareas);
+                         jcbListaTareasHabilitadas.addItem(tareas);
                         System.out.println(tareas);
                     
                     }*/
@@ -579,6 +585,30 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_jcbMiembros_V2ActionPerformed
+
+    private void jcbListaTareasHabilitadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaTareasHabilitadasActionPerformed
+        
+        int tareaSeleccionada = -1;
+        tareaSeleccionada = jcbListaTareasHabilitadas.getSelectedIndex();
+        if(tareaSeleccionada!= -1) {
+                    idTarea = listaTareas.get(tareaSeleccionada).getId_tarea();
+                    System.out.println("tamaño " + listaTareas.size());
+                    System.out.println("posicion " + tareaSeleccionada);
+                    System.out.println("Tarea ->" + listaTareas.get(tareaSeleccionada).getId_tarea());
+                     
+                    //System.out.println("entro");
+                    updateTareaDescripcionTareas.setText(listaTareas.get(tareaSeleccionada).getDescripcion());
+                    jdcDateInicio_V2.setDateFormatString(listaTareas.get(tareaSeleccionada).getFecha_creacion()+ "");
+                    jdcDateCierre_V2.setDateFormatString(listaTareas.get(tareaSeleccionada).getFecha_cierre()+ "");
+                    
+            
+        }else {
+             JOptionPane.showMessageDialog(null, "Debe seleccionar una tarea");
+        }
+             
+                    
+                    
+    }//GEN-LAST:event_jcbListaTareasHabilitadasActionPerformed
 
     private void limpiarVista2() {
         jcbEquipos_V2.removeAllItems();
