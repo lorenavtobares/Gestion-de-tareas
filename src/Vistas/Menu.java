@@ -93,7 +93,9 @@ public class Menu extends javax.swing.JFrame {
     private JMenuItem ME_ABMEquipo;
     private JMenuItem MT_ABMTarea;
     private JMenuItem MG_GestionesTareas;
-    private JMenuItem MG_GestionesEquipos;
+    private JMenuItem MG_AsignarProyecto;
+    private JMenuItem MG_AsignarMiembro;
+    private JMenuItem MG_InformacionEquipo;
     private JMenuItem MS_CerrarSesion;
     
     private final String nameMenuAdmin      = "  Admin  ";
@@ -107,7 +109,9 @@ public class Menu extends javax.swing.JFrame {
     private final String nameItemsABMProyecto       = "ABM Proyecto";
     private final String nameItemsABMEquipo         = "ABM Equipo";
     private final String nameItemsABMTareas         = "ABM Tareas";
-    private final String nameItemsGestionesEquipos  = "Gestion de Equipos";
+    private final String nameItemsAsignarProyecto   = "Asignar Proyecto a Equipo";
+    private final String nameItemsAsignarMiembro    = "Asignar Miembro a Equipo";
+    private final String nameItemsInformacionEquipo = "Informacion de equipos";
     private final String nameItemsGestionesTareas   = "Gestion de tareas";
     private final String nameItemsSalir             = "Cerrar Sesion";
     private final String nameItemsSalirPefil        = "Perfil: " + rolValidado;
@@ -214,11 +218,33 @@ public class Menu extends javax.swing.JFrame {
                 Escritorio.moveToFront(abmGTareas);
             });
             
-            MG_GestionesEquipos = new JMenuItem(nameItemsGestionesEquipos);
-            MG_GestionesEquipos.addActionListener((java.awt.event.ActionEvent evt) -> {
+            MG_AsignarProyecto = new JMenuItem(nameItemsAsignarProyecto);
+            MG_AsignarProyecto.addActionListener((java.awt.event.ActionEvent evt) -> {
                 Escritorio.removeAll();
                 Escritorio.repaint();
-                ABMGestionesEquipos abmGEquipos = new ABMGestionesEquipos();
+                GEAsignarProyecto abmGEquipos = new GEAsignarProyecto();
+                centrarJinternalFrame(abmGEquipos);
+                abmGEquipos.setVisible(true);
+                Escritorio.add(abmGEquipos);
+                Escritorio.moveToFront(abmGEquipos);
+            });
+            
+            MG_AsignarMiembro = new JMenuItem(nameItemsAsignarMiembro);
+            MG_AsignarMiembro.addActionListener((java.awt.event.ActionEvent evt) -> {
+                Escritorio.removeAll();
+                Escritorio.repaint();
+                GEAsignarMiembro abmGEquipos = new GEAsignarMiembro();
+                centrarJinternalFrame(abmGEquipos);
+                abmGEquipos.setVisible(true);
+                Escritorio.add(abmGEquipos);
+                Escritorio.moveToFront(abmGEquipos);
+            });
+            
+            MG_InformacionEquipo = new JMenuItem(nameItemsInformacionEquipo);
+            MG_InformacionEquipo.addActionListener((java.awt.event.ActionEvent evt) -> {
+                Escritorio.removeAll();
+                Escritorio.repaint();
+                GEInformacionEquipo abmGEquipos = new GEInformacionEquipo();
                 centrarJinternalFrame(abmGEquipos);
                 abmGEquipos.setVisible(true);
                 Escritorio.add(abmGEquipos);
@@ -247,7 +273,9 @@ public class Menu extends javax.swing.JFrame {
 
             MenuTareas.add(MT_ABMTarea);
             
-            MenuGestiones.add(MG_GestionesEquipos);
+            MenuGestiones.add(MG_AsignarProyecto);
+            MenuGestiones.add(MG_AsignarMiembro);
+            MenuGestiones.add(MG_InformacionEquipo);
             MenuGestiones.add(MG_GestionesTareas);
 
             MenuSalir.add(nameItemsSalirUsuario);

@@ -82,10 +82,7 @@ public class ProyectoData {
                 proyectoN.setFecha_inicio(resultado.getDate("fechainicio").toLocalDate());
                 proyectoN.setEstado(resultado.getBoolean("estado"));
             }
-            else{
-                JOptionPane.showMessageDialog(null, "No se encontro el proyecto solicitado.", "ERROR",JOptionPane.ERROR_MESSAGE);
-
-            }
+            
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "" , JOptionPane.ERROR_MESSAGE );
@@ -225,12 +222,18 @@ public class ProyectoData {
         }
         catch ( SQLException ex ) 
         {
-            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error: listar proyecto habilitado\n" + ex.getMessage());
+            //JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);
         }
         finally {
-            try { stmt.close(); }
+            try { 
+                stmt.close(); 
+            }
             catch ( SQLException ex )
-            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }
+            { 
+                System.out.println("Error: listar proyecto habilitado\n" + ex.getMessage());                
+                //JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); 
+            }
         }
         
         return listaHabilitados;
