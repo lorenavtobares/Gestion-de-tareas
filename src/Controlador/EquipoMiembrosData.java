@@ -188,8 +188,8 @@ public class EquipoMiembrosData {
         PreparedStatement stmt = null;
         ResultSet resultado = null;
 
-        String query = "DELETE FROM EquipoMiembros "
-                + "WHERE idEquipoMiembros = ?";
+        String query    = "DELETE FROM equipomiembros "
+                        + "WHERE idEquipoMiembros = ?";
 
         try {
             stmt = con.prepareStatement(query);
@@ -200,6 +200,7 @@ public class EquipoMiembrosData {
             } else {
                 JOptionPane.showMessageDialog(null, "ID ingresado incorrecto" + " " + JOptionPane.ERROR_MESSAGE);
             }
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
         } finally {
@@ -257,7 +258,7 @@ public class EquipoMiembrosData {
         ResultSet resultado = null;
         List<EquipoMiembros> listaEM = new ArrayList<EquipoMiembros>();
 
-        String query    = "SELECT M.dni, M.apellido, M.nombre, EM.fechaIncorporacion, EM.rol, EM.idMiembro, EM.idEquipo "
+        String query    = "SELECT EM.* "
                         + "FROM equipomiembros AS EM "
                         + "JOIN miembro AS M "
                         + "ON EM.idMiembro = M.idMiembro "
@@ -270,13 +271,12 @@ public class EquipoMiembrosData {
             stmt.setInt(1, idProyecto);
             resultado = stmt.executeQuery();
             while (resultado.next()) {
-                int dni = resultado.getInt("dni");
-                String apellido = resultado.getNString("apellido");
-                LocalDate fechaIncorporacion = resultado.getDate("fechaIncorporacion").toLocalDate();
+                int idLocal = resultado.getInt("idEquipoMiembros");
                 String rol = resultado.getString("rol");
+                LocalDate fechaIncorporacion = resultado.getDate("fechaIncorporacion").toLocalDate();
                 miembro = regenerarMiembro(resultado.getInt("idMiembro"));
-                equipo = regerarEquipo(resultado.getInt("idEquipo"));
-                EquipoMiembros miembrosDelEquipo = new EquipoMiembros(rol, fechaIncorporacion, equipo, miembro);
+                equipo = regerarEquipo(resultado.getInt("idEquipo"));               
+                EquipoMiembros miembrosDelEquipo = new EquipoMiembros(idLocal , rol, fechaIncorporacion, equipo, miembro);
                 listaEM.add(miembrosDelEquipo);
 
             }

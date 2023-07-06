@@ -29,7 +29,9 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
     private int idProyectoSeleccionado = -1;
     private int idEmSeleccionado = -1;
     private int idEquipoSeleccionado = -1;
+    private int filaSeleccionada = -1;
     private String nombreEquipo = "";
+
     
     
     private DefaultTableModel modelo = new DefaultTableModel();
@@ -57,6 +59,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listaInfoProyectos = new javax.swing.JComboBox<>();
         infoEquipoAsignado = new javax.swing.JTextField();
+        btnDesvincular = new javax.swing.JButton();
         btnCerra = new javax.swing.JButton();
 
         mostrarInformacionDeEquipo.setMaximumSize(new java.awt.Dimension(900, 900));
@@ -67,6 +70,11 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
 
         tablaIntegrantes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tablaIntegrantes.setMaximumSize(new java.awt.Dimension(800, 64));
+        tablaIntegrantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaIntegrantesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaIntegrantes);
 
         javax.swing.GroupLayout panelTablaIntegrantesLayout = new javax.swing.GroupLayout(panelTablaIntegrantes);
@@ -95,19 +103,34 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
         infoEquipoAsignado.setEditable(false);
         infoEquipoAsignado.setBorder(javax.swing.BorderFactory.createTitledBorder("Equipo Asignado"));
 
+        btnDesvincular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cerrar.png"))); // NOI18N
+        btnDesvincular.setText("Desvincular miembro del equipo");
+        btnDesvincular.setEnabled(false);
+        btnDesvincular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesvincularActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout mostrarInformacionDeEquipoLayout = new javax.swing.GroupLayout(mostrarInformacionDeEquipo);
         mostrarInformacionDeEquipo.setLayout(mostrarInformacionDeEquipoLayout);
         mostrarInformacionDeEquipoLayout.setHorizontalGroup(
             mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(listaInfoProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(infoEquipoAsignado, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(panelTablaIntegrantes, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(listaInfoProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(infoEquipoAsignado, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(panelTablaIntegrantes, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(btnDesvincular, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44))
         );
         mostrarInformacionDeEquipoLayout.setVerticalGroup(
             mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +140,10 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
                 .addGap(11, 11, 11)
                 .addComponent(infoEquipoAsignado, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
-                .addComponent(panelTablaIntegrantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelTablaIntegrantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(btnDesvincular)
+                .addGap(14, 14, 14))
         );
 
         btnCerra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cerrar.png"))); // NOI18N
@@ -176,6 +202,27 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_listaInfoProyectosActionPerformed
 
+    private void tablaIntegrantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaIntegrantesMouseClicked
+        filaSeleccionada = tablaIntegrantes.getSelectedRow();
+        btnDesvincular.setEnabled(true);
+    }//GEN-LAST:event_tablaIntegrantesMouseClicked
+
+    private void btnDesvincularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesvincularActionPerformed
+        try{
+        
+            if(filaSeleccionada > -1){
+                int idMiembro = listEquiposMiembros.get(filaSeleccionada).getId_equipo_miembros();
+                //System.out.println("id Fila Seleccionada: " + filaSeleccionada);
+                //System.out.println("id Miembro -> " + idMiembro);
+                Menu.equipoMiembosDataLocal.eliminarMiembros(idMiembro);
+                llenarTabla();
+            }
+            
+        }catch ( Exception ex ){
+            System.out.println("Error Desvincular\n" + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnDesvincularActionPerformed
+
     
                 /*|--------------------|*/
                 /*|        Tabla       |*/
@@ -184,6 +231,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
     // Tabla - Cabecera
         private void armarCabecera(){
             ArrayList <Object> titulos = new ArrayList<>();
+
             titulos.add("Dni");
             titulos.add("Apellido");
             titulos.add("Nombre");
@@ -225,7 +273,6 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
         }
   
     
-
     
     
                 /*|--------------------|*/
@@ -289,6 +336,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerra;
+    private javax.swing.JButton btnDesvincular;
     private javax.swing.JTextField infoEquipoAsignado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<Proyecto> listaInfoProyectos;
