@@ -256,6 +256,7 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
                     Menu.equipoLocal = new Equipo(null, nombre, fechaCreacion, true);
                     Menu.equipoDataLocal.GuardarEquipo(equipoLocal);
                     limpiarNuevo();
+                    cargandoEquiposV2();
                 }catch (Exception e){
                     System.out.println("Error If -> " + e.getMessage());
                 }

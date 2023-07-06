@@ -23,13 +23,14 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
 
     private static List <Miembro> usuarioSeleccionado = new ArrayList<>();
     private static List <Equipo> equipoSeleccionado = new ArrayList<>();
-    private static List <Equipo> equipoSeleccionadoTabla = new ArrayList<>();
     private static List <Proyecto> proyectoSeleccionado = new ArrayList<>();
     private static List <EquipoMiembros> listEquiposMiembros = new ArrayList<>();
     
     private int idProyectoSeleccionado = -1;
     private int idEmSeleccionado = -1;
     private int idEquipoSeleccionado = -1;
+    private String nombreEquipo = "";
+    
     
     private DefaultTableModel modelo = new DefaultTableModel();
     
@@ -38,7 +39,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
         initComponents();
     
     // -> Solapa 3 - Informacion del equipo
-        listaEquiposHabilitados(listaInfoEquipos);
+        listaProyectosHabilitados(listaInfoProyectos);
     
     // -> Tabla
         armarCabecera();
@@ -54,7 +55,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
         mostrarInformacionDeEquipo = new javax.swing.JPanel();
         panelTablaIntegrantes = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaInfoEquipos = new javax.swing.JComboBox<>();
+        listaInfoProyectos = new javax.swing.JComboBox<>();
         infoEquipoAsignado = new javax.swing.JTextField();
         btnCerra = new javax.swing.JButton();
 
@@ -64,25 +65,6 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
         panelTablaIntegrantes.setBorder(javax.swing.BorderFactory.createTitledBorder("Informacion de los integrantes"));
         panelTablaIntegrantes.setMaximumSize(new java.awt.Dimension(900, 900));
 
-        tablaIntegrantes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Dni", "Apellido", "Nombre", "Fecha Incorporacion", "Rol"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         tablaIntegrantes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tablaIntegrantes.setMaximumSize(new java.awt.Dimension(800, 64));
         jScrollPane1.setViewportView(tablaIntegrantes);
@@ -103,13 +85,14 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        listaInfoEquipos.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de equipos"));
-        listaInfoEquipos.addActionListener(new java.awt.event.ActionListener() {
+        listaInfoProyectos.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Proyectos"));
+        listaInfoProyectos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaInfoEquiposActionPerformed(evt);
+                listaInfoProyectosActionPerformed(evt);
             }
         });
 
+        infoEquipoAsignado.setEditable(false);
         infoEquipoAsignado.setBorder(javax.swing.BorderFactory.createTitledBorder("Equipo Asignado"));
 
         javax.swing.GroupLayout mostrarInformacionDeEquipoLayout = new javax.swing.GroupLayout(mostrarInformacionDeEquipo);
@@ -118,7 +101,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
             mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addComponent(listaInfoEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(listaInfoProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addComponent(infoEquipoAsignado, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -130,7 +113,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
             mostrarInformacionDeEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mostrarInformacionDeEquipoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(listaInfoEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(listaInfoProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(infoEquipoAsignado, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
@@ -178,22 +161,20 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerraActionPerformed
 
-    private void listaInfoEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaInfoEquiposActionPerformed
-
+    private void listaInfoProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaInfoProyectosActionPerformed
+        
         try {
+            idEmSeleccionado = listaInfoProyectos.getSelectedIndex();
             
-            idProyectoSeleccionado = listaInfoEquipos.getSelectedIndex();
-            
-            if ( idProyectoSeleccionado > -1 ){
+            if ( idEmSeleccionado > -1 ){
                 llenarTabla();
             }
             
-
         } catch ( Exception ex ){
-            System.out.println("ERROR -> " + ex.getMessage());
+            System.out.println("ERROR SI SI -> " + ex.getMessage());
         }
 
-    }//GEN-LAST:event_listaInfoEquiposActionPerformed
+    }//GEN-LAST:event_listaInfoProyectosActionPerformed
 
     
                 /*|--------------------|*/
@@ -201,12 +182,11 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
                 /*|--------------------|*/
     
     // Tabla - Cabecera
-    private void armarCabecera(){
-            ArrayList<Object> titulos=new ArrayList<>();
+        private void armarCabecera(){
+            ArrayList <Object> titulos = new ArrayList<>();
             titulos.add("Dni");
             titulos.add("Apellido");
             titulos.add("Nombre");
-            titulos.add("Fecha Incorporacion");
             titulos.add("Rol");
 
             for (Object titulo : titulos) {
@@ -214,36 +194,38 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
             }
             tablaIntegrantes.setModel(modelo);
         }
-
-    // Tabla - Llenar tabla
-    private void llenarTabla(){
-            borrarFilas();
-            //idEmSeleccionado = listaInfoproyectos.getSelectedIndex();
-            idEmSeleccionado = 1;
-
-            
-            if ( idEmSeleccionado > -1) {
-            listEquiposMiembros = Menu.equipoMiembosDataLocal.listarMiembrosEquiposTabla(proyectoSeleccionado.get(idEmSeleccionado).getId_proyecto());
-
-                for (EquipoMiembros EM : listEquiposMiembros) {
-                    modelo.addRow(new Object[]{EM.getMiembro().getDni(),EM.getMiembro().getApellido(),EM.getMiembro().getNombre(),EM.getFecha_incorporacion(),EM.getRol()});
-                }
-
-            }
-
-        }
-  
+    
     // Tabla - Borrar Filas
-    private void borrarFilas(){
-            int filas=modelo.getRowCount()-1;
+        private void borrarFilas(){
+            int filas = modelo.getRowCount()-1;
             
-            for(int i=filas;i >=0;i--){
+            for( int i = filas ; i >= 0 ; i--){
                 modelo.removeRow(i);
             }
             
         }
 
+    // Tabla - Llenar tabla
+        private void llenarTabla(){
+            borrarFilas();
+            idEmSeleccionado = listaInfoProyectos.getSelectedIndex();
+            
+            if ( idEmSeleccionado > -1){
+                listEquiposMiembros = Menu.equipoMiembosDataLocal.listarMiembrosEquiposTabla( proyectoSeleccionado.get(idEmSeleccionado).getId_proyecto() );
+                
+                nombreEquipo = listEquiposMiembros.get(idEmSeleccionado).getEquipo().getNombre();
+                infoEquipoAsignado.setText(nombreEquipo);
+                
+                for ( EquipoMiembros e : listEquiposMiembros ){
+                    modelo.addRow(new Object[]{ e.getMiembro().getDni(), e.getMiembro().getApellido(), e.getMiembro().getNombre(), e.getRol() });
+                }
+                
+            }
+
+        }
+  
     
+
     
     
                 /*|--------------------|*/
@@ -252,7 +234,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
     
     // Listas
         private void listaProyectosHabilitados( JComboBox<Proyecto> p ){
-            listaInfoEquipos.removeAllItems();
+            listaInfoProyectos.removeAllItems();
             proyectoSeleccionado = Menu.proyectoDataLocal.listarProyectosHabilitados();
             //List <Proyecto> proyectoS = Menu.proyectoDataLocal.listarProyectosHabilitados();
             
@@ -279,12 +261,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
             }
         }
     
-        
-    // Tabla - Mostrar Asignacion de Usuarios
-        private void mostrarUsuariosAsignacion(){
            
-        }
-    
     // Regenerar Usuario
         private Miembro regenerarUsuarios (int idUsuario){
             usuario = usuarioData.buscarMiembro(idUsuario);
@@ -314,7 +291,7 @@ public class GEInformacionEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCerra;
     private javax.swing.JTextField infoEquipoAsignado;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<Equipo> listaInfoEquipos;
+    private javax.swing.JComboBox<Proyecto> listaInfoProyectos;
     private javax.swing.JPanel mostrarInformacionDeEquipo;
     private javax.swing.JPanel panelTablaIntegrantes;
     private final javax.swing.JTable tablaIntegrantes = new javax.swing.JTable();

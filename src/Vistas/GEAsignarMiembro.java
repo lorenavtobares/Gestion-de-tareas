@@ -39,7 +39,6 @@ public class GEAsignarMiembro extends javax.swing.JInternalFrame {
     // -> Solapa 2 - Asignacion de mienbros
         listaEquiposHabilitados(listaAsignacionEquipos);
         listaUsuariosHabilitados(listaAsignacionUsuarios);
-
     }
 
     

@@ -65,7 +65,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="80" pref="80" max="-2" attributes="0"/>
-                  <Component id="listaInfoEquipos" min="-2" pref="620" max="-2" attributes="0"/>
+                  <Component id="listaInfoProyectos" min="-2" pref="620" max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <EmptySpace min="80" pref="80" max="-2" attributes="0"/>
@@ -81,7 +81,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                  <Component id="listaInfoEquipos" min="-2" pref="59" max="-2" attributes="0"/>
+                  <Component id="listaInfoProyectos" min="-2" pref="59" max="-2" attributes="0"/>
                   <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
                   <Component id="infoEquipoAsignado" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
@@ -132,15 +132,6 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tablaIntegrantes">
                   <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="4">
-                        <Column editable="false" title="Dni" type="java.lang.Object"/>
-                        <Column editable="false" title="Apellido" type="java.lang.Object"/>
-                        <Column editable="false" title="Nombre" type="java.lang.Object"/>
-                        <Column editable="false" title="Fecha Incorporacion" type="java.lang.Object"/>
-                        <Column editable="false" title="Rol" type="java.lang.Object"/>
-                      </Table>
-                    </Property>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Cursor Por defecto"/>
                     </Property>
@@ -159,26 +150,27 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JComboBox" name="listaInfoEquipos">
+        <Component class="javax.swing.JComboBox" name="listaInfoProyectos">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Lista de equipos"/>
+                <TitledBorder title="Lista de Proyectos"/>
               </Border>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaInfoEquiposActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaInfoProyectosActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Equipo&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Proyecto&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="infoEquipoAsignado">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Equipo Asignado"/>
