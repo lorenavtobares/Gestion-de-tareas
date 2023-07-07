@@ -383,7 +383,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         if (jcbDeshabilitar.isSelected()) {
             Menu.tareaDataLocal.eliminarTarea(idTarea);
             cargarYLimpiar();
-            
+            updateTareaDescripcionTareas.setText("");
         } else{ 
             String descripcion = updateTareaDescripcionTareas.getText();
             LocalDate fechaInicio = jdcDateInicio_V2.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
