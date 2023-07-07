@@ -29,6 +29,8 @@ public class GEAsignarMiembro extends javax.swing.JInternalFrame {
     private int idEmSeleccionado = -1;
     private int idEquipoSeleccionado = -1;
     
+    private boolean estado = false;
+    
     private DefaultTableModel modelo = new DefaultTableModel();
     
     public GEAsignarMiembro() {
@@ -197,7 +199,16 @@ public class GEAsignarMiembro extends javax.swing.JInternalFrame {
 
         LocalDate fecha_Incorporacion = fechaAsignacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         EquipoMiembros usuarioAsignado = new EquipoMiembros(rolUsuario, fecha_Incorporacion, equipo,usuario);
-        Menu.equipoMiembosDataLocal.guardarEquipoMiembros(usuarioAsignado);
+        
+        try{
+            estado = Menu.equipoMiembosDataLocal.existe(2);
+            System.out.println("Estado: " + estado);
+        }catch ( Exception ex){
+            System.out.println(" Error estado " + ex.getMessage());
+        }
+        
+        
+        //Menu.equipoMiembosDataLocal.guardarEquipoMiembros(usuarioAsignado);
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     private void btnCerraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerraActionPerformed

@@ -75,11 +75,9 @@ public class EquipoMiembrosData {
     }
     
     public EquipoMiembros buscarEquipoMiembros(int idEquipoMiembro){
-
-   
-
         PreparedStatement stmt = null;
         ResultSet resultado = null;
+        
         String query    = "SELECT * "
                         + "FROM EquipoMiembros "
                         + "WHERE idEquipoMiembros = ?";
@@ -212,7 +210,39 @@ public class EquipoMiembrosData {
         }
     }
 
-    
+    public boolean existe(int dni){
+        boolean estado = false;
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+
+        String query    = "SELECT COUNT(*) "
+                        + "FROM equipomiembros AS em "
+                        + "JOIN miembro AS m "
+                        + "ON em.idMiembro = m.idMiembro "
+                        + "WHERE em.idMiembro = ?";
+        
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, dni);
+
+            if (resultado.next()) {
+                estado = true;
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "ERROR : " + ex.getMessage(), " ", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        
+        
+        return estado;
+    }
     
             /*|---------------------|*/
             /*|        Listas       |*/
