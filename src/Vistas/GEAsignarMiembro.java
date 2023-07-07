@@ -187,6 +187,7 @@ public class GEAsignarMiembro extends javax.swing.JInternalFrame {
         //Obteniendo el rol del usuario en sistema
         rolUsuario = Funciones.rolUsuarioEquipo(posicionRolUsuario);
 
+        
         if(posicionUsuario > -1) {
             idUsuario = usuarioSeleccionado.get(posicionUsuario).getId_miembro();
             usuario = regenerarUsuarios(idUsuario);
@@ -198,8 +199,10 @@ public class GEAsignarMiembro extends javax.swing.JInternalFrame {
         }
 
         LocalDate fecha_Incorporacion = fechaAsignacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+       //LocalDate fechaIncorporacion, Equipo equipo, Miembro miembro
         EquipoMiembros usuarioAsignado = new EquipoMiembros(rolUsuario, fecha_Incorporacion, equipo,usuario);
         
+        Menu.equipoMiembosDataLocal.guardarEquipoMiembros(usuarioAsignado);
         try{
             estado = Menu.equipoMiembosDataLocal.existe(2);
             System.out.println("Estado: " + estado);

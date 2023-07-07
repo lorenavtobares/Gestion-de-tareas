@@ -36,7 +36,7 @@ public class EquipoMiembros {
     }
 
     public EquipoMiembros(LocalDate fechaIncorporacion, Equipo equipo, Miembro miembro) {
-        this.fecha_incorporacion = fecha_incorporacion;
+        this.fecha_incorporacion = fechaIncorporacion;
         this.equipo = equipo;
         this.miembro = miembro;
     }
