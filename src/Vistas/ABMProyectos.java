@@ -160,11 +160,11 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
         upProyectoEstadoLayout.setHorizontalGroup(
             upProyectoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(upProyectoEstadoLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(113, 113, 113)
                 .addComponent(jcbHabilitado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(97, 97, 97)
                 .addComponent(jcbDeshabilitados)
-                .addGap(114, 114, 114))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         upProyectoEstadoLayout.setVerticalGroup(
             upProyectoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

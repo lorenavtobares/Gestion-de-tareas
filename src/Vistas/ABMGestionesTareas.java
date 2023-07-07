@@ -268,9 +268,10 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
         Menu.Escritorio.add(Menu.GIC);
         Menu.GIC.toFront();
         Menu.GIC.setVisible(true);
-        
-        int filaSeleccionada = tablaMostrar.getSelectedRow();
-        List <Tarea> listaTareaSeleccionada = new ArrayList<Tarea>();
+        try {
+             int filaSeleccionada = tablaMostrar.getSelectedRow();
+             System.out.println("FILAAAA " + filaSeleccionada);
+            List <Tarea> listaTareaSeleccionada = new ArrayList<Tarea>();
         
         if ( filaSeleccionada != -1 ){
             if(jcbPendiente.isSelected()){
@@ -284,7 +285,15 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
             }
             SeleccionTarea = (int) tablaMostrar.getValueAt(filaSeleccionada, 0);
             //System.out.println("Seleccion de id:"+tareaSeleccionadaTabla);
+        } else{
+             JOptionPane.showMessageDialog(null,"Debe seleccionar un ID de tarea");
         }
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un ID de tarea");
+            
+        }
+       
     }//GEN-LAST:event_btnComentarioActionPerformed
 
     
