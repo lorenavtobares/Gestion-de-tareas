@@ -370,6 +370,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Deshabilitar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbDeshabilitarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -447,11 +450,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Progreso"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbProgresoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jcbPendiente">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pendiente"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbPendienteActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

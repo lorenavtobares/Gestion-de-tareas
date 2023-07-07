@@ -32,6 +32,7 @@ public class Menu extends javax.swing.JFrame {
     public static final String ERROR_DNI = "Debe ingresar un dni.";
     public static final String ERROR_DNI_DUPLICADO = "El DNI ingresado ya se encuentra registado.";
     public static final String ERROR_EQUIPOS = "No se encuentran equipos.";
+    public static final String ERROR_EQUIPOS_DUPLICADO = "Ya existe un equipo con ese nombre.\nPor favor ingresa un nuevo nombre.";
     public static final String ERROR_EQUIPO_SELECT = "Debe seleccionar un Equipo.";
     public static final String ERROR_FECHA = "Debe selecciona una fecha valida \nFormato correcto: dd/MM/yyyy\n";
     public static final String ERROR_GUARDAR_R = "No se pudo guardar el registro.";
@@ -39,6 +40,7 @@ public class Menu extends javax.swing.JFrame {
     public static final String ERROR_PASSWORD = "Debe ingresar una contraseña.";
     public static final String ERROR_PASSWORD_LOGIN = "Contraseña incorrecta";
     public static final String ERROR_PROYECTOS = "No se encuentran proyectos.";
+    public static final String ERROR_PROYECTOS_DUPLICADO = "Ya existe un proyecto con ese nombre.\nPor favor ingresa un nuevo nombre.";
     public static final String ERROR_ROL = "Debe seleccionar un rol de usuario.";
     public static final String ERROR_USUARIOS = "No se encuentran usuarios.";
     public static final String ERROR_USUARIO_LOGIN = "Usuario incorrecto";

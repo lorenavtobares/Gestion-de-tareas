@@ -35,12 +35,16 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private EquipoMiembros equipoMiembro = new EquipoMiembros();
 
     private TareaData tareaData = new TareaData();
+    
+    private int tareaSeleccionada = -1;
 
     public ABMTareas() {
         initComponents();
         cargandoEquipos();
         actualizandoFecha();
         cargandoEquiposV2();
+        Funciones.inicializarCalendario(jdcDateInicio);
+        Funciones.inicializarCalendario(jdcDateCierre);
         Funciones.inicializarCalendario(jdcDateInicio_V2);
         Funciones.inicializarCalendario(jdcDateCierre_V2);
     }
@@ -172,6 +176,11 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(updateTareaDescripcionTareas);
 
         jcbDeshabilitar.setText("Deshabilitar");
+        jcbDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbDeshabilitarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Fecha de Inicio");
 
@@ -209,8 +218,18 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         });
 
         jcbProgreso.setText("Progreso");
+        jcbProgreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbProgresoActionPerformed(evt);
+            }
+        });
 
         jcbPendiente.setText("Pendiente");
+        jcbPendiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbPendienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -427,26 +446,31 @@ public class ABMTareas extends javax.swing.JInternalFrame {
 
             if (!descripcion.isEmpty()) {
                 if (fechaInicio.isEqual(fechaCierre) || fechaInicio.isBefore(fechaCierre)) {
-                    Tarea tareas = Menu.tareaDataLocal.buscarTarea(idTarea);
-                    tareas.setDescripcion(descripcion);
-                    tareas.setFecha_creacion(fechaInicio);
-                    tareas.setFecha_cierre(fechaCierre);
+                    if (tareaSeleccionada > -1) {
+                        Tarea tareas = Menu.tareaDataLocal.buscarTarea(idTarea);
+                        tareas.setDescripcion(descripcion);
+                        tareas.setFecha_creacion(fechaInicio);
+                        tareas.setFecha_cierre(fechaCierre);
 
-                    if (jcbPendiente.isSelected()) {
-                        jcbProgreso.setSelected(false);
-                        jcbCompletado.setSelected(false);
-                        tareas.setEstado(1);
-                    } else if (jcbProgreso.isSelected()) {
-                        jcbPendiente.setSelected(false);
-                        jcbCompletado.setSelected(false);
-                        tareas.setEstado(2);
-                    } else {
-                        jcbProgreso.setSelected(false);
-                        jcbPendiente.setSelected(false);
-                        tareas.setEstado(3);
+                        if (jcbPendiente.isSelected()) {
+                            jcbProgreso.setSelected(false);
+                            jcbCompletado.setSelected(false);
+                            tareas.setEstado(1);
+                        } else if (jcbProgreso.isSelected()) {
+                            jcbPendiente.setSelected(false);
+                            jcbCompletado.setSelected(false);
+                            tareas.setEstado(2);
+                        } else {
+                            jcbProgreso.setSelected(false);
+                            jcbPendiente.setSelected(false);
+                            tareas.setEstado(3);
+                        }
+
+                        Menu.tareaDataLocal.actualizarTarea(tareas);
+                    
+                    }else {
+                        JOptionPane.showMessageDialog(null, "Debe seleccionar una tarea", Menu.TT_ERROR, JOptionPane.WARNING_MESSAGE);
                     }
-
-                    Menu.tareaDataLocal.actualizarTarea(tareas);
 
                 } else {
                     JOptionPane.showMessageDialog(null, "La fecha de cierre debe ser la misma y despues que la fecha de inicio", "ERROR Validacion", JOptionPane.WARNING_MESSAGE);
@@ -490,6 +514,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private void jcbEquipos_V2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEquipos_V2ActionPerformed
         jcbMiembros_V2.removeAllItems();
         listaMiembro.clear();
+        updateTareaDescripcionTareas.setText("");
 
         listaEquipo = Menu.equipoDataLocal.listarEquiposHabilitados();
         int posicion = -1;
@@ -518,6 +543,8 @@ public class ABMTareas extends javax.swing.JInternalFrame {
     private void jcbMiembros_V2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMiembros_V2ActionPerformed
         jcbListaTareasHabilitadas.removeAllItems();
         listaTareas.clear();
+        updateTareaDescripcionTareas.setText("");
+        
         List<Tarea> tareasLista = Menu.tareaDataLocal.listarTareasHabilitadas();
 
         int miembro = jcbMiembros_V2.getSelectedIndex();
@@ -550,8 +577,8 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         jcbPendiente.setSelected(false);
         jcbProgreso.setSelected(false);
         jcbCompletado.setSelected(false);
-        int tareaSeleccionada = -1;
         tareaSeleccionada = jcbListaTareasHabilitadas.getSelectedIndex();
+        
         if (tareaSeleccionada != -1) {
             idTarea = listaTareas.get(tareaSeleccionada).getId_tarea();
             updateTareaDescripcionTareas.setText(listaTareas.get(tareaSeleccionada).getDescripcion());
@@ -577,14 +604,38 @@ public class ABMTareas extends javax.swing.JInternalFrame {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una tarea");
+            //JOptionPane.showMessageDialog(null, "Debe seleccionar una tarea");
         }
 
     }//GEN-LAST:event_jcbListaTareasHabilitadasActionPerformed
 
     private void jcbCompletadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCompletadoActionPerformed
-        // TODO add your handling code here:
+        jcbPendiente.setSelected(false);
+        jcbProgreso.setSelected(false);
+        jcbCompletado.setSelected(true);
+        jcbDeshabilitar.setSelected(false);
     }//GEN-LAST:event_jcbCompletadoActionPerformed
+
+    private void jcbPendienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPendienteActionPerformed
+        jcbPendiente.setSelected(true);
+        jcbProgreso.setSelected(false);
+        jcbCompletado.setSelected(false);
+        jcbDeshabilitar.setSelected(false);
+    }//GEN-LAST:event_jcbPendienteActionPerformed
+
+    private void jcbProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProgresoActionPerformed
+        jcbPendiente.setSelected(false);
+        jcbProgreso.setSelected(true);
+        jcbCompletado.setSelected(false);
+        jcbDeshabilitar.setSelected(false);
+    }//GEN-LAST:event_jcbProgresoActionPerformed
+
+    private void jcbDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDeshabilitarActionPerformed
+        jcbPendiente.setSelected(false);
+        jcbProgreso.setSelected(false);
+        jcbCompletado.setSelected(false);
+        jcbDeshabilitar.setSelected(true);
+    }//GEN-LAST:event_jcbDeshabilitarActionPerformed
 
     private void limpiarVista2() {
         jcbEquipos_V2.removeAllItems();
@@ -627,6 +678,7 @@ public class ABMTareas extends javax.swing.JInternalFrame {
         jcbMiembros.setSelectedIndex(0);
         altaTareaDescripcion.setText("");
         jdcDateInicio.setDate(new Date());
+        jdcDateCierre.setDate(new Date());
         jdcDateCierre.setCalendar(null);
 
     }

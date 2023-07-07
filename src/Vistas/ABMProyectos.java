@@ -299,16 +299,14 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
                     
                         LocalDate fechaInicio = nuevoFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                         
-                        try{
+                        
                             
                             Proyecto proyecto = new Proyecto(0, nombre, descripcion, fechaInicio);
                             Menu.proyectoDataLocal.guardarProyecto(proyecto);
                             limpiar();
                             cargandoListaProyectos();
 
-                        }catch(Exception ex){
-                            JOptionPane.showMessageDialog(null, Menu.ERROR_GUARDAR_R + ex.getMessage(), Menu.TT_ERROR,JOptionPane.ERROR_MESSAGE);
-                        }
+                        
                         
                     }else{
                         JOptionPane.showMessageDialog(null, Menu.ERROR_DESCRIPCION, Menu.TT_ERROR,JOptionPane.WARNING_MESSAGE);
@@ -323,7 +321,9 @@ public class ABMProyectos extends javax.swing.JInternalFrame {
             }
     
         }catch ( Exception ex) {
-            JOptionPane.showMessageDialog(null, Menu.ERROR_FECHA, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Menu.ERROR_PROYECTOS_DUPLICADO, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+            nuevoNombre.setText("");
+            nuevoNombre.requestFocus();
         }
         
     }//GEN-LAST:event_btnCrearProyectoActionPerformed

@@ -252,24 +252,20 @@ public class ABMEquipos extends javax.swing.JInternalFrame {
             LocalDate fechaCreacion = nuevoFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             
             if (!nombre.isEmpty() ) {
-                try{
+                
                     Menu.equipoLocal = new Equipo(null, nombre, fechaCreacion, true);
                     Menu.equipoDataLocal.GuardarEquipo(equipoLocal);
                     limpiarNuevo();
                     cargandoEquiposV2();
-                }catch (Exception e){
-                    System.out.println("Error If -> " + e.getMessage());
-                }
+
             }else{
-                JOptionPane.showMessageDialog(null, Menu.ERROR_NOMBRE, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
                 nuevoNombre.requestFocus();
             }
 
-            
-            
         }catch ( Exception ex) {
-            JOptionPane.showMessageDialog(null, Menu.ERROR_FECHA, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
-            nuevoFecha.requestFocus();
+            JOptionPane.showMessageDialog(null, Menu.ERROR_EQUIPOS_DUPLICADO, Menu.TT_ERROR_VALIDACION,JOptionPane.WARNING_MESSAGE);
+            nuevoNombre.setText("");
+            nuevoNombre.requestFocus();
         }
     }//GEN-LAST:event_btnNuevoEquipoActionPerformed
 
