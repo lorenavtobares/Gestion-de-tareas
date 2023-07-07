@@ -203,9 +203,39 @@ public class ComentariosData {
         
         return listarTodos;
     } 
-    
-    
-    
+    public List listarComentariosTareas(int idTarea){   
+        PreparedStatement stmt = null;   
+        ResultSet resultado = null;   
+        List <Comentarios> listarComentariosTareas = new ArrayList<Comentarios>();
+        
+        String query    = " SELECT * "  
+                        + " FROM comentarios "  
+                        + " WHERE idTarea = ? ";
+        try{ 
+            stmt = con.prepareStatement( query );   
+            stmt.setInt(1, idTarea);   
+            resultado = stmt.executeQuery();
+            while ( resultado.next() )    
+            {   
+                int id = resultado.getInt("idComentarios");   
+                String comentario = resultado.getString("comentario");   
+                LocalDate fechaAvance = resultado.getDate("fechaAvance").toLocalDate();                  
+                tarea = regenerarTarea(resultado.getInt("idTarea"));  
+                Comentarios comentarioN = new Comentarios(id, comentario, fechaAvance, tarea);  
+                listarComentariosTareas.add(comentarioN);   
+            }      
+        }   
+        catch ( SQLException ex )    
+        {   
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage() , "" , JOptionPane.ERROR_MESSAGE);   
+        }   
+        finally {   
+            try { stmt.close(); }   
+            catch ( SQLException ex )   
+            { JOptionPane.showMessageDialog( null, "ERROR : " + ex.getMessage(), " " , JOptionPane.ERROR_MESSAGE ); }   
+        }  
+        return listarComentariosTareas;
+    }
                 /*|---------------------|*/
                 /*|    Metodos extras   |*/
                 /*|---------------------|*/

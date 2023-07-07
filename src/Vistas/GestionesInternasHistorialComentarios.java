@@ -4,17 +4,22 @@
  */
 package Vistas;
 
+import Modelo.Comentarios;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Lenovo
  */
 public class GestionesInternasHistorialComentarios extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form GestionesInternasHistorialComentarios
-     */
+    private DefaultTableModel modelo = new DefaultTableModel();
     public GestionesInternasHistorialComentarios() {
         initComponents();
+        armarCabecera();
+        llenarTabla();
     }
 
     /**
@@ -28,10 +33,11 @@ public class GestionesInternasHistorialComentarios extends javax.swing.JInternal
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaMostrar = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        btnRefrescar = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -39,10 +45,25 @@ public class GestionesInternasHistorialComentarios extends javax.swing.JInternal
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "IdComentario", "Comentario", "Fecha de Avance", "IdTarea"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaMostrar.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tablaMostrar);
+        if (tablaMostrar.getColumnModel().getColumnCount() > 0) {
+            tablaMostrar.getColumnModel().getColumn(0).setResizable(false);
+            tablaMostrar.getColumnModel().getColumn(1).setResizable(false);
+            tablaMostrar.getColumnModel().getColumn(2).setResizable(false);
+            tablaMostrar.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cerrar.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -51,12 +72,21 @@ public class GestionesInternasHistorialComentarios extends javax.swing.JInternal
             }
         });
 
+        btnRefrescar.setText("Refrescar");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btnRefrescar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -68,7 +98,9 @@ public class GestionesInternasHistorialComentarios extends javax.swing.JInternal
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(btnRefrescar))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
@@ -96,11 +128,52 @@ public class GestionesInternasHistorialComentarios extends javax.swing.JInternal
         Menu.GIHC.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
+        // TODO add your handling code here:
+        llenarTabla();
+    }//GEN-LAST:event_btnRefrescarActionPerformed
+
+                /*|--------------------|*/   
+                /*|        Tabla       |*/   
+                /*|--------------------|*/
+    // Tabla - Cabecera   
+
+    private void armarCabecera(){   
+
+            ArrayList<Object> titulos=new ArrayList<>();   
+            titulos.add("IdComentarios");   
+            titulos.add("Comentario");   
+            titulos.add("Fecha de Avance");  
+            titulos.add("IdTarea"); 
+            for (Object titulo : titulos) {  
+                modelo.addColumn(titulo);  
+            }  
+            tablaMostrar.setModel(modelo);  
+        }  
+    // Tabla - Llenar tabla   
+
+    private void llenarTabla(){   
+            borrarFilas(); 
+            List<Comentarios> listarComentarios = Menu.comentarioDataLocal.listarComentariosTareas(Menu.tareaSeleccionadaTabla);   
+            for (Comentarios LC : listarComentarios)  
+            {  
+                modelo.addRow(new Object[]{LC.getId_comentario(),LC.getComentario(),LC.getFecha_avance(),LC.getTarea().getId_tarea()});  
+            }   
+    }  
+    // Tabla - Borrar Filas   
+
+    private void borrarFilas(){   
+            int filas=modelo.getRowCount()-1;  
+            for(int i=filas;i >=0;i--){  
+                modelo.removeRow(i);  
+            }  
+        } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaMostrar;
     // End of variables declaration//GEN-END:variables
 }

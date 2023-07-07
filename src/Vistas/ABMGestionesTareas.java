@@ -19,7 +19,7 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
     
     private DefaultTableModel modelo = new DefaultTableModel();
     private static int idProyectoSeleccionado;
-    
+    private static int SeleccionTarea;
     public ABMGestionesTareas() {
         initComponents();
         regenerarProyectos();
@@ -97,17 +97,17 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
 
         tablaMostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre de Tarea", "Fecha de Creacion", "Fecha de Cierre", "Descripcion", "Estado"
+                "IdTarea", "Nombre de Tarea", "Fecha de Creacion", "Fecha de Cierre", "Descripcion", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -115,6 +115,7 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
             }
         });
         tablaMostrar.setColumnSelectionAllowed(true);
+        tablaMostrar.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaMostrar);
         tablaMostrar.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (tablaMostrar.getColumnModel().getColumnCount() > 0) {
@@ -123,6 +124,7 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
             tablaMostrar.getColumnModel().getColumn(2).setResizable(false);
             tablaMostrar.getColumnModel().getColumn(3).setResizable(false);
             tablaMostrar.getColumnModel().getColumn(4).setResizable(false);
+            tablaMostrar.getColumnModel().getColumn(5).setResizable(false);
         }
 
         btnComentario.setText("Comentario");
@@ -207,6 +209,27 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
         Menu.Escritorio.add(Menu.GIHC);
         Menu.GIHC.toFront();
         Menu.GIHC.setVisible(true);
+        int filaSeleccionada = tablaMostrar.getSelectedRow();        
+            //System.out.println("Fila seleccionada: "+filaSeleccionada); 
+            List <Tarea> listaTareaSeleccionada = new ArrayList<Tarea>(); 
+            if ( filaSeleccionada != -1 )  
+            {  
+                if(jcbPendiente.isSelected())  
+                {  
+                   listaTareaSeleccionada = Menu.tareaDataLocal.listarTareasAll(1,idProyectoSeleccionado);  
+                }  
+                else if(jcbProgeso.isSelected())  
+                {  
+                    listaTareaSeleccionada = Menu.tareaDataLocal.listarTareasAll(2,idProyectoSeleccionado);  
+                }  
+                else if(jcbCompletado.isSelected())  
+                {  
+                    listaTareaSeleccionada = Menu.tareaDataLocal.listarTareasAll(3,idProyectoSeleccionado);  
+                }   
+                    SeleccionTarea = (int) tablaMostrar.getValueAt(filaSeleccionada, 0); 
+                    Menu.tareaSeleccionadaTabla = SeleccionTarea; 
+                    //System.out.println("Seleccion de tarea: "+SeleccionTarea);
+            } 
     }//GEN-LAST:event_btnHistorialDeComentariosActionPerformed
     
     private void listaDeProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaDeProyectosActionPerformed
@@ -254,17 +277,16 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
                 listaTareaSeleccionada = Menu.tareaDataLocal.listarTareasAll(1,idProyectoSeleccionado);
             }
             else if(jcbProgeso.isSelected()){
-                listaTareaSeleccionada = Menu.tareaDataLocal.listarTareasAll(3,idProyectoSeleccionado);
+                listaTareaSeleccionada = Menu.tareaDataLocal.listarTareasAll(2,idProyectoSeleccionado);
             }
             else if(jcbCompletado.isSelected()){
-                listaTareaSeleccionada = Menu.tareaDataLocal.listarTareasAll(4,idProyectoSeleccionado);
+                listaTareaSeleccionada = Menu.tareaDataLocal.listarTareasAll(3,idProyectoSeleccionado);
             }
-            
-            Tarea tareaSeleccionada = Menu.tareaDataLocal.buscarTarea(listaTareaSeleccionada.get(filaSeleccionada).getId_tarea());
-            Menu.tareaSeleccionada = tareaSeleccionada.getNombre();
+            SeleccionTarea = (int) tablaMostrar.getValueAt(filaSeleccionada, 0);
+            //System.out.println("Seleccion de id:"+tareaSeleccionadaTabla);
+        }
     }//GEN-LAST:event_btnComentarioActionPerformed
-    }
-    
+
     
                 /*|--------------------|*/
                 /*|        Tabla       |*/
@@ -273,6 +295,7 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
     // Tabla - Cabecera
     private void armarCabecera(){
             ArrayList<Object> titulos=new ArrayList<>();
+            titulos.add("Id Tarea"); 
             titulos.add("Npmbre de Tarea");
             titulos.add("Fecha de Creacion");
             titulos.add("Fecha de Cierre");
@@ -292,20 +315,20 @@ public class ABMGestionesTareas extends javax.swing.JInternalFrame {
             {
                 List <Tarea> listarTareasPendiente = Menu.tareaDataLocal.listarTareasAll(1,idProyectoSeleccionado);
                 for (Tarea t : listarTareasPendiente) {
-                    modelo.addRow(new Object[]{t.getNombre(),t.getFecha_creacion(),t.getFecha_cierre(),t.getDescripcion(), t.getEstado()});
+                    modelo.addRow(new Object[]{t.getId_tarea(),t.getNombre(),t.getFecha_creacion(),t.getFecha_cierre(),t.getDescripcion(), t.getEstado()});
                 }
             }
             else if(jcbProgeso.isSelected())
             {
-                List <Tarea> listarTareasProgeso = Menu.tareaDataLocal.listarTareasAll(3,idProyectoSeleccionado);
+                List <Tarea> listarTareasProgeso = Menu.tareaDataLocal.listarTareasAll(2,idProyectoSeleccionado);
                 for (Tarea t : listarTareasProgeso) {
-                    modelo.addRow(new Object[]{t.getNombre(),t.getFecha_creacion(),t.getFecha_cierre(), t.getDescripcion(), t.getEstado()});
+                    modelo.addRow(new Object[]{t.getId_tarea(),t.getNombre(),t.getFecha_creacion(),t.getFecha_cierre(), t.getDescripcion(), t.getEstado()});
                 }
             }
             else if(jcbCompletado.isSelected()){
-                List <Tarea> listarTareasCompletado = Menu.tareaDataLocal.listarTareasAll(4,idProyectoSeleccionado);
+                List <Tarea> listarTareasCompletado = Menu.tareaDataLocal.listarTareasAll(3,idProyectoSeleccionado);
                 for (Tarea t : listarTareasCompletado) {
-                    modelo.addRow(new Object[]{t.getNombre(),t.getFecha_creacion(),t.getFecha_cierre(), t.getDescripcion(), t.getEstado()});
+                    modelo.addRow(new Object[]{t.getId_tarea(),t.getNombre(),t.getFecha_creacion(),t.getFecha_cierre(), t.getDescripcion(), t.getEstado()});
                 }
             }
     }

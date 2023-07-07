@@ -42,6 +42,7 @@ public class Menu extends javax.swing.JFrame {
     public static final String ERROR_ROL = "Debe seleccionar un rol de usuario.";
     public static final String ERROR_USUARIOS = "No se encuentran usuarios.";
     public static final String ERROR_USUARIO_LOGIN = "Usuario incorrecto";
+    public static final String ERROR_COMENTARIOS = "Debe ingresar un comentario."; 
     
     public static final String ROL_ADMINISTRADOR = "admin";
     public static final String ROL_DEFAULT = "-- Seleccione una opcion --";
@@ -80,6 +81,7 @@ public class Menu extends javax.swing.JFrame {
     public static GestionesInternasComentarios GIC = new GestionesInternasComentarios();
     public static GestionesInternasHistorialComentarios GIHC = new GestionesInternasHistorialComentarios();
     public static String tareaSeleccionada = "";
+    public static int tareaSeleccionadaTabla; 
             
     
                 /*|----------------------|*/
